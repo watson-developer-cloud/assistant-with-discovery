@@ -36,7 +36,8 @@ This app has also ingested and trained itself based on a car manual. In addition
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/services.PNG)
 
 ## Deploy the App
-1 Select Deploy to Bluemix (This will be available when we go public)
+1 Select Deploy to Bluemix
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
 
 2 Log in with an existing Bluemix account or sign up.
 
