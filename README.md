@@ -1,8 +1,7 @@
-# Conversation-Enhanced Sample Application
+# Conversation Enhanced Sample Application
 
 This application demonstrates the combination of the Conversation and Retrieve and Rank services. First, users pose questions to the Conversation service. If Watson is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
 
-For more information on Conversation-Enhanced, see the [detailed documentation](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/c_eir_overview.shtml).
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/bluemix.png" width="200"/>](#bluemix)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/local.png" width="200"/>](#local)
 
@@ -41,7 +40,7 @@ This app has also ingested and trained itself based on a car manual. In addition
 
 2 Log in with an existing Bluemix account or sign up.
 
-3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY
+3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deploy.PNG)
 
 4 This performs multiple actions:
