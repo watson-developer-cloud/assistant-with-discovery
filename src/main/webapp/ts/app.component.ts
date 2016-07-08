@@ -329,7 +329,11 @@ export class AppComponent {
             }
           } else {
             if (data1.output && data1.output.text) {
-              responseText = data1.output.text;
+              if (data1.output.text.length === 2 && !data1.output.text[0]) {
+                responseText = data1.output.text[1];
+              } else {
+                responseText = data1.output.text[0];
+              }
             } else {
               responseText = this.langData.Intent + data1.intents[0].intent;
             }
