@@ -1,11 +1,11 @@
 /**
  * (C) Copyright IBM Corp. 2016. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -53,10 +53,10 @@ public class Query {
     }
     USERNAME = creds.getUsername();
     PASSWORD = creds.getPassword();
-    
+
     RetrieveAndRank retrieveAndRankService = new RetrieveAndRank();
     retrieveAndRankService.setUsernameAndPassword(USERNAME, PASSWORD);
-    
+
     if(StringUtils.isNotBlank(System.getenv("CLUSTER_ID"))){ //$NON-NLS-1$
       CLUSTER_ID = System.getenv("CLUSTER_ID"); //$NON-NLS-1$
     } else {
@@ -66,7 +66,7 @@ public class Query {
         throw new IllegalArgumentException(Messages.getString("Query.MISSING_CLUSTER_ID")); //$NON-NLS-1$
       }
     }
-    if(StringUtils.isNotBlank("RANKER_ID")){ //$NON-NLS-1$
+    if(StringUtils.isNotBlank(System.getenv("RANKER_ID"))){ //$NON-NLS-1$
       RANKER_ID = System.getenv("RANKER_ID"); //$NON-NLS-1$
     } else {
       try{
@@ -75,7 +75,7 @@ public class Query {
         throw new IllegalArgumentException(Messages.getString("Query.MISSING_RANKER_ID")); //$NON-NLS-1$
       }
     }
-    if(StringUtils.isNotBlank("COLLECTION_NAME")){ //$NON-NLS-1$
+    if(StringUtils.isNotBlank(System.getenv("COLLECTION_NAME"))){ //$NON-NLS-1$
       COLLECTION_NAME = System.getenv("COLLECTION_NAME"); //$NON-NLS-1$
     } else {
       COLLECTION_NAME = Constants.COLLECTION_NAME;
@@ -84,22 +84,22 @@ public class Query {
 
   /**
    * Use the Watson Developer Cloud SDK to send the user's query to the retrive and rank service
-   * 
+   *
    * @param userQuery The user's query to be sent to the retrieve and rank service
    * @return The unaltered SOLR query responses obtained from the retrieve and rank service
    * @throws SolrServerException
    * @throws IOException
    */
   public QueryResponse query(String userQuery) throws SolrServerException, IOException {
-    
+
     // Configure the Watson Developer Cloud SDK to make a call to the appropriate retrieve and rank
     // service. Specific information is obtained from environment variable and the services
     // associated with the app. See the Query constructor for details.
     RetrieveAndRank service = new RetrieveAndRank();
     HttpSolrClient solrClient = HttpSolrClientUtils.getSolrClient(service.getSolrUrl(CLUSTER_ID), USERNAME, PASSWORD);
-    
+
     logger.info(Messages.getString("Query.PASS_CLUSTER_DETAILS")); //$NON-NLS-1$
-    
+
     // Setup the query parameters
     final SolrQuery query = new SolrQuery(userQuery)
         // The fields we want in the response object
