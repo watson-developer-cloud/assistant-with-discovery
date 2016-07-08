@@ -195,9 +195,9 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 #### In the new Bluemix:
 - Log in to Bluemix, you'll be taken to the dashboard.
-- Select **Compute**
+- Select **Console** > **Compute**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/compute.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/console.PNG)
 
 - Select the application you previously created.
 - Select **Logs**.
