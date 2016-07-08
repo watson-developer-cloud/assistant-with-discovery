@@ -88,7 +88,7 @@ A dialog shows the progress.
 
 To build the application:
 
-1 Git clone the project `https://github.ibm.com/watson-engagement-advisor/wea-app`
+1 Git clone the project `https://github.com/watson-developer-cloud/conversation-enhanced`
 
 2 Navigate to the `conversation-enhanced` folder
 
