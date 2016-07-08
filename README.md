@@ -206,7 +206,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 - If you want, filter the Log Type by selecting the drop-down and selecting **Application(APP)**.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter1.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter_app.PNG)
 
 ### With CLI
 
