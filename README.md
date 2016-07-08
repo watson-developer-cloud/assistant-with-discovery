@@ -68,7 +68,7 @@ A dialog shows the progress.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/app_create.PNG)
 
-7 While the app completes ingestion, navigate to your Bluemix Dashboard and [import a workspace](#workspace).
+7 When setup is complete and you are asked for your WORKSPACE_ID , navigate to your Bluemix Dashboard and [import a workspace](#workspace).
 
 8 After you have set up a workspace, [add environment variables](#env).
 
