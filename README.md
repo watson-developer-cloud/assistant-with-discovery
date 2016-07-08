@@ -15,9 +15,9 @@ Commands may be issued to the car to perform simple operations.  These commands 
     capabilities
 
 
-Example commands that can be executed by the Conversation service are "turn on windshield wipers" or simply "wipers".
+Example commands that can be executed by the Conversation service are "turn on windshield wipers" or "play music".
 
-This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example, "How do I check my tire pressure", "How do I change the wiper blades", and "How do I turn on cruise control".
+This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example, "How do I check my tire pressure" or "How do I turn on cruise control".
 
 <a name="bluemix">
 # Getting Started using Bluemix
