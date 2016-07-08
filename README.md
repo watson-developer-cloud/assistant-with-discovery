@@ -64,7 +64,7 @@ This app has also ingested and trained itself based on a car manual. In addition
   - Ingesting documents into the collection
   - Creating a trained ranker to aide in answering questions
 
-* A dialog shows the progress.
+A dialog shows the progress.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/app_create.PNG)
 
