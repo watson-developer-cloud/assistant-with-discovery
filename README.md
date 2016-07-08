@@ -47,9 +47,9 @@ This app has also ingested and trained itself based on a car manual. In addition
 
 * This performs multiple actions:
   - Creates the app
-  - Creates a documentation service instance for use with the Retrieve & Rank tooling
+  - Creates a Document Conversion service instance for use with the Retrieve & Rank tooling
   - Creates a Conversation service instance that the user needs for workspace creation
-  - Creates a Retrive & Rank service instance.
+  - Creates a Retrieve & Rank service instance
 
 * The status of the deployment is shown. This can take some time.
 
