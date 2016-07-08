@@ -1,8 +1,7 @@
-# Conversation-Enhanced Sample Application
+# Conversation Enhanced Sample Application
 
-This application demonstrates the combination of the Conversation and Retrieve and Rank services. First, users pose questions to the Conversation service. If Watson is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
+This application demonstrates the combination of the Conversation and Retrieve and Rank services. First, users pose questions to the Conversation service. If Conversation is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
 
-For more information on Conversation-Enhanced, see the [detailed documentation](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/c_eir_overview.shtml).
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/bluemix.png" width="200"/>](#bluemix)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/local.png" width="200"/>](#local)
 
@@ -16,9 +15,9 @@ Commands may be issued to the car to perform simple operations.  These commands 
     capabilities
 
 
-Example commands that can be executed by the Conversation service are "turn on windshield wipers" or simply "wipers".
+Example commands that can be executed by the Conversation service are "turn on windshield wipers" or "play music".
 
-This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example, "How do I check my tire pressure", "How do I change the wiper blades", and "How do I turn on cruise control".
+This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example, "How do I check my tire pressure" or "How do I turn on cruise control".
 
 <a name="bluemix">
 # Getting Started using Bluemix
@@ -37,28 +36,30 @@ This app has also ingested and trained itself based on a car manual. In addition
 
 ## Deploy the App
 1 Select Deploy to Bluemix
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
 
 2 Log in with an existing Bluemix account or sign up.
 
-3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY
+3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY.
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deploy.PNG)
 
-4 This performs multiple actions:
+* This performs multiple actions:
   - Creates the app
-  - Creates a documentation service instance for use with the Retrieve & Rank tooling
+  - Creates a Document Conversion service instance for use with the Retrieve & Rank tooling
   - Creates a Conversation service instance that the user needs for workspace creation
-  - Creates a Retrive & Rank service instance.
+  - Creates a Retrieve & Rank service instance
 
-The status of the deployment is shown. This can take some time.
+* The status of the deployment is shown. This can take some time.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/createproject.PNG)
 
-5 Once your app has deployed, select VIEW YOUR APP.
+4 Once your app has deployed, select VIEW YOUR APP.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/viewyourapp.PNG)
 
-6 This lauches more actions, including:
+5 This lauches more actions, including:
   - Creating a SOLR cluster, config, and collection in the Retrieve & Rank service
   - Ingesting documents into the collection
   - Creating a trained ranker to aide in answering questions
@@ -87,14 +88,14 @@ A dialog shows the progress.
 
 To build the application:
 
-1 Git clone the project `https://github.ibm.com/watson-engagement-advisor/wea-app`
+1 Git clone the project `https://github.com/watson-developer-cloud/conversation-enhanced`
 
 2 Navigate to the `conversation-enhanced` folder
 
 3 For Windows, type `gradlew.bat build`. Otherwise, type `gradlew build`.
 - If you prefer, use your locally installed Gradle plugin instead of this provided wrapper.
 
-4 The built war file is in the `conversation-enhanced/build/libs/conversation-enhanced-0.1-SNAPSHOT.war` folder.
+4 The built WAR file (conversation-enhanced-0.1-SNAPSHOT.war) is in the `conversation-enhanced/build/libs/` folder.
 
 5 Copy the WAR file into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.
 
@@ -102,11 +103,11 @@ To build the application:
 
 1 Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
 
-2 In Bluemix, [create a Conversation Service](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
+2 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
 - Copy the Service Credentials for later use.
 - [Import a workspace](#workspace)
 
-3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/).
+3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
 - Copy the Service Credentials for later use.
 
 ## Running locally
@@ -194,9 +195,9 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 #### In the new Bluemix:
 - Log in to Bluemix, you'll be taken to the dashboard.
-- Select **Compute**
+- Select **Console** > **Compute**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/compute.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/console.PNG)
 
 - Select the application you previously created.
 - Select **Logs**.
@@ -205,7 +206,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 - If you want, filter the Log Type by selecting the drop-down and selecting **Application(APP)**.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter1.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter_app.PNG)
 
 ### With CLI
 
