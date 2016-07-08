@@ -95,7 +95,7 @@ To build the application:
 3 For Windows, type `gradlew.bat build`. Otherwise, type `gradlew build`.
 - If you prefer, use your locally installed Gradle plugin instead of this provided wrapper.
 
-4 The built war file is in the `conversation-enhanced/build/libs/conversation-enhanced-0.1-SNAPSHOT.war` folder.
+4 The built WAR file (conversation-enhanced-0.1-SNAPSHOT.war) is in the `conversation-enhanced/build/libs/` folder.
 
 5 Copy the WAR file into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.
 
