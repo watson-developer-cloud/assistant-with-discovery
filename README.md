@@ -1,0 +1,226 @@
+# Conversation-Enhanced Sample Application
+
+This application demonstrates the combination of the Conversation and Retrieve and Rank services. First, users pose questions to the Conversation service. If Watson is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
+
+For more information on Conversation-Enhanced, see the [detailed documentation](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/c_eir_overview.shtml).
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/bluemix.png" width="200"/>](#bluemix)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/local.png" width="200"/>](#local)
+
+# How the app works
+The application is designed and trained for chatting with a cognitive car.  The chat interface is on the left, and the JSON that the JavaScript code receives from the server is on the right. A user is able to ask two primary categories of questions.
+
+Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like these:
+
+    turn_on
+    weather
+    capabilities
+
+
+Example commands that can be executed by the Conversation service are "turn on windshield wipers" or simply "wipers".
+
+This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example, "How do I check my tire pressure", "How do I change the wiper blades", and "How do I turn on cruise control".
+
+<a name="bluemix">
+# Getting Started using Bluemix
+</a>
+
+![](readme_images/Deploy on Bluemix - EIR app.png)
+
+## Before you begin
+1 Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/).
+
+2 Ensure that you have the necessary space available in your Bluemix account. This action deploys 1 application and 3 services.
+   * You can view this on your Bluemix Dashboard. Tiles will show what space you have available.
+   * For example, for Services & APIS
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/services.PNG)
+
+## Deploy the App
+1 Select Deploy to Bluemix (This will be available when we go public)
+
+2 Log in with an existing Bluemix account or sign up.
+
+3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deploy.PNG)
+
+4 This performs multiple actions:
+  - Creates the app
+  - Creates a documentation service instance for use with the Retrieve & Rank tooling
+  - Creates a Conversation service instance that the user needs for workspace creation
+  - Creates a Retrive & Rank service instance.
+
+The status of the deployment is shown. This can take some time.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/createproject.PNG)
+
+5 Once your app has deployed, select VIEW YOUR APP.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/viewyourapp.PNG)
+
+6 This lauches more actions, including:
+  - Creating a SOLR cluster, config, and collection in the Retrieve & Rank service
+  - Ingesting documents into the collection
+  - Creating a trained ranker to aide in answering questions
+
+A dialog shows the progress.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/app_create.PNG)
+
+7 While the app completes ingestion, navigate to your Bluemix Dashboard and [import a workspace](#workspace).
+
+8 After you have set up a workspace, [add environment variables](#env).
+
+<a name="local">
+# Getting Started locally
+</a>
+
+![](readme_images/Deploy locally - EIR app.png)
+
+
+## Before you begin
+
+- Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
+
+
+## Building locally
+
+To build the application:
+
+1 Git clone the project `https://github.ibm.com/watson-engagement-advisor/wea-app`
+
+2 Navigate to the `conversation-enhanced` folder
+
+3 For Windows, type `gradlew.bat build`. Otherwise, type `gradlew build`.
+- If you prefer, use your locally installed Gradle plugin instead of this provided wrapper.
+
+4 The built war file is in the `conversation-enhanced/build/libs/conversation-enhanced-0.1-SNAPSHOT.war` folder.
+
+5 Copy the WAR file into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.
+
+## Setup Bluemix components
+
+1 Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
+
+2 In Bluemix, [create a Conversation Service](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
+- Copy the Service Credentials for later use.
+- [Import a workspace](#workspace)
+
+3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/).
+- Copy the Service Credentials for later use.
+
+## Running locally
+
+
+1 Copy the `server.env` file from the `conversation-enhanced/src/main/resources` folder into the `<liberty install directory>/usr/servers/<server profile>/`
+
+2 In the `server.env` file, search for **"retrieve_and_rank"**:
+- Replace the "name" field with the name you gave your Retrieve and Rank Service.
+- Replace the "password" field.
+- Replace the "username" field.
+
+3 In the `server.env`, search for **"conversation"**.
+- Replace the "name" field with the name you gave your Conversation Service.
+- Replace the "password" field.
+- Replace the "username" field.
+
+4 Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).
+
+5 Start the server using Eclipse or CLI with the command `server run <server_profile>`.
+
+6 Liberty notifies you when the server starts and includes the port information.
+
+7 Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
+
+<a name="workspace">
+# Import a workspace
+</a>
+1 You need to import the app's workspace. To do that, go to the Bluemix Dashboard and select the Conversation service instance. Once there, select the **Service Credentials** menu item.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/credentials.PNG)
+
+2 Select **ADD CREDENTIALS**. Name your credentials then select **ADD**.
+
+3 Return to the **Manage** menu item and select **Launch Tooling**. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
+
+4 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
+
+5 Select **Import**. Browse to (or drag and drop) the JSON file that you downloaded in Step 4. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
+
+6 Refresh your browser. A new workspace tile is created within the tooling. Select the _menu_ button within the workspace tile, then select **View details**:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Workpsace Details](readme_images/details.PNG)
+
+<a name="workspaceID">
+In the Details UI, copy the 36 character UNID **ID** field. This is the **Workspace ID**.
+</a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/workspaceid.PNG)
+
+
+7 Return to your application, either in your local dev environment, or in Bluemix. If running on Bluemix, you need to [add environment variables](#env).
+
+For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
+
+<a name="env">
+# Adding environment variables in Bluemix
+</a>
+
+1 In Bluemix, open the application from the Dashboard. Select **Environment Variables**.
+
+2 Select **USER-DEFINED**.
+
+3 Select **ADD**.
+
+4 Add a variable with the name **WORKSPACE_ID**. For the value, paste in the Workspace ID you [copied earlier](#workspaceID). Select **SAVE**.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/env.PNG)
+
+5 Restart your application.
+
+
+# Troubleshooting in Bluemix
+
+#### In the Classic Experience:
+- Log in to Bluemix, you'll be taken to the dashboard.
+- Navigate to the the application you previously created.
+- Select **Logs**.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/logs.PNG)
+
+- If you want, filter the LOG TYPE by "APP".
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter.PNG)
+
+#### In the new Bluemix:
+- Log in to Bluemix, you'll be taken to the dashboard.
+- Select **Compute**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/compute.PNG)
+
+- Select the application you previously created.
+- Select **Logs**.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/logs1.PNG)
+
+- If you want, filter the Log Type by selecting the drop-down and selecting **Application(APP)**.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter1.PNG)
+
+### With CLI
+
+$ cf logs < application-name > --recent
+
+# License
+
+  This sample code is licensed under Apache 2.0.
+  Full license text is available in [LICENSE](LICENSE).
+
+# Contributing
+
+  See [CONTRIBUTING](CONTRIBUTING.md).
+
+
+## Open Source @ IBM
+
+  Find more open source projects on the
+  [IBM Github Page](http://ibm.github.io/).

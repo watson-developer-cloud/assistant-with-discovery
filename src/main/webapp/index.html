@@ -1,0 +1,52 @@
+<html>
+<head>
+  <title>Conversation Enhanced Chat App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Load libraries -->
+  <!-- IE required polyfills, in this exact order -->
+  <!-- build:js vendor.min.js -->
+  <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+  <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="node_modules/angular2/bundles/router.dev.js"></script>
+  <script src="node_modules/angular2/bundles/http.js"></script>
+  <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+  <script src="node_modules/node-polyglot/build/polyglot.min.js"></script>
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="setup">
+ <div class="setup-msg"></div>
+ <div class="setup-loader"><img class="setup-loader-img" src="../img/loader.gif"></div>
+  <div class="setup-phase"></div>
+  <div class="setup-phase-msg"></div>
+  <div class="error-phase"></div>
+  <div class="error-phase-msg"></div>
+  <div class="circles">
+  <div class="active-circle"></div>
+  <div class="non-active-circle"></div>
+  </div>
+  <a href="https://github.ibm.com/watson-engagement-advisor/wea-app/tree/develop/conversation-enhanced#create-a-workspace" target="_blank" class="werror">Go to Github </a>
+  <a href="https://github.ibm.com/watson-engagement-advisor/wea-app/tree/develop/conversation-enhanced#troubleshooting-in-bluemix" target="_blank" class="gerror">Go to Github </a>
+</div>
+
+<chat-app>Loading...</chat-app>
+
+<script>
+  System.config ( {
+    packages: {
+      js: {
+        format: 'register',
+        defaultExtension: 'js'
+      }
+    }
+  } );
+  System.import ( 'js/boot' ).then ( null, console.error.bind ( console ) );
+</script>
+</body>
+</html>

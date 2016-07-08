@@ -1,0 +1,24 @@
+{
+  "intents": [
+    {
+       "intent": "get_quote",
+       "confidence": 0.943643
+     }
+   ],
+   
+   "entities": [
+    {
+       "entity": "car",
+       "value": "automobile",
+       "location": [10, 13]
+     }
+   ],
+   
+  "context": {
+   
+  },
+  
+  "output": {
+    "text": ["Do you want to get a quote?"]
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Conversation Enhanced Demo</display-name>
+	<welcome-file-list>
+		<welcome-file>redirect.html</welcome-file>
+	</welcome-file-list>
+	<listener>
+		<listener-class>com.ibm.watson.apis.conversation_enhanced.listener.ServletContextListener</listener-class>
+	</listener>
+</web-app>

@@ -1,0 +1,18 @@
+---
+declared-services:
+  retrieve-and-rank-service:
+    label: retrieve_and_rank
+    plan: standard
+  document-conversion-service:
+    label: document_conversion
+    plan: standard
+  conversation-experimental:
+    label: conversation
+    plan: experimental
+applications:
+- services:
+  - retrieve-and-rank-service
+  - document-conversion-service
+  - conversation-experimental
+  path: build/libs/conversation-enhanced-0.1-SNAPSHOT.war
+  memory: 512M

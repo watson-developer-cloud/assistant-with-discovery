@@ -1,0 +1,19 @@
+{
+  "Collapse": "Click to Collapse",
+  "Expand": "Click to Expand",
+  "CResults": "Collapse Results",
+  "EResults": "Expand Results",
+  "Type": "Type something to see the output",
+  "Understand": "Watson understands",
+  "Something": "Type something",
+  "Description": "This Watson app shows how the Conversation service calls on Retrieve and Rank to find answers when it's not sure how to respond. Try testing this below, using the examples in the app description.",
+  "Great": "Great question. I found some ideas for you:",
+  "Intent": "I understood your intent was ",
+  "Log": "Service seems to be down.Please try again after sometime or Please check the logs",
+  "WLog": "workspace_id must be defined!",
+  "View": "View detailed Content",
+  "Content": "View content file",
+  "Read": "Read the full document here",
+  "Disclaimer": "We�re demonstrating text limiting using only two paragraphs of the full article.You can turn this off for your own application.",
+  "NResponse": "No response from Watson"
+}
