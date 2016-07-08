@@ -42,28 +42,29 @@ This app has also ingested and trained itself based on a car manual. In addition
 2 Log in with an existing Bluemix account or sign up.
 
 3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY.
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deploy.PNG)
 
-4 This performs multiple actions:
+* This performs multiple actions:
   - Creates the app
   - Creates a documentation service instance for use with the Retrieve & Rank tooling
   - Creates a Conversation service instance that the user needs for workspace creation
   - Creates a Retrive & Rank service instance.
 
-The status of the deployment is shown. This can take some time.
+* The status of the deployment is shown. This can take some time.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/createproject.PNG)
 
-5 Once your app has deployed, select VIEW YOUR APP.
+4 Once your app has deployed, select VIEW YOUR APP.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/viewyourapp.PNG)
 
-6 This lauches more actions, including:
+5 This lauches more actions, including:
   - Creating a SOLR cluster, config, and collection in the Retrieve & Rank service
   - Ingesting documents into the collection
   - Creating a trained ranker to aide in answering questions
 
-A dialog shows the progress.
+* A dialog shows the progress.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/app_create.PNG)
 
