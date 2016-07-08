@@ -6,13 +6,13 @@ declared-services:
   document-conversion-service:
     label: document_conversion
     plan: standard
-  conversation-experimental:
+  conversation-service:
     label: conversation
-    plan: experimental
+    plan: standard
 applications:
 - services:
   - retrieve-and-rank-service
   - document-conversion-service
-  - conversation-experimental
+  - conversation-service
   path: build/libs/conversation-enhanced-0.1-SNAPSHOT.war
   memory: 512M
