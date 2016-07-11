@@ -1,5 +1,7 @@
 # Conversation Enhanced Sample Application
 
+[![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-enhanced.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-enhanced)
+
 This application demonstrates the combination of the Conversation and Retrieve and Rank services. First, users pose questions to the Conversation service. If Conversation is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
 
 
