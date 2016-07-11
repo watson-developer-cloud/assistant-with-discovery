@@ -104,6 +104,8 @@ export class AppComponent {
   }
   private ngAfterViewInit (_dialogService : DialogService) {
     this.checkSetup(_dialogService);
+    let rightColumn = <HTMLElement>document.querySelector ('.right');
+    this.resizePayloadColumn (rightColumn);
   }
 /*
  * This method is responsible for detecting if the set-up processs involving creation of various Watson services
