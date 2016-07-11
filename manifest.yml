@@ -8,7 +8,7 @@ declared-services:
     plan: standard
   conversation-service:
     label: conversation
-    plan: standard
+    plan: free
 applications:
 - services:
   - retrieve-and-rank-service
