@@ -64,6 +64,10 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
+task clean(type: Delete) {
+    delete "build/libs"
+}
+
 artifacts {
     archives sourcesJar
 }
@@ -74,6 +78,7 @@ war {
 
 gulp_build.dependsOn 'installGulp'
 gulp_build.dependsOn 'npmInstall'
+gulp_build.dependsOn 'clean'
 war.mustRunAfter 'gulp_build'
 defaultTasks 'build'
 
