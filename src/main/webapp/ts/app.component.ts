@@ -173,7 +173,7 @@ export class AppComponent {
             this.checkSetup(_dialogService);
           }, 60000);
         } else {
-          let payload = {'input': {'text': 'hi'}};
+          let payload = {'input': {'text': ''}};
           let chatColumn = <HTMLElement>document.querySelector ('#scrollingChat');
           this.callConversationService (chatColumn, payload);
           document.body.style.backgroundColor = 'white';
