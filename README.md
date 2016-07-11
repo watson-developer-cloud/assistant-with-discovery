@@ -43,7 +43,7 @@ This app has also ingested and trained itself based on a car manual. In addition
 
 3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deployapp.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deployapp1.PNG)
 
 * This performs multiple actions:
   - Creates the app
