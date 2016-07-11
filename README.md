@@ -37,7 +37,7 @@ This app has also ingested and trained itself based on a car manual. In addition
 ## Deploy the App
 1 Select Deploy to Bluemix
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![Deploy to Bluemix](https://bluemix.net/deploy/button.png target="_blank)](https://bluemix.net/deploy)
 
 2 Log in with an existing Bluemix account or sign up.
 
