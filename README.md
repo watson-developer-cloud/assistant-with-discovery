@@ -43,7 +43,7 @@ This app has also ingested and trained itself based on a car manual. In addition
 
 2 Log in with an existing Bluemix account or sign up.
 
-3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY.
+3 Name your app and select your REGION, ORGANIZATION, and SPACE. Then select DEPLOY.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deployapp1.PNG)
 
