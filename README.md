@@ -43,7 +43,7 @@ This app has also ingested and trained itself based on a car manual. In addition
 
 3 Name your app and select your REGION, ORGINIZATION, and SPACE. Then select DEPLOY.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deploy.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/deployapp.PNG)
 
 * This performs multiple actions:
   - Creates the app
@@ -66,7 +66,7 @@ This app has also ingested and trained itself based on a car manual. In addition
 
 A dialog shows the progress.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/app_create.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/deployPicture.PNG)
 
 7 When setup is complete, you need to add a WORKSPACE_ID . Navigate to your Bluemix Dashboard and [import a workspace](#workspace).
 
