@@ -344,7 +344,7 @@ export class AppComponent {
         }
         this.timer = setTimeout (function () {
          let messages = document.getElementById('scrollingChat').getElementsByClassName('clear');
-         document.getElementById('scrollingChat').scrollTop = messages[messages.length - 1].offsetTop;
+         document.getElementById('scrollingChat').scrollTop = messages[messages.length - 2].offsetTop;
         }, 50);
         document.getElementById('textInput').focus();
       },
