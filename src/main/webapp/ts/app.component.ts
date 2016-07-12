@@ -343,16 +343,10 @@ export class AppComponent {
           clearTimeout (this.timer);
         }
         this.timer = setTimeout (function () {
-          let top = false;
-          let scrollEl = <HTMLElement>document.querySelector ('.from-watson-latest ce-doc');
-          if (scrollEl) {
-            top = true;
-          }
-          scrollEl = <HTMLElement>document.querySelector ('.from-watson-latest p');
-          if (scrollEl) {
-            scrollEl.scrollIntoView (top);
-          }
+         let messages = document.getElementById('scrollingChat').getElementsByClassName('clear');
+         document.getElementById('scrollingChat').scrollTop = messages[messages.length - 1].offsetTop;
         }, 50);
+        document.getElementById('textInput').focus();
       },
       error => {
         let serviceDownMsg = this.langData.Log;
