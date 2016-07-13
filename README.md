@@ -93,7 +93,8 @@ A dialog shows the progress.
 
 ## Before you begin
 
-- Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
+-  Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
+-  Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
 
 
 ## Building locally
@@ -113,15 +114,13 @@ To build the application:
 
 ## Setup Bluemix components
 
-1 Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
-
 <a name="returnlocal">
-2 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
+1 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
 - [Import a workspace](#workspace)
 - Copy the [Service Credentials](#credentials) for later use. 
 </a>
 
-3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
+2 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
 - Copy the [Service Credentials](#credentials) for later use.
 
 ## Running locally
@@ -185,7 +184,7 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
 
 7 Return to the deploy steps you were following:
-- For Local - [return to step 2](#returnlocal)
+- For Local - [return to step 1](#returnlocal)
 - For Bluemix - [return to step 7](#returnbluemix)
 
 
