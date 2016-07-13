@@ -161,14 +161,15 @@ To build the application:
 </a>
 
 You need to import the a workspace. 
-.
+
+
 1 Navigate to the Bluemix dashboard, select the service you created.
 
 2 Go to the **Manage** menu item and select **Launch Tool**. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
 
 3 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
 
-4 Select the import icon:  Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
+4 Select the import icon: ![](readme_images/importgGA.PNG) Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
 
 5 Refresh your browser. A new workspace tile is created within the tooling. Select the _menu_ button within the workspace tile, then select **View details**:
 
