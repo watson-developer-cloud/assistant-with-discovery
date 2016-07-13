@@ -118,7 +118,7 @@ To build the application:
 2 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
 - [Import a workspace](#workspace)
 - Copy the [Service Credentials](#credentials) for later use. 
-</a
+</a>
 
 3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
 - Copy the Service Credentials for later use.
@@ -147,7 +147,7 @@ To build the application:
 7 Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
 
 <a name="credentials">
-Service Credentials
+# Service Credentials
 </a>
 
 1 Go to the Bluemix Dashboard and select the Conversation service instance. Once there, select the **Service Credentials** menu item.
