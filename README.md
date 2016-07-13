@@ -187,7 +187,7 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 
 For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
 
-7 Return to the deploy steps you were following:
+7 Return to the deploy steps that you were following:
 - For Local - [return to step 1](#returnlocal)
 - For Bluemix - [return to step 7](#returnbluemix)
 
