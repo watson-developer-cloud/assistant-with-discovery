@@ -21,6 +21,10 @@ Example commands that can be executed by the Conversation service are "turn on w
 
 This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example, "How do I check my tire pressure" or "How do I turn on cruise control".
 
+To watch a video about the code behind this app, see below.
+
+[<img src="readme_images/video.PNG" />](https://www.youtube.com/watch?v=wG2fuliRVNk)
+
 <a name="bluemix">
 # Getting Started using Bluemix
 </a>
@@ -106,8 +110,8 @@ To build the application:
 1 Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
 
 2 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
-- Copy the Service Credentials for later use.
 - [Import a workspace](#workspace)
+- While following the Import a workspace steps, copy the Service Credentials for later use. 
 
 3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
 - Copy the Service Credentials for later use.
