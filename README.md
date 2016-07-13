@@ -128,25 +128,27 @@ To build the application:
 ## Running locally
 
 
-1 Copy the `server.env` file from the `conversation-enhanced/src/main/resources` folder into the `<liberty install directory>/usr/servers/<server profile>/`
+1 Navigate to the `conversation-enhanced/src/main/resources` folder. Copy the `server.env` file. 
 
-2 In the `server.env` file, search for **"retrieve_and_rank"**:
+2 Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where <server name> is the name of the Liberty server you wish to use). Paste the `server.env` here.
+
+3 In the `server.env` file, search for **"retrieve_and_rank"**:
 - Replace the "name" field with the name you gave your Retrieve and Rank Service.
 - Replace the "password" field.
 - Replace the "username" field.
 
-3 In the `server.env`, search for **"conversation"**.
+4 In the `server.env`, search for **"conversation"**.
 - Replace the "name" field with the name you gave your Conversation Service.
 - Replace the "password" field.
 - Replace the "username" field.
 
-4 Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).
+5 Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).
 
-5 Start the server using Eclipse or CLI with the command `server run <server_profile>`.
+6 Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server).
 
-6 Liberty notifies you when the server starts and includes the port information.
+7 Liberty notifies you when the server starts and includes the port information.
 
-7 Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
+8 Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
 
 <a name="credentials">
 # Service Credentials
