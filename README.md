@@ -114,8 +114,8 @@ To build the application:
 
 1 Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
 
-<a name="localsteps"></a>
-2 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
+<a name="localsteps">
+2 In Bluemix </a>, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
 - [Import a workspace](#workspace)
 - Copy the [Service Credentials](#credentials) for later use. 
 
