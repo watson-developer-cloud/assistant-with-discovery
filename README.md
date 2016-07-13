@@ -168,7 +168,7 @@ You need to import the a workspace.
 
 3 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
 
-4 Select the import icon: [the import icon](readme_images/importGA.PNG). Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
+4 Select the import icon:  Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
 
 5 Refresh your browser. A new workspace tile is created within the tooling. Select the _menu_ button within the workspace tile, then select **View details**:
 
