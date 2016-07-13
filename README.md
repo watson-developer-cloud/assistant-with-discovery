@@ -114,11 +114,10 @@ To build the application:
 
 1 Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
 
-<a name="localsteps">
+<a name="localsteps"></a>
 2 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
 - [Import a workspace](#workspace)
 - Copy the [Service Credentials](#credentials) for later use. 
-</a>
 
 3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
 - Copy the Service Credentials for later use.
@@ -184,8 +183,8 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
 
 7 Return to the deploy steps you were following:
-- For Local - [return here](#returnlocal)
-- For Bluemix - [return here](#returnbluemix)
+- For Local - [return to step 2](#returnlocal)
+- For Bluemix - [return to step 7](#returnbluemix)
 
 
 
