@@ -130,7 +130,7 @@ To build the application:
 
 1 Navigate to the `conversation-enhanced/src/main/resources` folder. Copy the `server.env` file. 
 
-2 Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where <server name> is the name of the Liberty server you wish to use). Paste the `server.env` here.
+2 Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where < server name > is the name of the Liberty server you wish to use). Paste the `server.env` here.
 
 3 In the `server.env` file, search for **"retrieve_and_rank"**:
 - Replace the "name" field with the name you gave your Retrieve and Rank Service.
