@@ -118,10 +118,10 @@ To build the application:
 2 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
 - [Import a workspace](#workspace)
 - Copy the [Service Credentials](#credentials) for later use. 
-</a
+</a>
 
 3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
-- Copy the Service Credentials for later use.
+- Copy the [Service Credentials](#credentials) for later use.
 
 ## Running locally
 
