@@ -160,7 +160,7 @@ To build the application:
 # Import a workspace
 </a>
 
-You need to import the a workspace. 
+You need to import a workspace. 
 
 
 1 Navigate to the Bluemix dashboard, select the service you created.
