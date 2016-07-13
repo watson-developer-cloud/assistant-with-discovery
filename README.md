@@ -78,8 +78,10 @@ A dialog shows the progress.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/deployPicture.PNG)
 
+When setup is complete, you are informed that you need to add a WORKSPACE_ID.
+
 <a name="returnbluemix">
-7 When setup is complete, you need to add a WORKSPACE_ID . Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then return to these steps.
+7 Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then <b>return to these steps</b>.
 </a>
 
 8 After you have set up a workspace, [add the WORKSPACE_ID environment variable](#env).
