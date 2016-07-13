@@ -238,9 +238,11 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter_app.PNG)
 
-### With CLI
+# Troubleshooting with CLI
 
-$ cf logs < application-name > --recent
+To see the logs, run the command
+
+`$ cf logs < application-name > --recent`
 
 # License
 
