@@ -4,22 +4,26 @@
 
 This application demonstrates the combination of the Conversation and Retrieve and Rank services. First, users pose questions to the Conversation service. If Conversation is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
 
+<b>Either way you deploy this app, you must have a Bluemix account and run some steps within Bluemix.</b>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/bluemix.png" width="200"/>](#bluemix)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/local.png" width="200"/>](#local)
 
 # How the app works
 The application is designed and trained for chatting with a cognitive car.  The chat interface is on the left, and the JSON that the JavaScript code receives from the server is on the right. A user is able to ask two primary categories of questions.
 
-Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like these:
+Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities"
 
-    turn_on
-    weather
-    capabilities
+Example commands that can be executed by the Conversation service are: 
+
+    turn on windshield wipers
+    play music
+
+This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example:
+
+    How do I check my tire pressure
+    How do I turn on cruise control
 
 
-Example commands that can be executed by the Conversation service are "turn on windshield wipers" or "play music".
-
-This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example, "How do I check my tire pressure" or "How do I turn on cruise control".
 
 To watch a video about the code behind this app, see below.
 
@@ -74,7 +78,11 @@ A dialog shows the progress.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/deployPicture.PNG)
 
-7 When setup is complete, you need to add a WORKSPACE_ID . Navigate to your Bluemix Dashboard and [import a workspace](#workspace).
+When setup is complete, you are informed that you need to add a WORKSPACE_ID.
+
+<a name="returnbluemix">
+7 Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then <b>return to these steps</b>.
+</a>
 
 8 After you have set up a workspace, [add the WORKSPACE_ID environment variable](#env).
 
@@ -87,7 +95,8 @@ A dialog shows the progress.
 
 ## Before you begin
 
-- Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
+-  Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
+-  Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
 
 
 ## Building locally
@@ -107,54 +116,66 @@ To build the application:
 
 ## Setup Bluemix components
 
-1 Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
-
-2 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
+<a name="returnlocal">
+1 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
 - [Import a workspace](#workspace)
-- While following the Import a workspace steps, copy the Service Credentials for later use. 
+- Copy the [Service Credentials](#credentials) for later use. 
+</a>
 
-3 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
-- Copy the Service Credentials for later use.
+2 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
+- Copy the [Service Credentials](#credentials) for later use.
 
 ## Running locally
 
 
-1 Copy the `server.env` file from the `conversation-enhanced/src/main/resources` folder into the `<liberty install directory>/usr/servers/<server profile>/`
+1 Navigate to the `conversation-enhanced/src/main/resources` folder. Copy the `server.env` file. 
 
-2 In the `server.env` file, search for **"retrieve_and_rank"**:
+2 Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where < server name > is the name of the Liberty server you wish to use). Paste the `server.env` here.
+
+3 In the `server.env` file, search for **"retrieve_and_rank"**:
 - Replace the "name" field with the name you gave your Retrieve and Rank Service.
 - Replace the "password" field.
 - Replace the "username" field.
 
-3 In the `server.env`, search for **"conversation"**.
+4 In the `server.env`, search for **"conversation"**.
 - Replace the "name" field with the name you gave your Conversation Service.
 - Replace the "password" field.
 - Replace the "username" field.
 
-4 Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).
+5 Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).
 
-5 Start the server using Eclipse or CLI with the command `server run <server_profile>`.
+6 Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server).
 
-6 Liberty notifies you when the server starts and includes the port information.
+7 Liberty notifies you when the server starts and includes the port information.
 
-7 Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
+8 Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
 
-<a name="workspace">
-# Import a workspace
+<a name="credentials">
+# Service Credentials
 </a>
-1 You need to import the app's workspace. To do that, go to the Bluemix Dashboard and select the Conversation service instance. Once there, select the **Service Credentials** menu item.
+
+1 Go to the Bluemix Dashboard and select the Conversation service instance. Once there, select the **Service Credentials** menu item.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/credentials.PNG)
 
 2 Select **ADD CREDENTIALS**. Name your credentials then select **ADD**.
 
-3 Return to the **Manage** menu item and select **Launch Tooling**. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
+<a name="workspace">
+# Import a workspace
+</a>
 
-4 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
+You need to import a workspace. 
 
-5 Select **Import**. Browse to (or drag and drop) the JSON file that you downloaded in Step 4. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
 
-6 Refresh your browser. A new workspace tile is created within the tooling. Select the _menu_ button within the workspace tile, then select **View details**:
+1 Navigate to the Bluemix dashboard, select the service you created.
+
+2 Go to the **Manage** menu item and select **Launch Tool**. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
+
+3 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
+
+4 Select the import icon: ![](readme_images/importGA.PNG) Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
+
+5 Refresh your browser. A new workspace tile is created within the tooling. Select the _menu_ button within the workspace tile, then select **View details**:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Workpsace Details](readme_images/details.PNG)
 
@@ -164,10 +185,13 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/workspaceid.PNG)
 
-
-7 Return to your application, either in your local dev environment, or in Bluemix. If running on Bluemix, you need to [add environment variables](#env).
-
 For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
+
+7 Return to the deploy steps that you were following:
+- For Local - [return to step 1](#returnlocal)
+- For Bluemix - [return to step 7](#returnbluemix)
+
+
 
 <a name="env">
 # Adding environment variables in Bluemix
@@ -214,9 +238,11 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter_app.PNG)
 
-### With CLI
+# Troubleshooting with CLI
 
-$ cf logs < application-name > --recent
+To see the logs, run the command
+
+`$ cf logs < application-name > --recent`
 
 # License
 
