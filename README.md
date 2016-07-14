@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-enhanced.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-enhanced)
 
-This application demonstrates the combination of the Conversation and Retrieve and Rank services. First, users pose questions to the Conversation service. If Conversation is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
+This application demonstrates the combination of the [Conversation](http://www.ibm.com/watson/developercloud/doc/conversation/index.shtml) and [Retrieve and Rank](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/#overview) services. First, users pose questions to the Conversation service. If Conversation is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
 
 <b>Either way you deploy this app, you must have a Bluemix account and run some steps within Bluemix.</b>
 
@@ -11,7 +11,7 @@ This application demonstrates the combination of the Conversation and Retrieve a
 # How the app works
 The application is designed and trained for chatting with a cognitive car.  The chat interface is on the left, and the JSON that the JavaScript code receives from the server is on the right. A user is able to ask two primary categories of questions.
 
-Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities"
+Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities".
 
 Example commands that can be executed by the Conversation service are: 
 
@@ -81,10 +81,10 @@ A dialog shows the progress.
 When setup is complete, you are informed that you need to add a WORKSPACE_ID.
 
 <a name="returnbluemix">
-7 Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then <b>return to these steps</b>.
+6 Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then <b>return to these steps</b>.
 </a>
 
-8 After you have set up a workspace, [add the WORKSPACE_ID environment variable](#env).
+7 After you have set up a workspace, [add the WORKSPACE_ID environment variable](#env).
 
 <a name="local">
 # Getting Started locally
@@ -118,12 +118,12 @@ To build the application:
 
 <a name="returnlocal">
 1 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
+- Create the [Service Credentials](#credentials).
 - [Import a workspace](#workspace)
-- Copy the [Service Credentials](#credentials) for later use. 
 </a>
 
 2 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
-- Copy the [Service Credentials](#credentials) for later use.
+- Create the [Service Credentials](#credentials).
 
 ## Running locally
 
@@ -160,12 +160,15 @@ To build the application:
 
 2 Select **ADD CREDENTIALS**. Name your credentials then select **ADD**.
 
+3 Copy the credentials (or remember this location) for later use.
+
 <a name="workspace">
 # Import a workspace
 </a>
 
-You need to import a workspace. 
+To use the app you're creating, you need to add a worksapce to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
 
+For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
 
 1 Navigate to the Bluemix dashboard, select the service you created.
 
@@ -173,7 +176,7 @@ You need to import a workspace.
 
 3 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
 
-4 Select the import icon: ![](readme_images/importGA.PNG) Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
+4 Select the import icon: ![](readme_images/importGA.PNG). Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
 
 5 Refresh your browser. A new workspace tile is created within the tooling. Select the _menu_ button within the workspace tile, then select **View details**:
 
@@ -185,11 +188,9 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/workspaceid.PNG)
 
-For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
-
 7 Return to the deploy steps that you were following:
 - For Local - [return to step 1](#returnlocal)
-- For Bluemix - [return to step 7](#returnbluemix)
+- For Bluemix - [return to step 6](#returnbluemix)
 
 
 
