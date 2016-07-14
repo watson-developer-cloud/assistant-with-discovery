@@ -84,7 +84,10 @@ When setup is complete, you are informed that you need to add a WORKSPACE_ID.
 6 Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then <b>return to these steps</b>.
 </a>
 
-7 After you have set up a workspace, [add the WORKSPACE_ID environment variable](#env).
+7 Navigate to your Bluemix Dashboard and add [Service Credentials](#credentials). Then <b>return to these steps</b>.
+
+8 After you have set up a workspace and added credentials, [add the WORKSPACE_ID environment variable](#env)
+
 
 <a name="local">
 # Getting Started locally
@@ -162,6 +165,10 @@ To build the application:
 
 3 Copy the credentials (or remember this location) for later use.
 
+4 Return to the steps you were following:
+- For Bluemix - [return to here](#returnbluemix)
+- For Local - [return here](#returnlocal)
+
 <a name="workspace">
 # Import a workspace
 </a>
@@ -189,9 +196,8 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/workspaceid.PNG)
 
 7 Return to the deploy steps that you were following:
-- For Local - [return to step 1](#returnlocal)
 - For Bluemix - [return to step 6](#returnbluemix)
-
+- For Local - [return to step 1](#returnlocal)
 
 
 <a name="env">
