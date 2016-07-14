@@ -81,10 +81,10 @@ A dialog shows the progress.
 When setup is complete, you are informed that you need to add a WORKSPACE_ID.
 
 <a name="returnbluemix">
-7 Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then <b>return to these steps</b>.
+6 Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then <b>return to these steps</b>.
 </a>
 
-8 After you have set up a workspace, [add the WORKSPACE_ID environment variable](#env).
+7 After you have set up a workspace, [add the WORKSPACE_ID environment variable](#env).
 
 <a name="local">
 # Getting Started locally
@@ -188,7 +188,7 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 
 7 Return to the deploy steps that you were following:
 - For Local - [return to step 1](#returnlocal)
-- For Bluemix - [return to step 7](#returnbluemix)
+- For Bluemix - [return to step 6](#returnbluemix)
 
 
 
