@@ -118,12 +118,12 @@ To build the application:
 
 <a name="returnlocal">
 1 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
+- Create the [Service Credentials](#credentials).
 - [Import a workspace](#workspace)
-- Copy the [Service Credentials](#credentials) for later use. 
 </a>
 
 2 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
-- Copy the [Service Credentials](#credentials) for later use.
+- Create the [Service Credentials](#credentials).
 
 ## Running locally
 
@@ -159,6 +159,8 @@ To build the application:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/credentials.PNG)
 
 2 Select **ADD CREDENTIALS**. Name your credentials then select **ADD**.
+
+3 Copy the credentials (or remember this location) for later use.
 
 <a name="workspace">
 # Import a workspace
