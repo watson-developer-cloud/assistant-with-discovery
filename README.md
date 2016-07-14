@@ -11,7 +11,7 @@ This application demonstrates the combination of the [Conversation](http://www.i
 # How the app works
 The application is designed and trained for chatting with a cognitive car.  The chat interface is on the left, and the JSON that the JavaScript code receives from the server is on the right. A user is able to ask two primary categories of questions.
 
-Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities"
+Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities".
 
 Example commands that can be executed by the Conversation service are: 
 
@@ -176,7 +176,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 3 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
 
-4 Select the import icon: ![](readme_images/importGA.PNG) Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
+4 Select the import icon: ![](readme_images/importGA.PNG). Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
 
 5 Refresh your browser. A new workspace tile is created within the tooling. Select the _menu_ button within the workspace tile, then select **View details**:
 
