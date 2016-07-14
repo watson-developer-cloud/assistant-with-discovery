@@ -11,7 +11,7 @@ This application demonstrates the combination of the Conversation and Retrieve a
 # How the app works
 The application is designed and trained for chatting with a cognitive car.  The chat interface is on the left, and the JSON that the JavaScript code receives from the server is on the right. A user is able to ask two primary categories of questions.
 
-Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities"
+Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities".
 
 Example commands that can be executed by the Conversation service are: 
 
@@ -166,14 +166,13 @@ To build the application:
 
 You need to import a workspace. 
 
-
 1 Navigate to the Bluemix dashboard, select the service you created.
 
 2 Go to the **Manage** menu item and select **Launch Tool**. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
 
 3 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
 
-4 Select the import icon: ![](readme_images/importGA.PNG) Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
+4 Select the import icon: ![](readme_images/importGA.PNG). Browse to (or drag and drop) the JSON file that you downloaded in Step 3. Choose to import **Everything(Intents, Entities, and Dialog)**. Then select **Import** to finish importing the workspace.
 
 5 Refresh your browser. A new workspace tile is created within the tooling. Select the _menu_ button within the workspace tile, then select **View details**:
 
@@ -187,10 +186,9 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 
 For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
 
-7 Return to the deploy steps that you were following:
+6 Return to the deploy steps that you were following:
 - For Local - [return to step 1](#returnlocal)
 - For Bluemix - [return to step 7](#returnbluemix)
-
 
 
 <a name="env">
