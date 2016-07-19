@@ -32,7 +32,6 @@ import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.solr.client.solrj.SolrServerException;
 
 import com.google.gson.Gson;
 import com.ibm.watson.apis.conversation_enhanced.payload.DocumentPayload;
@@ -41,7 +40,6 @@ import com.ibm.watson.apis.conversation_enhanced.utils.Messages;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
-import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 @Path("conversation/api/v1/workspaces")
@@ -94,14 +92,14 @@ public class ProxyResource {
    * This method is responsible for sending the query the user types into the UI to the Watson
    * services. The code demonstrates how the conversation service is called, how the response is
    * evaluated, and how the response is then sent to the retrieve and rank service if necessary.
-   * 
+   *
    * @param request The full query the user asked of Watson
    * @param id The ID of the conversational workspace
    * @return The response from Watson. The response will always contain the conversation service's
    *         response. If the intent confidence is high or the intent is out_of_scope, the response
    *         will also contain information from the retrieve and rank service
    */
-  private MessageResponse getWatsonResponse(MessageRequest request, String id) {
+  private MessageResponse getWatsonResponse(MessageRequest request, String id) throws Exception {
 
     // Configure the Watson Developer Cloud SDK to make a call to the appropriate conversation
     // service. Specific information is obtained from the VCAP_SERVICES environment variable
@@ -132,24 +130,16 @@ public class ProxyResource {
         // and rank answers to the user in the main UI. The JSON response section of the UI will
         // show information from the calls to both services.
         Map<String, Object> output = response.getOutput();
-        try {
-          if (output == null) {
-            output = new HashMap<String, Object>();
-            response.setOutput(output);
-          }
-
-          // Send the user's question to the retrieve and rank service
-          List<DocumentPayload> docs = retrieveAndRankClient.getDocuments(query);
-
-          // Append the retrieve and rank answers to the output object that will be sent to the UI
-          output.put("CEPayload", docs); //$NON-NLS-1$
-        } catch (SolrServerException e) {
-          logger.error(Messages.getString("ProxyResource.SOLR_QUERY_EXCEPTION") + e.getMessage(), e); //$NON-NLS-1$
-        } catch (IOException e) {
-          logger.error(Messages.getString("ProxyResource.SOLR_QUERY_EXCEPTION") + e.getMessage(), e); //$NON-NLS-1$
-        } catch (BadRequestException e) {
-          logger.error(Messages.getString("ProxyResource.BAD_REQUEST_EXCEPTION") + e.getMessage(), e); //$NON-NLS-1$
+        if (output == null) {
+          output = new HashMap<String, Object>();
+          response.setOutput(output);
         }
+
+        // Send the user's question to the retrieve and rank service
+        List<DocumentPayload> docs = retrieveAndRankClient.getDocuments(query);
+
+        // Append the retrieve and rank answers to the output object that will be sent to the UI
+        output.put("CEPayload", docs); //$NON-NLS-1$
       }
     }
 
@@ -159,13 +149,35 @@ public class ProxyResource {
   @POST @Path("{id}/message") @Consumes(MediaType.APPLICATION_JSON) @Produces(MediaType.APPLICATION_JSON) public Response postMessage(
       @PathParam("id") String id, InputStream body) {
 
+    HashMap<String, Object> errorsOutput = new HashMap<String, Object>();
     MessageRequest request = buildMessageFromPayload(body);
 
     if (request == null) {
       throw new IllegalArgumentException(Messages.getString("ProxyResource.NO_REQUEST"));
     }
 
-    MessageResponse response = getWatsonResponse(request, id);
+    MessageResponse response = null;
+
+    try{
+      response = getWatsonResponse(request, id);
+
+    } catch (Exception e){
+      if(e.getMessage().contains("User access not Authorized")){
+        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS"));
+      } else if(e.getMessage().contains("Invalid access to resource - /retrieve-and-rank/api/v1/solr_clusters")){
+        errorsOutput.put("error", Messages.getString("ProxyResource.ProxyResource.INVALID_RETRIEVE_AND_RANK_CREDS"));
+      } else if(e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")){
+        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_WORKSPACEID"));
+      } else if(e.getMessage().contains("/fcselect.")){
+        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_COLLECTION_NAME"));
+      } else if(e.getMessage().contains("is not authorized for cluster") && e.getMessage().contains("and ranker")){
+        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_RANKER_ID"));
+      } else {
+        errorsOutput.put("error", Messages.getString("ProxyResource.GENERIC_ERROR"));
+      }
+      logger.error(Messages.getString("ProxyResource.SOLR_QUERY_EXCEPTION") + e.getMessage()); //$NON-NLS-1$
+      return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
+    }
     return Response.ok(new Gson().toJson(response, MessageResponse.class)).type(MediaType.APPLICATION_JSON).build();
   }
 

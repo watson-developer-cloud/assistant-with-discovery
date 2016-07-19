@@ -300,7 +300,7 @@ export class AppComponent {
       context = this.response.context;
       // we are going to delete the context variable 'callRetrieveAndRank' before
       // sending back to the Conversation service
-      if (context.callRetrieveAndRank) {
+      if (context && context.callRetrieveAndRank) {
         delete context.callRetrieveAndRank;
       }
     }
@@ -324,16 +324,15 @@ export class AppComponent {
       data1 => {
         this.response = data1;
         if (data1) {
-          if (data1.output && data1.output.CEPayload) {
-            ce = data1.output.CEPayload;
-            if (data1.output.CEPayload.length > 0) {
+          if (data1.error) {
+            responseText = data1.error;
+            data1 = this.langData.NResponse;
+          } else if (data1.output) {
+            if (data1.output.CEPayload && data1.output.CEPayload.length > 0) {
+              ce = data1.output.CEPayload;
               responseText = this.langData.Great;
-            }
-          } else {
-            if (data1.output && data1.output.text) {
+            } else if (data1.output.text) {
               responseText = data1.output.text.length >= 1 && !data1.output.text[0] ? data1.output.text.join(' ').trim() : data1.output.text[0]; // tslint:disable-line max-line-length
-            } else {
-              responseText = this.langData.Intent + data1.intents[0].intent;
             }
           }
         }

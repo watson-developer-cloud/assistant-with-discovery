@@ -49,7 +49,7 @@ public class Client {
    * @throws SolrServerException
    * @throws IOException
    */
-  public List<DocumentPayload> getDocuments(String input) throws SolrServerException, IOException {
+  public List<DocumentPayload> getDocuments(String input) throws Exception {
     List<DocumentPayload> documents = new ArrayList<DocumentPayload>();
     QueryResponse output = new Query().query(input);
     documents = createPayload(input, new Gson().toJson(output.getResults()), new Gson().toJson(output.getHighlighting()));
