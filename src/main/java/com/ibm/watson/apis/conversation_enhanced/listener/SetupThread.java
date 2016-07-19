@@ -134,8 +134,7 @@ public class SetupThread extends Thread {
       
     } catch (Exception e) {
       logger.error(Messages.getString("SetupThread.ERROR_COLLECTION_INIT") + e.getMessage()); //$NON-NLS-1$
-      if (e.getMessage().contains("Invalid access to resource")
-          || e.getMessage().contains("Unauthorized: Access is denied due to invalid credentials")) {
+      if (e.getClass().getSimpleName().equalsIgnoreCase("UnauthorizedException")) {
         updateConfigObject("0", Constants.NOT_READY, Messages.getString("SetupThread.ERROR"), //$NON-NLS-1$ //$NON-NLS-2$
             Messages.getString("SetupThread.INVALID_CREDS")); //$NON-NLS-1$ //$NON-NLS-4$
       } else {

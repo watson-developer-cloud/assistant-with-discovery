@@ -162,10 +162,8 @@ public class ProxyResource {
       response = getWatsonResponse(request, id);
 
     } catch (Exception e){
-      if(e.getMessage().contains("User access not Authorized")){
+      if(e.getClass().getSimpleName().equalsIgnoreCase("UnauthorizedException")){
         errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS"));
-      } else if(e.getMessage().contains("Invalid access to resource - /retrieve-and-rank/api/v1/solr_clusters")){
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_RETRIEVE_AND_RANK_CREDS"));
       } else if(e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")){
         errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_WORKSPACEID"));
       } else if(e.getMessage().contains("/fcselect.")){
