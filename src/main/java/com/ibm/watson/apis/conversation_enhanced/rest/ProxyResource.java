@@ -40,6 +40,7 @@ import com.ibm.watson.apis.conversation_enhanced.utils.Messages;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 @Path("conversation/api/v1/workspaces")
@@ -162,7 +163,7 @@ public class ProxyResource {
       response = getWatsonResponse(request, id);
 
     } catch (Exception e){
-      if(e.getClass().getSimpleName().equalsIgnoreCase("UnauthorizedException")){
+      if(e instanceof UnauthorizedException){
         errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS"));
       } else if(e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")){
         errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_WORKSPACEID"));
