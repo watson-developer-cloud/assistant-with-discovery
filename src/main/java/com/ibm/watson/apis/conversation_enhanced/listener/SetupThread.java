@@ -42,6 +42,7 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
@@ -134,7 +135,13 @@ public class SetupThread extends Thread {
       
     } catch (Exception e) {
       logger.error(Messages.getString("SetupThread.ERROR_COLLECTION_INIT") + e.getMessage()); //$NON-NLS-1$
-      updateConfigObject("0",Constants.NOT_READY, Messages.getString("SetupThread.ERROR"), Messages.getString("SetupThread.CHECK_LOGS")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+      if(e instanceof UnauthorizedException){
+        updateConfigObject("0", Constants.NOT_READY, Messages.getString("SetupThread.ERROR"), //$NON-NLS-1$ //$NON-NLS-2$
+            Messages.getString("SetupThread.INVALID_CREDS")); //$NON-NLS-1$ //$NON-NLS-4$
+      } else {
+        updateConfigObject("0", Constants.NOT_READY, Messages.getString("SetupThread.ERROR"), //$NON-NLS-1$ //$NON-NLS-2$
+            Messages.getString("SetupThread.CHECK_LOGS")); //$NON-NLS-1$ //$NON-NLS-4$
+      }
     }
   }
 

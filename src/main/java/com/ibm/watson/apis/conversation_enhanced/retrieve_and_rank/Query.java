@@ -1,11 +1,11 @@
 /**
  * (C) Copyright IBM Corp. 2016. All Rights Reserved.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -53,10 +53,10 @@ public class Query {
     }
     USERNAME = creds.getUsername();
     PASSWORD = creds.getPassword();
-
+    
     RetrieveAndRank retrieveAndRankService = new RetrieveAndRank();
     retrieveAndRankService.setUsernameAndPassword(USERNAME, PASSWORD);
-
+    
     if(StringUtils.isNotBlank(System.getenv("CLUSTER_ID"))){ //$NON-NLS-1$
       CLUSTER_ID = System.getenv("CLUSTER_ID"); //$NON-NLS-1$
     } else {
@@ -84,22 +84,22 @@ public class Query {
 
   /**
    * Use the Watson Developer Cloud SDK to send the user's query to the retrive and rank service
-   *
+   * 
    * @param userQuery The user's query to be sent to the retrieve and rank service
    * @return The unaltered SOLR query responses obtained from the retrieve and rank service
    * @throws SolrServerException
    * @throws IOException
    */
-  public QueryResponse query(String userQuery) throws SolrServerException, IOException {
-
+  public QueryResponse query(String userQuery) throws Exception {
+    
     // Configure the Watson Developer Cloud SDK to make a call to the appropriate retrieve and rank
     // service. Specific information is obtained from environment variable and the services
     // associated with the app. See the Query constructor for details.
     RetrieveAndRank service = new RetrieveAndRank();
     HttpSolrClient solrClient = HttpSolrClientUtils.getSolrClient(service.getSolrUrl(CLUSTER_ID), USERNAME, PASSWORD);
-
+    
     logger.info(Messages.getString("Query.PASS_CLUSTER_DETAILS")); //$NON-NLS-1$
-
+    
     // Setup the query parameters
     final SolrQuery query = new SolrQuery(userQuery)
         // The fields we want in the response object
@@ -117,16 +117,8 @@ public class Query {
         .setParam("ranker_id", RANKER_ID); //$NON-NLS-1$ //$NON-NLS-2$
 
     // Send the query to the retrieve and rank service to obtain answers to the user's query
-    QueryResponse response = null;
-    try {
-      logger.info(Messages.getString("Query.QUERY_SOLR_RANKER")); //$NON-NLS-1$
-      response = solrClient.query(COLLECTION_NAME, query);
-    } catch (SolrServerException e) {
-      logger.error(Messages.getString("Query.SOLR_QUERY_EXCEPTION") + e.getMessage()); //$NON-NLS-1$
-    } catch (IOException e) {
-      logger.error(Messages.getString("Query.SOLR_QUERY_EXCEPTION") + e.getMessage()); //$NON-NLS-1$
-    }
-    return response;
+    logger.info(Messages.getString("Query.QUERY_SOLR_RANKER")); //$NON-NLS-1$
+    return solrClient.query(COLLECTION_NAME, query);
   }
 
 }
