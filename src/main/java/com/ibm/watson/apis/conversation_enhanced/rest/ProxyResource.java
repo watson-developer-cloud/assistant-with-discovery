@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright IBM Corp. 2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,7 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.ibm.watson.apis.conversation_enhanced.payload.DocumentPayload;
 import com.ibm.watson.apis.conversation_enhanced.retrieve_and_rank.Client;
+import com.ibm.watson.apis.conversation_enhanced.utils.Logging;
 import com.ibm.watson.apis.conversation_enhanced.utils.Messages;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
@@ -51,6 +53,8 @@ public class ProxyResource {
   private static String PASSWORD;
   private static String URL;
   private static String USERNAME;
+
+  private static boolean LOGGING_ENABLED = Boolean.parseBoolean(System.getenv("LOGGING_ENABLED"));
 
   public static void setConversationAPIVersion(String version) {
     API_VERSION = version;
@@ -93,7 +97,7 @@ public class ProxyResource {
    * This method is responsible for sending the query the user types into the UI to the Watson
    * services. The code demonstrates how the conversation service is called, how the response is
    * evaluated, and how the response is then sent to the retrieve and rank service if necessary.
-   *
+   * 
    * @param request The full query the user asked of Watson
    * @param id The ID of the conversational workspace
    * @return The response from Watson. The response will always contain the conversation service's
@@ -143,7 +147,29 @@ public class ProxyResource {
         output.put("CEPayload", docs); //$NON-NLS-1$
       }
     }
-    
+
+    // Log User input and output from Watson
+    if (Boolean.TRUE.equals(LOGGING_ENABLED)) {
+      Logging cloudantLogging = new Logging();
+      String intent = "<no intent>";
+      String confidence = "<no confidence>";
+      if (!response.getIntents().isEmpty() && response.getIntents().get(0) != null) {
+        intent = response.getIntents().get(0).getIntent();
+        confidence = response.getIntents().get(0).getConfidence().toString();
+      }
+      String entity = response.getEntities().size() > 0 ? "Entity: " + response.getEntities().get(0).getEntity()
+          + " Value:" + response.getEntities().get(0).getValue() : "<no entity>";
+      String convoOutput = (String) (response.getOutput().get("text") != null
+          ? response.getOutput().get("text").toString() : "<no response>");
+      String convoId = (String) (response.getContext().get("conversation_id") != null
+          ? (response.getContext().get("conversation_id")).toString() : "<no conversation id>");
+      String retrieveAndRankOutput = (String) (response.getOutput().get("CEPayload") != null
+          ? response.getOutput().get("CEPayload").toString() : "<no payload>");
+      
+      cloudantLogging.log(response.getInputText(), intent, confidence, entity, convoOutput, convoId,
+          retrieveAndRankOutput);
+    }
+
     return response;
   }
 
@@ -159,20 +185,24 @@ public class ProxyResource {
 
     MessageResponse response = null;
 
-    try{
+    try {
       response = getWatsonResponse(request, id);
 
-    } catch (Exception e){
-      if(e instanceof UnauthorizedException){
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS"));
-      } else if(e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")){
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_WORKSPACEID"));
-      } else if(e.getMessage().contains("/fcselect.")){
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_COLLECTION_NAME"));
-      } else if(e.getMessage().contains("is not authorized for cluster") && e.getMessage().contains("and ranker")){
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_RANKER_ID"));
+    } catch (Exception e) {
+      if (e instanceof UnauthorizedException) {
+        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS")); //$NON-NLS-1$
+      } else if (e instanceof IllegalArgumentException) {
+        errorsOutput.put("error", e.getMessage());
+      } else if (e instanceof MalformedURLException) {
+        errorsOutput.put("error", Messages.getString("ProxyResource.MALFORMED_URL")); //$NON-NLS-1$
+      } else if (e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")) {
+        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_WORKSPACEID")); //$NON-NLS-1$
+      } else if (e.getMessage().contains("/fcselect.")) {
+        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_COLLECTION_NAME")); //$NON-NLS-1$
+      } else if (e.getMessage().contains("is not authorized for cluster") && e.getMessage().contains("and ranker")) {
+        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_RANKER_ID")); //$NON-NLS-1$
       } else {
-        errorsOutput.put("error", Messages.getString("ProxyResource.GENERIC_ERROR"));
+        errorsOutput.put("error", Messages.getString("ProxyResource.GENERIC_ERROR")); //$NON-NLS-1$
       }
       logger.error(Messages.getString("ProxyResource.SOLR_QUERY_EXCEPTION") + e.getMessage()); //$NON-NLS-1$
       return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
