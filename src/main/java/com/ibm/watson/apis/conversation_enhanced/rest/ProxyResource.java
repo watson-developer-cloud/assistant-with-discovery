@@ -150,24 +150,7 @@ public class ProxyResource {
 
     // Log User input and output from Watson
     if (Boolean.TRUE.equals(LOGGING_ENABLED)) {
-      Logging cloudantLogging = new Logging();
-      String intent = "<no intent>";
-      String confidence = "<no confidence>";
-      if (!response.getIntents().isEmpty() && response.getIntents().get(0) != null) {
-        intent = response.getIntents().get(0).getIntent();
-        confidence = response.getIntents().get(0).getConfidence().toString();
-      }
-      String entity = response.getEntities().size() > 0 ? "Entity: " + response.getEntities().get(0).getEntity()
-          + " Value:" + response.getEntities().get(0).getValue() : "<no entity>";
-      String convoOutput = (String) (response.getOutput().get("text") != null
-          ? response.getOutput().get("text").toString() : "<no response>");
-      String convoId = (String) (response.getContext().get("conversation_id") != null
-          ? (response.getContext().get("conversation_id")).toString() : "<no conversation id>");
-      String retrieveAndRankOutput = (String) (response.getOutput().get("CEPayload") != null
-          ? response.getOutput().get("CEPayload").toString() : "<no payload>");
-      
-      cloudantLogging.log(response.getInputText(), intent, confidence, entity, convoOutput, convoId,
-          retrieveAndRankOutput);
+      logResponse(response);
     }
 
     return response;
@@ -208,6 +191,34 @@ public class ProxyResource {
       return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
     }
     return Response.ok(new Gson().toJson(response, MessageResponse.class)).type(MediaType.APPLICATION_JSON).build();
+  }
+  
+  /**
+   * 
+   * This method takes in the response object and sends in to the cloudant logging class
+   * 
+   * @param response
+   * @throws Exception 
+   */
+  private void logResponse(MessageResponse response) throws Exception {
+    Logging cloudantLogging = new Logging();
+    String intent = "<no intent>";
+    String confidence = "<no confidence>";
+    if (!response.getIntents().isEmpty() && response.getIntents().get(0) != null) {
+      intent = response.getIntents().get(0).getIntent();
+      confidence = response.getIntents().get(0).getConfidence().toString();
+    }
+    String entity = response.getEntities().size() > 0 ? "Entity: " + response.getEntities().get(0).getEntity()
+        + " Value:" + response.getEntities().get(0).getValue() : "<no entity>";
+    String convoOutput = (String) (response.getOutput().get("text") != null
+        ? response.getOutput().get("text").toString() : "<no response>");
+    String convoId = (String) (response.getContext().get("conversation_id") != null
+        ? (response.getContext().get("conversation_id")).toString() : "<no conversation id>");
+    String retrieveAndRankOutput = (String) (response.getOutput().get("CEPayload") != null
+        ? response.getOutput().get("CEPayload").toString() : "<no payload>");
+    
+    cloudantLogging.log(response.getInputText(), intent, confidence, entity, convoOutput, convoId,
+        retrieveAndRankOutput);
   }
 
 }
