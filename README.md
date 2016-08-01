@@ -110,8 +110,6 @@ When setup is complete, you are informed that you need to add a WORKSPACE_ID.
 2 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
 - Create the [Service Credentials](#credentials).
 
-# Building and Running locally
-
 ## Building locally
 
 To build the application:
