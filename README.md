@@ -125,32 +125,31 @@ To build the application:
 
 4 The built WAR file (conversation-enhanced-0.1-SNAPSHOT.war) is in the `conversation-enhanced/build/libs/` folder.
 
-5 Copy the WAR file into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.
-
 ## Running locally
 
+1 Copy the WAR file generated above into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.
 
-1 Navigate to the `conversation-enhanced/src/main/resources` folder. Copy the `server.env` file. 
+2 Navigate to the `conversation-enhanced/src/main/resources` folder. Copy the `server.env` file. 
 
-2 Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where < server name > is the name of the Liberty server you wish to use). Paste the `server.env` here.
+3 Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where < server name > is the name of the Liberty server you wish to use). Paste the `server.env` here.
 
-3 In the `server.env` file, search for **"retrieve_and_rank"**:
+4 In the `server.env` file, search for **"retrieve_and_rank"**:
 - Replace the "name" field with the name you gave your Retrieve and Rank Service.
 - Replace the "password" field.
 - Replace the "username" field.
 
-4 In the `server.env`, search for **"conversation"**.
+5 In the `server.env`, search for **"conversation"**.
 - Replace the "name" field with the name you gave your Conversation Service.
 - Replace the "password" field.
 - Replace the "username" field.
 
-5 Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).
+6 Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).
 
-6 Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server).
+7 Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server).
 
-7 Liberty notifies you when the server starts and includes the port information.
+8 Liberty notifies you when the server starts and includes the port information.
 
-8 Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
+9 Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
 
 <a name="credentials">
 # Service Credentials
