@@ -99,6 +99,19 @@ When setup is complete, you are informed that you need to add a WORKSPACE_ID.
 -  Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
 
 
+## Setup Bluemix components
+
+<a name="returnlocal">
+1 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
+- Create the [Service Credentials](#credentials).
+- [Import a workspace](#workspace)
+</a>
+
+2 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
+- Create the [Service Credentials](#credentials).
+
+# Building and Running locally
+
 ## Building locally
 
 To build the application:
@@ -113,17 +126,6 @@ To build the application:
 4 The built WAR file (conversation-enhanced-0.1-SNAPSHOT.war) is in the `conversation-enhanced/build/libs/` folder.
 
 5 Copy the WAR file into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.
-
-## Setup Bluemix components
-
-<a name="returnlocal">
-1 In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
-- Create the [Service Credentials](#credentials).
-- [Import a workspace](#workspace)
-</a>
-
-2 In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).
-- Create the [Service Credentials](#credentials).
 
 ## Running locally
 
