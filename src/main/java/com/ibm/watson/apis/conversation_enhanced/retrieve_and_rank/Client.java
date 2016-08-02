@@ -80,8 +80,7 @@ public class Client {
       documentPayload.setId(id);
       documentPayload.setTitle(
           jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_TITLE).toString().replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
-      if (!jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_CONTENT_TEXT).toString().replaceAll("\"", "")
-          .isEmpty()) {
+      if (jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_CONTENT_TEXT) !=null) {
         documentPayload.setBody(
             // This method limits the response text in this sample app to two paragraphs.
             limitParagraph(jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_CONTENT_TEXT).toString()
@@ -128,10 +127,18 @@ public class Client {
    * @return string
    */
   private static String limitParagraph(String body) {
+    String returnString = body;
     final Pattern pattern = Pattern.compile("((.+?)<br><br>){1,2}"); //$NON-NLS-1$
     final Matcher matcher = pattern.matcher(body);
+    try {
     matcher.find();
-    return matcher.group(0);
+    returnString = matcher.group(0);
+    } catch (IllegalStateException e) {
+      if (e.getMessage().equalsIgnoreCase("No match found")){
+        return returnString;
+      }
+    }
+    return returnString;
   }
 
 }
