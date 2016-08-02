@@ -103,12 +103,12 @@ public class Query {
     // Setup the query parameters
     final SolrQuery query = new SolrQuery(userQuery)
         // The fields we want in the response object
-        .setFields(Constants.SCHEMA_FIELD_ID, Constants.SCHEMA_FIELD_CONTENT_TEXT,
+        .setFields(Constants.SCHEMA_FIELD_ID, Constants.SCHEMA_FIELD_BODY,
             Constants.SCHEMA_FIELD_TITLE, Constants.SCHEMA_FIELD_CONFIDENCE, Constants.SCHEMA_FIELD_SOURCE_URL)
         // The size of the SOLR snippet that we show as our initial answers
         .setHighlight(true).setHighlightFragsize(150).setHighlightSnippets(1)
         // The field to perform highlighting on
-        .setParam("hl.fl", Constants.SCHEMA_FIELD_CONTENT_TEXT)
+        .setParam("hl.fl", Constants.SCHEMA_FIELD_BODY)
         // The number of answers to return
         .setRows(Constants.RESULTS_TO_FETCH) // $NON-NLS-1$
         // The retrieve and rank endpoint to hit

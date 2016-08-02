@@ -80,10 +80,10 @@ public class Client {
       documentPayload.setId(id);
       documentPayload.setTitle(
           jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_TITLE).toString().replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
-      if (jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_CONTENT_TEXT) !=null) {
+      if (jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_BODY) !=null) {
         documentPayload.setBody(
             // This method limits the response text in this sample app to two paragraphs.
-            limitParagraph(jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_CONTENT_TEXT).toString()
+            limitParagraph(jarray.get(i).getAsJsonObject().get(Constants.SCHEMA_FIELD_BODY).toString()
                 .replaceAll("\"", ""))); //$NON-NLS-1$ //$NON-NLS-2$
       } else {
         documentPayload.setBody("empty"); //$NON-NLS-1$
@@ -110,8 +110,8 @@ public class Client {
     for (Map.Entry<String, JsonElement> entry : entrySet) {
       String docid = entry.getKey();
       String highlighted = ""; //$NON-NLS-1$
-      if (entry.getValue().getAsJsonObject().get(Constants.SCHEMA_FIELD_CONTENT_TEXT) != null) {
-        highlighted = entry.getValue().getAsJsonObject().get(Constants.SCHEMA_FIELD_CONTENT_TEXT).getAsJsonArray()
+      if (entry.getValue().getAsJsonObject().get(Constants.SCHEMA_FIELD_BODY) != null) {
+        highlighted = entry.getValue().getAsJsonObject().get(Constants.SCHEMA_FIELD_BODY).getAsJsonArray()
             .get(0).toString();
       }
       if (hm.get(docid) != null)
