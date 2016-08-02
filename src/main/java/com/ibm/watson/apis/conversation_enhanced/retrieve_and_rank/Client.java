@@ -134,6 +134,7 @@ public class Client {
     matcher.find();
     returnString = matcher.group(0);
     } catch (IllegalStateException e) {
+      //We know the match is not found then should return the original body
       if (e.getMessage().equalsIgnoreCase("No match found")){
         return returnString;
       }
