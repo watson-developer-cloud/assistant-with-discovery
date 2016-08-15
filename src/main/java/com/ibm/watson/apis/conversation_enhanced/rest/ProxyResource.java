@@ -122,7 +122,7 @@ public class ProxyResource {
 
     // Determine if conversation's response is sufficient to answer the user's question or if we
     // should call the retrieve and rank service to obtain better answers
-    if (response.getContext().containsKey("callRetrieveAndRank")) {
+    if (response.getContext().containsKey("call_retrieve_and_rank")) {
       String query = response.getInputText();
 
       // Extract the user's original query from the conversational response
