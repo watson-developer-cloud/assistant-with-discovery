@@ -21,6 +21,8 @@ buildscript {
 apply plugin: 'war'
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'jacoco'
+apply plugin: 'findbugs'
 apply plugin: 'com.moowork.node'
 apply plugin: 'com.moowork.gulp'
 
