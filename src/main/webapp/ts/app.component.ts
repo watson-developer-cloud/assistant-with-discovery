@@ -319,6 +319,11 @@ export class AppComponent {
   private callConversationService (chatColumn, payload) {
     let responseText = '';
     let ce : any = null;
+    // Before calling conversation, set the call_retrieve_and_rank flag to false
+    // conversation and not the app should control when retrieve and rank is called
+    if (typeof payload.context !== 'undefined') {
+       payload.context.call_retrieve_and_rank = false;
+    }
     // Send the user utterance to dialog, also send previous context
     this._dialogService.message (this.workspace_id, payload).subscribe (
       data1 => {
