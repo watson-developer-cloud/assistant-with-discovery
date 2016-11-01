@@ -169,9 +169,13 @@ To use the app you're creating, you need to add a worksapce to your Conversation
 
 For more information on workspaces, see the full  [Conversation service  documentation](https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/overview.shtml).
 
-1 Navigate to the Bluemix dashboard, select the service you created.
+1 Navigate to the Bluemix dashboard, and select the **Conversation** service you created.
 
-2 Go to the **Manage** menu item and select **Launch Tool**. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/workspace_dashboard.png)
+
+2 Clicke the **Launch Tool** button under the **Manage** tab. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/workspace_launch.png)
 
 3 Download the [exported JSON file](src/main/resources/workspace.json) that contains the Workspace contents.
 
@@ -197,17 +201,15 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 # Adding environment variables in Bluemix
 </a>
 
-1 In Bluemix, open the application from the Dashboard. Select **Environment Variables**.
+1 In Bluemix, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
 
-2 Select **USER-DEFINED**.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/env_var_tab.png)
 
-3 Select **ADD**.
+2 In the **User Defined** sextion, add a variable with the name **WORKSPACE_ID**. For the value, paste in the Workspace ID you [copied earlier](#workspaceID). Select **SAVE**.
 
-4 Add a variable with the name **WORKSPACE_ID**. For the value, paste in the Workspace ID you [copied earlier](#workspaceID). Select **SAVE**.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/env_var_text.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/env.PNG)
-
-5 Restart your application.
+3 Restart your application.
 
 
 # Troubleshooting in Bluemix
