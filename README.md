@@ -219,11 +219,11 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 - Navigate to the the application you previously created.
 - Select **Logs**.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/logs.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/logs_new.png)
 
 - If you want, filter the LOG TYPE by "APP".
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter.PNG)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](readme_images/filter_app_new.png)
 
 #### In the new Bluemix:
 - Log in to Bluemix, you'll be taken to the dashboard.
