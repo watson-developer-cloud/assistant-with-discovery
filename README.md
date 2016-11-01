@@ -114,7 +114,7 @@ When setup is complete, you are informed that you need to add a WORKSPACE_ID.
 
 To build the application:
 
-1 Git clone the project `https://github.com/watson-developer-cloud/conversation-enhanced`
+1 Git clone the project `https://github.com/CrowdTruth/conversation-enhanced`
 
 2 Navigate to the `conversation-enhanced` folder
 
@@ -205,7 +205,7 @@ In the Details UI, copy the 36 character UNID **ID** field. This is the **Worksp
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/env_var_tab.png)
 
-2 In the **User Defined** sextion, add a variable with the name **WORKSPACE_ID**. For the value, paste in the Workspace ID you [copied earlier](#workspaceID). Select **SAVE**.
+2 In the **User Defined** section, add a variable with the name **WORKSPACE_ID**. For the value, paste in the Workspace ID you [copied earlier](#workspaceID). Select **SAVE**.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/env_var_text.png)
 
