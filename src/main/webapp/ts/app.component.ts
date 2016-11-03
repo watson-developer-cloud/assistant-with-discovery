@@ -27,8 +27,8 @@ import {PayloadComponent} from './payload';
   selector: 'chat-app',
   template: `
   <div id='view-change-button' class='button' (click)='togglePanel($event)'>
-    <img title='Click to Collapse' class='option full' src='../img/Chat Button.png'>
-    <img title='Click to Expand' class='option not-full' src='../img/Code Button.png'>
+    <img title='Click to Collapse' class='option hide' src='../img/Chat Button.png'>
+    <img title='Click to Expand' class='option not-hide' src='../img/Code Button.png'>
   </div>
   <div id='parent' class='parentDiv' (window:resize)='onResize($event)'>
       <div id='scrollingChat'>
@@ -266,22 +266,18 @@ export class AppComponent {
   private togglePanel (event) {
     let payloadColumn = <HTMLElement>document.querySelector ('#payload-column');
     let toggleButton = <HTMLElement>document.querySelector ('#view-change-button');
-    let rightColumn = <HTMLElement>document.querySelector ('.right');
     let element;
     if (event.srcElement) {
       element = event.srcElement;
     } else {
       element = event.target;
     }
-    if (toggleButton.classList.contains ('full')) {
-      toggleButton.classList.remove ('full');
-      payloadColumn.classList.remove ('full');
-      this.resizePayloadColumn (rightColumn);
+    if (toggleButton.classList.contains ('hide')) {
+      toggleButton.classList.remove ('hide');
+      payloadColumn.classList.remove ('hide');
     } else {
-      rightColumn.classList.remove ('no-show');
-      rightColumn.style.width = '100%';
-      toggleButton.classList.add ('full');
-      payloadColumn.classList.add ('full');
+      toggleButton.classList.add ('hide');
+      payloadColumn.classList.add ('hide');
     }
   }
 /*
