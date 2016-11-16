@@ -114,7 +114,7 @@ When setup is complete, you are informed that you need to add a WORKSPACE_ID.
 
 To build the application:
 
-1 Git clone the project `https://github.com/CrowdTruth/conversation-enhanced`
+1 Git clone the project `https://github.com/watson-developer-cloud/conversation-enhanced`
 
 2 Navigate to the `conversation-enhanced` folder
 
@@ -169,11 +169,11 @@ To use the app you're creating, you need to add a worksapce to your Conversation
 
 For more information on workspaces, see the full  [Conversation service  documentation](http://www.ibm.com/watson/developercloud/doc/conversation/).
 
-1 Navigate to the Bluemix dashboard, and select the **Conversation** service you created.
+1 Navigate to the Bluemix dashboard and select the **Conversation** service you created.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/workspace_dashboard.png)
 
-2 Clicke the **Launch Tool** button under the **Manage** tab. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
+2 Click the **Launch Tool** button under the **Manage** tab. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](readme_images/workspace_launch.png)
 
