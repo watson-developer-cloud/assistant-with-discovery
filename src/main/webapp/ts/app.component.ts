@@ -100,7 +100,17 @@ export class AppComponent {
           this.langData.Description,
           false, null, null));
       },
-      error => alert (JSON.stringify (error)));
+      error => {
+        let lang_url = 'locale/en.json';
+        this.http.get(lang_url).map(res => res.json()).subscribe(
+          data =>  {
+            this.langData = data;
+            this.segments.push (new DialogResponse (
+              this.langData.Description,
+            false, null, null));
+          },
+          error => alert (JSON.stringify (error)));
+      });
   }
   private ngAfterViewInit (_dialogService : DialogService) {
     this.checkSetup(_dialogService);
