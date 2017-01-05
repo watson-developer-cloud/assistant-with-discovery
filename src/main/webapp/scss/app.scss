@@ -327,12 +327,13 @@ body {
   display: inline-block;
   position: absolute;
   border-radius: 1.5625rem;
-  background: #AB72F8;
+  background: #FEDF01;
   top: 0.3125rem;
   right: 0.3125rem;
   line-height: 3.125rem;
   vertical-align: middle;
   z-index:6;
+  visibility: hidden;
 }
 
 #view-change-button img {
@@ -458,7 +459,7 @@ footer {
 }
 
 #textInput.underline {
-  border-bottom: 0.125rem solid #00B4A0;
+  border-bottom: 0.125rem solid #002888;
 }
 
 ::-webkit-input-placeholder {
@@ -580,7 +581,7 @@ font-size:larger;
     color: #fff;
     letter-spacing: 0.015rem;
     line-height: 1.3125rem;
-    background: #00B4A0;
+    background: #002888;
     border-radius: 1.25rem;
     border-bottom-right-radius: 0;
 
@@ -597,7 +598,7 @@ font-size:larger;
   right: 0;
   height: 0.375rem;
   width: 0.5rem;
-  background: #1cb3a0;
+  background: #002888;
  }
 
  &:after {
@@ -638,23 +639,23 @@ ce-doc {
 .expcoll{
 font-family: 'Helvetica Neue for IBM';
 font-size: 12px;
-color: #AB72F8;
+color: #FEDF01;
 letter-spacing: 0.23px;
 cursor: pointer;
-border: 1px solid #AB72F8;
+border: 1px solid #FEDF01;
 border-radius: 50px;
 padding: 8px;
 }
 .sign{
 font-family: 'Helvetica Neue Bold for IBM';
 font-size: 18px;
-color: #AB72F8;
+color: #FEDF01;
 letter-spacing: 0.34px;
 }
 .draw{
 height: 100%;
 position: absolute;
-border-color: #00B4A0;
+border-color: #002888;
 border-bottom-width: thin;
 border-bottom-style: solid;
 top: 0px;
@@ -665,7 +666,7 @@ margin-left: 8px;
  p {
   &:before {
    content: ".";
-   color: #9855D4;
+   color: #FFD129;
    background-image: url("../img/marker_image.png");
    background-size: 0.3125rem 1.3125rem;
    position: absolute;
@@ -699,7 +700,7 @@ text-decoration:none;
 .docBodyTitle{
  font-family: 'Helvetica Neue for IBM';
  font-size: 18px;
- color: #5F2788;
+ color: #FFD129;
  letter-spacing: 0.27px;
  line-height: 21px;
  vertical-align: top;
@@ -709,7 +710,7 @@ text-decoration:none;
  padding-top: 23px;
  font-family: 'Helvetica Neue for IBM';
  font-size: 12px;
- color:#5F2788;
+ color:#FFD129;
  letter-spacing: 0.2px;
  line-height: 17px;
 }
@@ -725,7 +726,7 @@ text-decoration:none;
 .titleText{
  font-family: 'Helvetica Neue for IBM';
  font-size: 12px;
- color: #CD91FF;
+ color: #FCA311;
  letter-spacing: 0.18px;
  line-height: 26px;
  background: #F7F7F7;

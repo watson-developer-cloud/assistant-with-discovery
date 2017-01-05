@@ -257,16 +257,16 @@ export class AppComponent {
       rightColumn.classList.add ('no-show');
     } else if (window.innerWidth < 830) {
       rightColumn.classList.remove ('no-show');
-      rightColumn.style.width = '340px';
+      rightColumn.style.width = '0px';
     } else if (window.innerWidth < 860) {
       rightColumn.classList.remove ('no-show');
-      rightColumn.style.width = '445px';
+      rightColumn.style.width = '0px';
     } else if (window.innerWidth < 951) {
       rightColumn.classList.remove ('no-show');
-      rightColumn.style.width = '395px';
+      rightColumn.style.width = '0px';
     } else {
       rightColumn.classList.remove ('no-show');
-      rightColumn.style.width = '445px';
+      rightColumn.style.width = '0px';
     }
   }
 /*
@@ -289,7 +289,7 @@ export class AppComponent {
       this.resizePayloadColumn (rightColumn);
     } else {
       rightColumn.classList.remove ('no-show');
-      rightColumn.style.width = '100%';
+      rightColumn.style.width = '0%';
       toggleButton.classList.add ('full');
       payloadColumn.classList.add ('full');
     }

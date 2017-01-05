@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -281,5 +282,4 @@ public class ProxyResource {
 		cloudantLogging.log(response.getInputText(), intent, confidence, entity, convoOutput, convoId,
 				retrieveAndRankOutput);
 	}
-
 }
