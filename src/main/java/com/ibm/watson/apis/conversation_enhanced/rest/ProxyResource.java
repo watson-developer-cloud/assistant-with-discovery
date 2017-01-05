@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -93,6 +95,40 @@ public class ProxyResource {
     return null;
   }
 
+
+  private MessageResponse getWatsonResponse(MessageRequest request, String id) throws Exception {
+    ConversationService service =
+            new ConversationService(API_VERSION != null ? API_VERSION : ConversationService.VERSION_DATE_2016_05_19);
+    if (USERNAME != null || PASSWORD != null) {
+      service.setUsernameAndPassword(USERNAME, PASSWORD);
+    }
+    if (URL != null) {
+      service.setEndPoint(URL);
+    }
+
+    // Use the previously configured service object to make a call to the conversational service
+    MessageResponse response = service.message(id, request).execute();
+
+    String contents = response.getOutput().get("text").toString();
+
+    if (StringUtils.contains(contents, "resolve_phone_number")){
+      String[] value = new String[]{"Putin!!!"};
+      response.getOutput().put("text",value);
+      response.getContext();
+    }
+
+    // Log User input and output from Watson
+    if (Boolean.TRUE.equals(LOGGING_ENABLED)) {
+      logResponse(response);
+    }
+
+    return response;
+  }
+
+
+
+
+
   /**
    * This method is responsible for sending the query the user types into the UI to the Watson
    * services. The code demonstrates how the conversation service is called, how the response is
@@ -104,7 +140,7 @@ public class ProxyResource {
    *         response. If the intent confidence is high or the intent is out_of_scope, the response
    *         will also contain information from the retrieve and rank service
    */
-  private MessageResponse getWatsonResponse(MessageRequest request, String id) throws Exception {
+  private MessageResponse getWatsonResponseOrig(MessageRequest request, String id) throws Exception {
 
     // Configure the Watson Developer Cloud SDK to make a call to the appropriate conversation
     // service. Specific information is obtained from the VCAP_SERVICES environment variable

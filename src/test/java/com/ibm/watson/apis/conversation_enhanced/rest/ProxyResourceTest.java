@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -36,7 +37,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 /**
  * Unit tests for the {@link ConversationService}
  */
-
+@Ignore
 public class ProxyResourceTest {
   private static final String FIXTURE = "src/test/resources/conversation.json";
   private static final String WORKSPACE_ID = "123";
