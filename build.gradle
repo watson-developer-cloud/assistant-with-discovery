@@ -37,6 +37,7 @@ dependencies {
     compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.3.1'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.6'
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.3.2'
+    compile group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
     compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
     compile group: 'commons-validator', name: 'commons-validator', version: '1.4.0'
@@ -48,6 +49,8 @@ dependencies {
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
     compile group: 'com.ibm.watson.developer_cloud', name: 'java-sdk', version:'3.0.2-SNAPSHOT'
     compile group: 'com.cloudant', name: 'cloudant-client', version: '2.5.0'
+	compile group: 'com.fasterxml', name: 'jackson-xml-databind', version: '0.6.2'
+
 
     testCompile 'com.sun.jersey:jersey-client:1.19.1'
     testCompile 'org.mockito:mockito-core:1.+'
