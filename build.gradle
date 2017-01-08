@@ -52,7 +52,6 @@ dependencies {
 	compile group: 'com.fasterxml', name: 'jackson-xml-databind', version: '0.6.2'
 
 
-
     testCompile 'com.sun.jersey:jersey-client:1.19.1'
     testCompile 'org.mockito:mockito-core:1.+'
     testCompile 'org.powermock:powermock-module-junit4:1.6.5'

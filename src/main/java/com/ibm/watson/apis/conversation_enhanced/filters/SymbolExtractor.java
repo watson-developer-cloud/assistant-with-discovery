@@ -1,8 +1,7 @@
-package com.ibm.watson.apis.conversation_enhanced.utils;
+package com.ibm.watson.apis.conversation_enhanced.filters;
 
 import java.io.IOException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
 public class SymbolExtractor {
@@ -11,8 +10,7 @@ public class SymbolExtractor {
 		ObjectMapper mapper = new ObjectMapper();
 		StockQuote obj;
 		try {
-			String substringBetween = StringUtils.substringBetween(sampleJSON, "[", "]");
-			obj = mapper.readValue(substringBetween, StockQuote.class);
+			obj = mapper.readValue(sampleJSON, StockQuote.class);
 		} catch (IOException e) {
 			return null;
 		}

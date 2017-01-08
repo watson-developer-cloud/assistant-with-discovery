@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,18 +31,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
+import com.ibm.watson.apis.conversation_enhanced.filters.StockQuoteFilter;
+import com.ibm.watson.apis.conversation_enhanced.filters.WeatherLookupFilter;
 import com.ibm.watson.apis.conversation_enhanced.payload.DocumentPayload;
 import com.ibm.watson.apis.conversation_enhanced.retrieve_and_rank.Client;
 import com.ibm.watson.apis.conversation_enhanced.utils.Logging;
 import com.ibm.watson.apis.conversation_enhanced.utils.Messages;
-import com.ibm.watson.apis.conversation_enhanced.utils.StockSampleQuote;
-import com.ibm.watson.apis.conversation_enhanced.utils.SymbolExtractor;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
@@ -108,15 +106,13 @@ public class ProxyResource {
 			service.setEndPoint(URL);
 		}
 
-		// Use the previously configured service object to make a call to the
-		// conversational service
 		MessageResponse response = service.message(id, request).execute();
-		String contents = response.getOutput().get("text").toString();
-		String symbol = new SymbolExtractor().getSymbol(contents);
-		if (symbol != null) {
-			String[] value = new String[] { getQuickQuote(symbol) };
+
+		String filteredContents = filter(response.getOutput().get("text").toString());
+
+		if (filteredContents != null) {
+			String[] value = new String[] { filteredContents };
 			response.getOutput().put("text", value);
-			response.getContext();
 		}
 
 		// Log User input and output from Watson
@@ -127,14 +123,14 @@ public class ProxyResource {
 		return response;
 	}
 
-	private String getQuickQuote(String stockSymbol) {
-		try {
-			return new StockSampleQuote().getQuickQuote(stockSymbol);
-		} catch (Exception e) {
-			return "Something went wrong, quote unavalable.";
-		}
+	
+	//Please don't ask for stocks and weather in the same sentence 
+	private String filter(String contents) {
+		String contentNoBrackets = StringUtils.substringBetween(contents, "[", "]");
+		String weatherContent = new WeatherLookupFilter().filter(contentNoBrackets);
+		return (weatherContent != null) ? weatherContent : new StockQuoteFilter().filter(contentNoBrackets);
 	}
-
+ 
 	/**
 	 * This method is responsible for sending the query the user types into the
 	 * UI to the Watson services. The code demonstrates how the conversation
