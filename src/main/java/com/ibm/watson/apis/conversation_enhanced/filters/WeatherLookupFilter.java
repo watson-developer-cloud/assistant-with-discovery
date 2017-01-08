@@ -62,7 +62,7 @@ class WeatherReport {
 	String country;
 
 	public String toString() {
-		return "Right in " + city + "," + country + " it is : " + description + " and " + temp + " degrees celsius";
+		return "Right now in " + city + " " + country + " it is : " + description + " and " + temp + " degrees celsius";
 	}
 
 }
