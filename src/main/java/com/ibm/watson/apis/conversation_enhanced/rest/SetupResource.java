@@ -54,16 +54,13 @@ public class SetupResource {
     config.addProperty(Constants.SETUP_STEP, "0"); //$NON-NLS-1$ //$NON-NLS-2$
     config.addProperty(Constants.SETUP_STATE, Constants.NOT_READY); //$NON-NLS-1$ //$NON-NLS-2$
     config.addProperty(Constants.SETUP_PHASE, Messages.getString("SetupResource.PHASE_ERROR")); //$NON-NLS-1$ //$NON-NLS-2$
-    config.addProperty(Constants.SETUP_MESSAGE, Messages.getString("SetupResource.ERROR_CHECK_LOGS")); //$NON-NLS-1$ //$NON-NLS-2$
+    config.addProperty(Constants.SETUP_MESSAGE, Messages.getString("SetupResource.CHECK_LOGS")); //$NON-NLS-1$ //$NON-NLS-2$
 
     // Fetch the updated config JSON object from the servlet listener
     config = new ServletContextListener().getJsonConfig();
     config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG")); //$NON-NLS-1$ //$NON-NLS-2$
     logger.debug(Messages.getString("SetupResource.CONFIG_STATUS") + config);
 
-    // The following checks for the workspace_id after the Retrieve and
-    // Rank service is ready for the user. This is done so that when the initial setup is being
-    // done, the user can setup the Conversation service Workspace and provide it's id.
     if (config.get(Constants.SETUP_STEP).getAsInt() == 3 && config.get(Constants.SETUP_STATE).getAsString().equalsIgnoreCase(Constants.READY)) {
       if (StringUtils.isNotBlank(workspace_id)) {
         config.addProperty(Constants.WORKSPACE_ID, workspace_id); //$NON-NLS-1$

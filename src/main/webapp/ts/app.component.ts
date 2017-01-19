@@ -119,7 +119,7 @@ export class AppComponent {
   }
 /*
  * This method is responsible for detecting if the set-up processs involving creation of various Watson services
- * and configuring them is complete. The status is checked every one minute till its complete.
+ * and configuring them is complete. The status is checked every 5 seconds till its complete.
  * A loading screen is displayed to show set-up progress accordingly.
  */
   private checkSetup (_dialogService : DialogService) {
@@ -183,7 +183,7 @@ export class AppComponent {
           }
           this.setupTimer = setTimeout(() => {
             this.checkSetup(_dialogService);
-          }, 60000);
+          }, 5000);
         } else {
           let payload = {'input': {'text': ''}};
           let chatColumn = <HTMLElement>document.querySelector ('#scrollingChat');

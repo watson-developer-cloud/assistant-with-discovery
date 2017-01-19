@@ -35,13 +35,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
+import com.ibm.watson.apis.conversation_enhanced.discovery.DiscoveryClient;
 import com.ibm.watson.apis.conversation_enhanced.payload.DocumentPayload;
-import com.ibm.watson.apis.conversation_enhanced.retrieve_and_rank.Client;
-import com.ibm.watson.apis.conversation_enhanced.utils.Logging;
+import com.ibm.watson.apis.conversation_enhanced.utils.Constants;
 import com.ibm.watson.apis.conversation_enhanced.utils.Messages;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
@@ -53,8 +53,11 @@ public class ProxyResource {
   private static String PASSWORD;
   private static String URL;
   private static String USERNAME;
-
-  private static boolean LOGGING_ENABLED = Boolean.parseBoolean(System.getenv("LOGGING_ENABLED"));
+  
+  public ProxyResource() {
+	  USERNAME = System.getenv("CONVERSATION_USERNAME");
+	  PASSWORD = System.getenv("CONVERSATION_PASSWORD");
+  }
 
   public static void setConversationAPIVersion(String version) {
     API_VERSION = version;
@@ -109,13 +112,12 @@ public class ProxyResource {
     // Configure the Watson Developer Cloud SDK to make a call to the appropriate conversation
     // service. Specific information is obtained from the VCAP_SERVICES environment variable
     ConversationService service =
-        new ConversationService(API_VERSION != null ? API_VERSION : ConversationService.VERSION_DATE_2016_05_19);
+        new ConversationService(API_VERSION != null ? API_VERSION : ConversationService.VERSION_DATE_2016_09_20);
     if (USERNAME != null || PASSWORD != null) {
       service.setUsernameAndPassword(USERNAME, PASSWORD);
     }
-    if (URL != null) {
-      service.setEndPoint(URL);
-    }
+    
+    service.setEndPoint(URL == null ? Constants.CONVERSATION_END_POINT : URL);
 
     // Use the previously configured service object to make a call to the conversational service
     MessageResponse response = service.message(id, request).execute();
@@ -128,7 +130,9 @@ public class ProxyResource {
 
       // Extract the user's original query from the conversational response
       if (query != null && !query.isEmpty()) {
-        Client retrieveAndRankClient = new Client();
+    	  
+    	  DiscoveryClient discoveryClient = new DiscoveryClient();
+    	  
 
         // For this app, both the original conversation response and the retrieve and rank response
         // are sent to the UI. Extract and add the conversational response to the ultimate response
@@ -140,18 +144,13 @@ public class ProxyResource {
           output = new HashMap<String, Object>();
           response.setOutput(output);
         }
+        
+     // Send the user's question to the discovery service
+        List<DocumentPayload> docs = discoveryClient.getDocuments(query);
 
-        // Send the user's question to the retrieve and rank service
-        List<DocumentPayload> docs = retrieveAndRankClient.getDocuments(query);
-
-        // Append the retrieve and rank answers to the output object that will be sent to the UI
+        // Append the discovery answers to the output object that will be sent to the UI
         output.put("CEPayload", docs); //$NON-NLS-1$
       }
-    }
-
-    // Log User input and output from Watson
-    if (Boolean.TRUE.equals(LOGGING_ENABLED)) {
-      logResponse(response);
     }
 
     return response;
@@ -181,45 +180,13 @@ public class ProxyResource {
         errorsOutput.put("error", Messages.getString("ProxyResource.MALFORMED_URL")); //$NON-NLS-1$
       } else if (e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")) {
         errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_WORKSPACEID")); //$NON-NLS-1$
-      } else if (e.getMessage().contains("/fcselect.")) {
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_COLLECTION_NAME")); //$NON-NLS-1$
-      } else if (e.getMessage().contains("is not authorized for cluster") && e.getMessage().contains("and ranker")) {
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_RANKER_ID")); //$NON-NLS-1$
       } else {
         errorsOutput.put("error", Messages.getString("ProxyResource.GENERIC_ERROR")); //$NON-NLS-1$
       }
-      logger.error(Messages.getString("ProxyResource.SOLR_QUERY_EXCEPTION") + e.getMessage()); //$NON-NLS-1$
+      e.printStackTrace();
+      logger.error(Messages.getString("ProxyResource.QUERY_EXCEPTION") + e.getMessage()); //$NON-NLS-1$
       return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
     }
     return Response.ok(new Gson().toJson(response, MessageResponse.class)).type(MediaType.APPLICATION_JSON).build();
   }
-  
-  /**
-   * 
-   * This method takes in the response object and sends in to the cloudant logging class
-   * 
-   * @param response
-   * @throws Exception 
-   */
-  private void logResponse(MessageResponse response) throws Exception {
-    Logging cloudantLogging = new Logging();
-    String intent = "<no intent>";
-    String confidence = "<no confidence>";
-    if (!response.getIntents().isEmpty() && response.getIntents().get(0) != null) {
-      intent = response.getIntents().get(0).getIntent();
-      confidence = response.getIntents().get(0).getConfidence().toString();
-    }
-    String entity = response.getEntities().size() > 0 ? "Entity: " + response.getEntities().get(0).getEntity()
-        + " Value:" + response.getEntities().get(0).getValue() : "<no entity>";
-    String convoOutput = (String) (response.getOutput().get("text") != null
-        ? response.getOutput().get("text").toString() : "<no response>");
-    String convoId = (String) (response.getContext().get("conversation_id") != null
-        ? (response.getContext().get("conversation_id")).toString() : "<no conversation id>");
-    String retrieveAndRankOutput = (String) (response.getOutput().get("CEPayload") != null
-        ? response.getOutput().get("CEPayload").toString() : "<no payload>");
-    
-    cloudantLogging.log(response.getInputText(), intent, confidence, entity, convoOutput, convoId,
-        retrieveAndRankOutput);
-  }
-
 }

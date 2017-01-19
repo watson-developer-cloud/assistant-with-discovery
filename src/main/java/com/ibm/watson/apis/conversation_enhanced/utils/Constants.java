@@ -41,5 +41,18 @@ public class Constants {
   public static final String READY = "ready";
   public static final String NOT_READY = "not_ready";
   
+  public static final String CONVERSATION_END_POINT = "https://gateway.watsonplatform.net/conversation/api";
+  
   public static final String WORKSPACE_ID = "WORKSPACE_ID";
+  
+  // Discovery fields
+  
+  public static final String DISCOVERY_FIELD_ID = "id";
+  public static final String DISCOVERY_FIELD_BODY = "contentHtml";
+  public static final String DISCOVERY_FIELD_TITLE = "title";
+  public static final String DISCOVERY_FIELD_SOURCE_URL = "sourceUrl";
+  public static final String DISCOVERY_FIELD_CONFIDENCE = "score";
+  public static final String DISCOVERY_END_POINT = "https://gateway.watsonplatform.net/discovery/api/";
+  public static final String DISCOVERY_VERSION = "2016-12-01";
+  
 }

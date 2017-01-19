@@ -143,7 +143,7 @@ public class DocumentPayload {
   }
 
   @Override public String toString() {
-    return "Track [title=" + title + ", body=" + body + "]";
+    return "Track [title=" + title + ", body=" + body + ", score=" + confidence + "]";
   }
 
 }

@@ -13,6 +13,10 @@
  */
 package com.ibm.watson.apis.conversation_enhanced.rest;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import javax.ws.rs.core.Response;
 
 import org.junit.Before;
@@ -24,10 +28,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.apis.conversation_enhanced.listener.ServletContextListener;
-import com.ibm.watson.apis.conversation_enhanced.rest.SetupResource;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for the {@link SetupResource}
@@ -57,6 +57,8 @@ public class SetupResourceTest {
     when(mockServletContextListener.getJsonConfig()).thenReturn(config);
     PowerMockito.whenNew(ServletContextListener.class).withAnyArguments().thenReturn(mockServletContextListener);
     when(System.getenv("WORKSPACE_ID")).thenReturn(WORKSPACE_ID);
+    when(System.getenv("PASSWORD")).thenReturn("accdefghi");
+    when(System.getenv("USERNAME")).thenReturn("abcd-efgh-ijkl");
 
     // when
     Response response = setupResource.getConfig();
@@ -74,6 +76,8 @@ public class SetupResourceTest {
     when(mockServletContextListener.getJsonConfig()).thenReturn(config);
     PowerMockito.whenNew(ServletContextListener.class).withAnyArguments().thenReturn(mockServletContextListener);
     when(System.getenv("WORKSPACE_ID")).thenReturn(WORKSPACE_ID);
+    when(System.getenv("PASSWORD")).thenReturn("accdefghi");
+    when(System.getenv("USERNAME")).thenReturn("abcd-efgh-ijkl");
 
     // when
     Response response = setupResource.getConfig();
@@ -88,6 +92,9 @@ public class SetupResourceTest {
     config.addProperty("setup_step", "0");
     config.addProperty("setup_state", "not_ready");
     config.addProperty("setup_message", "error");
+    
+    when(System.getenv("PASSWORD")).thenReturn("accdefghi");
+    when(System.getenv("USERNAME")).thenReturn("abcd-efgh-ijkl");
 
     when(mockServletContextListener.getJsonConfig()).thenReturn(config);
     PowerMockito.whenNew(ServletContextListener.class).withAnyArguments().thenReturn(mockServletContextListener);
@@ -105,6 +112,8 @@ public class SetupResourceTest {
     config.addProperty("setup_step", "3");
     config.addProperty("setup_state", "ready");
     config.addProperty("setup_message", "all good");
+    when(System.getenv("PASSWORD")).thenReturn("accdefghi");
+    when(System.getenv("USERNAME")).thenReturn("abcd-efgh-ijkl");
 
     when(mockServletContextListener.getJsonConfig()).thenReturn(config);
     PowerMockito.whenNew(ServletContextListener.class).withAnyArguments().thenReturn(mockServletContextListener);

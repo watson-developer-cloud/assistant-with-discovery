@@ -24,7 +24,7 @@ import {Component} from 'angular2/core';
   <div>
       <div title='View detailed Content' (click)='toggle(!isExpand)' class='docBody'>
         <div class='docBodyTitle' [innerHtml]='getTitle()'></div>
-        <div class='docBodySnippet' [innerHtml]='getHighlighting()'></div>
+        <div class='docBodySnippet' [innerHtml]=''></div>
       </div>
       <div class ='modal' [hidden]='isExpand'>
       <div class='modal-header'><div [innerHtml]='getTitle()' class='modal-doc'></div>
@@ -69,15 +69,6 @@ export class CeDocComponent {
   private getSourceUrl () {
     if (this.doc) {
       return this.doc.sourceUrl;
-    }
-    return '';
-  }
-/*
- * Displays the Solr highlighted text with a special style.
- */
-  private getHighlighting () {
-    if (this.doc) {
-      return this.doc.highlight.replace (/<em>/g, '<span class=highlighted>').replace (/<\/em>/g, '<\/span>');
     }
     return '';
   }
