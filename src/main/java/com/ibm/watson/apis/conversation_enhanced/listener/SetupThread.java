@@ -89,7 +89,7 @@ public class SetupThread extends Thread {
 
 			userName = System.getenv("CONVERSATION_USERNAME");
 			password = System.getenv("CONVERSATION_PASSWORD");
-			String workspaceId = System.getenv("CONVERSATION_WORKSPACE_ID");
+			String workspaceId = System.getenv("WORKSPACE_ID");
 
 			if (userName == null || password == null || workspaceId == null) {
 				throw new IllegalArgumentException(Messages.getString("SetupThread.CONV_INVALID_CREDS"));

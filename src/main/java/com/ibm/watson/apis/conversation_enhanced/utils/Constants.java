@@ -22,15 +22,7 @@ public class Constants {
   public static final String SCHEMA_FIELD_SOURCE_URL = "sourceUrl";
   public static final String SCHEMA_FIELD_TITLE = "title";
   public static final String SCHEMA_FIELD_CONFIDENCE = "ranker.confidence";
-  
-  // Number of results to fetch in Query
-  public static final Integer RESULTS_TO_FETCH = 5;
-  
-  // Retrieve and Rank Fields
-  public static final String COLLECTION_NAME = "car_collection";
-  public static final String CONFIGURATION_NAME = "car_config";
-  public static final String CLUSTER_NAME = "car_cluster";
-  public static final String RANKER_NAME = "ranker-CarManual";
+
   
   // Setup config JSON object Fields
   public static final String SETUP_STEP = "setup_step";
@@ -41,11 +33,11 @@ public class Constants {
   public static final String READY = "ready";
   public static final String NOT_READY = "not_ready";
   
-  public static final String CONVERSATION_END_POINT = "https://gateway.watsonplatform.net/conversation/api";
-  
   public static final String WORKSPACE_ID = "WORKSPACE_ID";
   
-  // Discovery fields
+  public static final String CONVERSATION_END_POINT = "https://gateway.watsonplatform.net/conversation/api";
+  
+  // Discovery JSON objectfields
   
   public static final String DISCOVERY_FIELD_ID = "id";
   public static final String DISCOVERY_FIELD_BODY = "contentHtml";
@@ -54,5 +46,6 @@ public class Constants {
   public static final String DISCOVERY_FIELD_CONFIDENCE = "score";
   public static final String DISCOVERY_END_POINT = "https://gateway.watsonplatform.net/discovery/api/";
   public static final String DISCOVERY_VERSION = "2016-12-01";
+  public static final int DISCOVERY_MAX_SEARCH_RESULTS_TO_SHOW = 3;
   
 }

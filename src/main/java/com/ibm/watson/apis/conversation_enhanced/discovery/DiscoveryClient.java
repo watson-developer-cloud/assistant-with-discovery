@@ -72,7 +72,7 @@ public class DiscoveryClient {
     HashMap<String, Integer> hm = new HashMap<String, Integer>();
     JsonElement jelement = new JsonParser().parse(results);
     JsonArray jarray = jelement.getAsJsonArray();
-    for (int i = 0; i < jarray.size() && i < 2; i++) {
+    for (int i = 0; i < jarray.size() && i < Constants.DISCOVERY_MAX_SEARCH_RESULTS_TO_SHOW; i++) {
       DocumentPayload documentPayload = new DocumentPayload();
       String id = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"", ""); //$NON-NLS-1$ //$NON-NLS-2$
       documentPayload.setId(id);
@@ -104,24 +104,10 @@ public class DiscoveryClient {
       documentPayload.setHighlight(null);
       
       payload.add(i, documentPayload);
-      
-      logger.info(documentPayload.toString());
+
       hm.put(id, i);
     }
-//    jelement = new JsonParser().parse(highlights);
-//    JsonObject highlight = jelement.getAsJsonObject();
-//    // Add highlighting information
-//    Set<Map.Entry<String, JsonElement>> entrySet = highlight.entrySet();
-//    for (Map.Entry<String, JsonElement> entry : entrySet) {
-//      String docid = entry.getKey();
-//      String highlighted = ""; //$NON-NLS-1$
-//      if (entry.getValue().getAsJsonObject().get(Constants.SCHEMA_FIELD_BODY) != null) {
-//        highlighted = entry.getValue().getAsJsonObject().get(Constants.SCHEMA_FIELD_BODY).getAsJsonArray()
-//            .get(0).toString();
-//      }
-//      if (hm.get(docid) != null)
-//        payload.get(hm.get(docid)).setHighlight(highlighted);
-//    }
+
     return payload;
   }
 
