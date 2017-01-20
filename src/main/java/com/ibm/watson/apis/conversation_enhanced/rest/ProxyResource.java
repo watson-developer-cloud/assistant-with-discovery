@@ -50,14 +50,10 @@ public class ProxyResource {
   private static final Logger logger = LogManager.getLogger(ProxyResource.class.getName());
 
   private static String API_VERSION;
-  private static String PASSWORD;
+  private static String PASSWORD = System.getenv("CONVERSATION_PASSWORD");
   private static String URL;
-  private static String USERNAME;
-  
-  public ProxyResource() {
-	  USERNAME = System.getenv("CONVERSATION_USERNAME");
-	  PASSWORD = System.getenv("CONVERSATION_PASSWORD");
-  }
+  private static String USERNAME = System.getenv("CONVERSATION_USERNAME");
+
 
   public static void setConversationAPIVersion(String version) {
     API_VERSION = version;

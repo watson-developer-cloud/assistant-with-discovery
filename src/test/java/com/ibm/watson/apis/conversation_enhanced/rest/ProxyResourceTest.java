@@ -67,35 +67,34 @@ public class ProxyResourceTest {
    * @throws InterruptedException the 4interrupted exception
    */
   @Test public void testSendMessage() throws IOException, InterruptedException {
-	  
-	  // TODO fix this test
 
-//    String text = "I'd like to get a quote to replace my windows";
-//
-//    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
-//    ProxyResource proxy = new ProxyResource();
-//
-//    server.enqueue(jsonResponse(mockResponse));
-//
-//    MessageRequest request = new MessageRequest.Builder().inputText(text).build();
-//    String payload = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(request, MessageRequest.class);
-//    InputStream inputStream = new ByteArrayInputStream(payload.getBytes());
-//    
-//    Response jaxResponse = proxy.postMessage(WORKSPACE_ID, inputStream);
-//    MessageResponse serviceResponse = GsonSingleton.getGsonWithoutPrettyPrinting()
-//        .fromJson(jaxResponse.getEntity().toString(), MessageResponse.class);
-//
-//    RecordedRequest mockRequest = server.takeRequest();
-//    List<String> serviceText = serviceResponse.getText();
-//    List<String> mockText = serviceResponse.getText();
-//    assertNotNull(serviceText);
-//    assertNotNull(mockText);
-//    assertTrue(serviceText.containsAll(mockText) && mockText.containsAll(serviceText));
-//    assertEquals(serviceResponse, mockResponse);
-//    assertEquals(serviceResponse.getTextConcatenated(" "), mockResponse.getTextConcatenated(" "));
-//
-//    assertEquals(mockRequest.getMethod(), "POST");
-//    assertNotNull(mockRequest.getHeader(HttpHeaders.AUTHORIZATION));
+    String text = "I'd like to get a quote to replace my windows";
+
+    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
+    ProxyResource proxy = new ProxyResource();
+
+    server.enqueue(jsonResponse(mockResponse));
+
+    MessageRequest request = new MessageRequest.Builder().inputText(text).build();
+    String payload = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(request, MessageRequest.class);
+    System.out.println("PAYLOAD: " + payload);
+    InputStream inputStream = new ByteArrayInputStream(payload.getBytes());
+    
+    Response jaxResponse = proxy.postMessage(WORKSPACE_ID, inputStream);
+    MessageResponse serviceResponse = GsonSingleton.getGsonWithoutPrettyPrinting()
+        .fromJson(jaxResponse.getEntity().toString(), MessageResponse.class);
+
+    RecordedRequest mockRequest = server.takeRequest();
+    List<String> serviceText = serviceResponse.getText();
+    List<String> mockText = serviceResponse.getText();
+    assertNotNull(serviceText);
+    assertNotNull(mockText);
+    assertTrue(serviceText.containsAll(mockText) && mockText.containsAll(serviceText));
+    assertEquals(serviceResponse, mockResponse);
+    assertEquals(serviceResponse.getTextConcatenated(" "), mockResponse.getTextConcatenated(" "));
+
+    assertEquals(mockRequest.getMethod(), "POST");
+    assertNotNull(mockRequest.getHeader(HttpHeaders.AUTHORIZATION));
   }
 
   public static <T> T loadFixture(String filename, Class<T> returnType) throws FileNotFoundException {
