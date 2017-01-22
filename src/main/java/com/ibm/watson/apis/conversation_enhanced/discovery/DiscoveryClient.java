@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.solr.client.solrj.SolrServerException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -38,12 +37,12 @@ public class DiscoveryClient {
 
   /**
    * This method uses the Query object to send the user's query (the
-   * <code>input</code> param) to the retrieve and rank service
+   * <code>input</code> param) to the discovery service
    * 
-   * @param input The user's query to be sent to the retrieve and rank service
+   * @param input The user's query to be sent to the discovery service
    * @return A list of DocumentPayload objects, each representing a single document the retrieve and
    *         rank service believes is a possible answer to the user's query
-   * @throws SolrServerException
+   * @throws Exception
    * @throws IOException
    */
   public List<DocumentPayload> getDocuments(String input) throws Exception {
@@ -56,13 +55,11 @@ public class DiscoveryClient {
 
   /**
    * Helper Method to include highlighting information along with the retrieve and rank response so
-   * the final payload includes id,title,highlight,body,sourceUrl as json key value pairs.
+   * the final payload includes id,title,body,sourceUrl as json key value pairs.
    * 
-   * @param input The user's query sent to the retrieve and rank service
+   * @param input The user's query sent to the discovery service
    * @param results The results obtained from a call to the retrieve and rank service with
    *        <code>input</code> as the query
-   * @param highlights SOLR highlighting information obtained from a call to the retrieve and rank
-   *        service
    * @return A list of DocumentPayload objects, each representing a single document the retrieve and
    *         rank service believes is a possible answer to the user's query
    */
@@ -84,7 +81,6 @@ public class DiscoveryClient {
             limitParagraph(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY).toString()
                 .replaceAll("\"", ""))); //$NON-NLS-1$ //$NON-NLS-2$
         
-        //documentPayload.setBody("Hello");
       } else {
         documentPayload.setBody("empty"); //$NON-NLS-1$
       }

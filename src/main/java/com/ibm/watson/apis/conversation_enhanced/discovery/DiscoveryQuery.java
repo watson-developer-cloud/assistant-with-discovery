@@ -28,14 +28,17 @@ public class DiscoveryQuery {
 	
 	private String environmentId;
 	
-
-	//private static final Logger logger = LogManager.getLogger(DiscoveryQuery.class.getName());
+	private Discovery discovery;
 
 	public DiscoveryQuery() {
 		userName = System.getenv("DISCOVERY_USERNAME");
 		password = System.getenv("DISCOVERY_PASSWORD");
 		collectionId = System.getenv("DISCOVERY_COLECTION_ID");
 		environmentId = System.getenv("DISCOVERY_ENVIROMENT_ID");
+		
+		discovery = new Discovery(Constants.DISCOVERY_VERSION);
+		discovery.setEndPoint(Constants.DISCOVERY_URL);
+		discovery.setUsernameAndPassword(userName, password);
 	}
 
 	/**
@@ -48,23 +51,18 @@ public class DiscoveryQuery {
 	 * @throws Exception
 	 */
 	public QueryResponse query(String userQuery) throws Exception {
-
-		// Configure the Watson Developer Cloud SDK to make a call to the
-		// appropriate discovery
-		// service. Specific information is obtained from environment variable
-		// and the services
-		// associated with the app. See the Query constructor for details.
-
-		Discovery discovery = new Discovery(Constants.DISCOVERY_VERSION);
-		discovery.setEndPoint(Constants.DISCOVERY_END_POINT);
-		discovery.setUsernameAndPassword(userName, password);
-
-
 		QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
-		queryBuilder.query("searchText:" + userQuery + ",enrichedText:" + userQuery);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("searchText:");
+		sb.append(userQuery);
+		sb.append(",");
+		sb.append("enrichedText:");
+		sb.append(userQuery);
+		
+		queryBuilder.query(sb.toString());
 		QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-
-
+		
 		return queryResponse;
 	}
 }

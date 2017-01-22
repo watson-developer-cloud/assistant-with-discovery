@@ -19,14 +19,11 @@ import java.beans.PropertyChangeListener;
 import javax.servlet.ServletContextEvent;
 import com.google.gson.JsonObject;
 
-
-
 public class ServletContextListener implements javax.servlet.ServletContextListener, PropertyChangeListener {
 
   public static JsonObject config;
 
   public void contextDestroyed(ServletContextEvent arg0) {
-    // TODO Auto-generated method stub
   }
 
   public void contextInitialized(ServletContextEvent arg0) {

@@ -50,19 +50,26 @@ public class ProxyResource {
   private static final Logger logger = LogManager.getLogger(ProxyResource.class.getName());
 
   private static String API_VERSION;
-  private static String PASSWORD = System.getenv("CONVERSATION_PASSWORD");
-  private static String URL;
-  private static String USERNAME = System.getenv("CONVERSATION_USERNAME");
+  
+  private static final String ERROR = "error";
+  
+  private String password = System.getenv("CONVERSATION_PASSWORD");
+  
+  private String url;
+  
+  private String username = System.getenv("CONVERSATION_USERNAME");
+  
+  private DiscoveryClient discoveryClient = new DiscoveryClient();
 
 
   public static void setConversationAPIVersion(String version) {
     API_VERSION = version;
   }
 
-  public static void setCredentials(String username, String password, String url) {
-    USERNAME = username;
-    PASSWORD = password;
-    URL = url;
+  public void setCredentials(String username, String password, String url) {
+    this.username = username;
+    this.password = password;
+    this.url = url;
   }
 
   private MessageRequest buildMessageFromPayload(InputStream body) {
@@ -95,13 +102,13 @@ public class ProxyResource {
   /**
    * This method is responsible for sending the query the user types into the UI to the Watson
    * services. The code demonstrates how the conversation service is called, how the response is
-   * evaluated, and how the response is then sent to the retrieve and rank service if necessary.
+   * evaluated, and how the response is then sent to the discovery service if necessary.
    * 
    * @param request The full query the user asked of Watson
    * @param id The ID of the conversational workspace
    * @return The response from Watson. The response will always contain the conversation service's
    *         response. If the intent confidence is high or the intent is out_of_scope, the response
-   *         will also contain information from the retrieve and rank service
+   *         will also contain information from the discovery service
    */
   private MessageResponse getWatsonResponse(MessageRequest request, String id) throws Exception {
 
@@ -109,11 +116,11 @@ public class ProxyResource {
     // service. Specific information is obtained from the VCAP_SERVICES environment variable
     ConversationService service =
         new ConversationService(API_VERSION != null ? API_VERSION : ConversationService.VERSION_DATE_2016_09_20);
-    if (USERNAME != null || PASSWORD != null) {
-      service.setUsernameAndPassword(USERNAME, PASSWORD);
+    if (username != null || password != null) {
+      service.setUsernameAndPassword(username, password);
     }
     
-    service.setEndPoint(URL == null ? Constants.CONVERSATION_END_POINT : URL);
+    service.setEndPoint(url == null ? Constants.CONVERSATION_URL : url);
 
     // Use the previously configured service object to make a call to the conversational service
     MessageResponse response = service.message(id, request).execute();
@@ -126,13 +133,10 @@ public class ProxyResource {
 
       // Extract the user's original query from the conversational response
       if (query != null && !query.isEmpty()) {
-    	  
-    	  DiscoveryClient discoveryClient = new DiscoveryClient();
-    	  
 
-        // For this app, both the original conversation response and the retrieve and rank response
+        // For this app, both the original conversation response and the discovery response
         // are sent to the UI. Extract and add the conversational response to the ultimate response
-        // we will send to the user. The UI will process this response and show the top 5 retrieve
+        // we will send to the user. The UI will process this response and show the top 3 retrieve
         // and rank answers to the user in the main UI. The JSON response section of the UI will
         // show information from the calls to both services.
         Map<String, Object> output = response.getOutput();
@@ -141,7 +145,7 @@ public class ProxyResource {
           response.setOutput(output);
         }
         
-     // Send the user's question to the discovery service
+        // Send the user's question to the discovery service
         List<DocumentPayload> docs = discoveryClient.getDocuments(query);
 
         // Append the discovery answers to the output object that will be sent to the UI
@@ -169,17 +173,17 @@ public class ProxyResource {
 
     } catch (Exception e) {
       if (e instanceof UnauthorizedException) {
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS")); //$NON-NLS-1$
+        errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS")); //$NON-NLS-1$
       } else if (e instanceof IllegalArgumentException) {
-        errorsOutput.put("error", e.getMessage());
+        errorsOutput.put(ERROR, e.getMessage());
       } else if (e instanceof MalformedURLException) {
-        errorsOutput.put("error", Messages.getString("ProxyResource.MALFORMED_URL")); //$NON-NLS-1$
+        errorsOutput.put(ERROR, Messages.getString("ProxyResource.MALFORMED_URL")); //$NON-NLS-1$
       } else if (e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")) {
-        errorsOutput.put("error", Messages.getString("ProxyResource.INVALID_WORKSPACEID")); //$NON-NLS-1$
+        errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_WORKSPACEID")); //$NON-NLS-1$
       } else {
-        errorsOutput.put("error", Messages.getString("ProxyResource.GENERIC_ERROR")); //$NON-NLS-1$
+        errorsOutput.put(ERROR, Messages.getString("ProxyResource.GENERIC_ERROR")); //$NON-NLS-1$
       }
-      e.printStackTrace();
+
       logger.error(Messages.getString("ProxyResource.QUERY_EXCEPTION") + e.getMessage()); //$NON-NLS-1$
       return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
     }

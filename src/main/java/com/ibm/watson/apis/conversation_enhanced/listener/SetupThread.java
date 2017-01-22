@@ -32,11 +32,8 @@ import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 
 /**
  * This class is forked when the application is accessed for the first time. It
- * detects if the retrieve and rank service associated with the app (either
- * bound on bluemix or specified in server.env) has established artifacts such
- * as the SOLR cluster and ranker. If they are not there then the thread will go
- * ahead and create a cluster, upload a configuration, create a collection,
- * index documents, and create and train a ranker.
+ * tests if the conversation and discovery service associated with the app (either
+ * bound on bluemix or specified in server.env)
  */
 public class SetupThread extends Thread {
 	
@@ -75,7 +72,7 @@ public class SetupThread extends Thread {
 			status = "Discovery ";
 
 			Discovery discovery = new Discovery(Constants.DISCOVERY_VERSION);
-			discovery.setEndPoint(Constants.DISCOVERY_END_POINT);
+			discovery.setEndPoint(Constants.DISCOVERY_URL);
 			discovery.setUsernameAndPassword(userName, password);
 
 			QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
@@ -122,8 +119,7 @@ public class SetupThread extends Thread {
 
 	/**
 	 * Method to update the listeners about any property changes. This is used
-	 * by the UI to inform user what the status of the setup is since it can
-	 * take a long time.
+	 * by the UI to inform user what the status of the setup.
 	 * 
 	 * @param object
 	 * @param config

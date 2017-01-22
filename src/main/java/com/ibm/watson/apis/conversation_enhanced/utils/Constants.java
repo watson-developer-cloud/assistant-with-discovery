@@ -35,7 +35,7 @@ public class Constants {
   
   public static final String WORKSPACE_ID = "WORKSPACE_ID";
   
-  public static final String CONVERSATION_END_POINT = "https://gateway.watsonplatform.net/conversation/api";
+  public static final String CONVERSATION_URL = "https://gateway.watsonplatform.net/conversation/api";
   
   // Discovery JSON objectfields
   
@@ -44,7 +44,7 @@ public class Constants {
   public static final String DISCOVERY_FIELD_TITLE = "title";
   public static final String DISCOVERY_FIELD_SOURCE_URL = "sourceUrl";
   public static final String DISCOVERY_FIELD_CONFIDENCE = "score";
-  public static final String DISCOVERY_END_POINT = "https://gateway.watsonplatform.net/discovery/api/";
+  public static final String DISCOVERY_URL = "https://gateway.watsonplatform.net/discovery/api/";
   public static final String DISCOVERY_VERSION = "2016-12-01";
   public static final int DISCOVERY_MAX_SEARCH_RESULTS_TO_SHOW = 3;
   

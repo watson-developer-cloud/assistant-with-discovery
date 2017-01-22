@@ -50,10 +50,8 @@ public class ProxyResourceTest {
    */
   // @Override
   @Before public void setUp() throws Exception {
-
     server = new MockWebServer();
     server.start();
-    ProxyResource.setCredentials("dummy", "dummy", StringUtils.chop(server.url("/").toString()));
   }
 
   @After public void tearDown() throws IOException {
@@ -72,12 +70,14 @@ public class ProxyResourceTest {
 
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     ProxyResource proxy = new ProxyResource();
+    
+    proxy.setCredentials("dummy", "dummy", StringUtils.chop(server.url("/").toString()));
 
     server.enqueue(jsonResponse(mockResponse));
 
     MessageRequest request = new MessageRequest.Builder().inputText(text).build();
     String payload = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(request, MessageRequest.class);
-    System.out.println("PAYLOAD: " + payload);
+
     InputStream inputStream = new ByteArrayInputStream(payload.getBytes());
     
     Response jaxResponse = proxy.postMessage(WORKSPACE_ID, inputStream);
