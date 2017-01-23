@@ -36,7 +36,7 @@ public class Constants {
 
 	public static final String CONVERSATION_URL = "https://gateway.watsonplatform.net/conversation/api";
 
-	// Discovery JSON objectfields
+	// Discovery JSON object fields
 
 	public static final String DISCOVERY_FIELD_ID = "id";
 	public static final String DISCOVERY_FIELD_BODY = "contentHtml";

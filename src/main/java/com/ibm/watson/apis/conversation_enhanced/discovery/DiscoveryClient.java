@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +36,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
 public class DiscoveryClient {
 
 	private Pattern pattern = Pattern.compile("((.+?)</p>){1,2}");
+	
+	private static final int SNIPPET_LENGTH = 150;
 
 	private static final Logger logger = LogManager.getLogger(DiscoveryClient.class.getName());
 
@@ -45,16 +48,24 @@ public class DiscoveryClient {
 	 * @param input
 	 *            The user's query to be sent to the discovery service
 	 * @return A list of DocumentPayload objects, each representing a single
-	 *         document the retrieve and rank service believes is a possible
+	 *         document the discovery service believes is a possible
 	 *         answer to the user's query
 	 * @throws Exception
 	 * @throws IOException
 	 */
 	public List<DocumentPayload> getDocuments(String input) throws Exception {
-		List<DocumentPayload> documents = new ArrayList<DocumentPayload>();
+		List<DocumentPayload> documents = new ArrayList<>();
 		DiscoveryQuery discoveryQuery = new DiscoveryQuery();
 		QueryResponse output = discoveryQuery.query(input);
-		documents = createPayload(input, new Gson().toJson(output.getResults()));
+		
+		List<Map<String, Object>> results = output.getResults();
+		
+		String jsonRes = new Gson().toJson(results);
+		
+		JsonElement jelement = new JsonParser().parse(jsonRes);
+
+		documents = createPayload(input, jelement);
+		
 		return documents;
 	}
 
@@ -66,18 +77,21 @@ public class DiscoveryClient {
 	 * @param input
 	 *            The user's query sent to the discovery service
 	 * @param results
-	 *            The results obtained from a call to the retrieve and rank
+	 *            The results obtained from a call to the discovery service
 	 *            service with <code>input</code> as the query
 	 * @return A list of DocumentPayload objects, each representing a single
 	 *         document the discovery service believes is a possible answer to
 	 *         the user's query
 	 */
-	private List<DocumentPayload> createPayload(String input, String results) {
+	private List<DocumentPayload> createPayload(String input, JsonElement resultsElement) {
 		logger.info(Messages.getString("Service.CREATING_DISCOVERY_PAYLOAD"));
+		
 		List<DocumentPayload> payload = new ArrayList<DocumentPayload>();
+		
 		HashMap<String, Integer> hm = new HashMap<String, Integer>();
-		JsonElement jelement = new JsonParser().parse(results);
-		JsonArray jarray = jelement.getAsJsonArray();
+		
+		JsonArray jarray = resultsElement.getAsJsonArray();
+		
 		for (int i = 0; i < jarray.size() && i < Constants.DISCOVERY_MAX_SEARCH_RESULTS_TO_SHOW; i++) {
 			DocumentPayload documentPayload = new DocumentPayload();
 			String id = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"",
@@ -86,11 +100,17 @@ public class DiscoveryClient {
 			documentPayload.setTitle(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_TITLE).toString()
 					.replaceAll("\"", ""));
 			if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY) != null) {
-				documentPayload.setBody(
-						// This method limits the response text in this sample
-						// app to two paragraphs.
-						limitParagraph(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY).toString()
-								.replaceAll("\"", "")));
+				
+				String body = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY).toString()
+						.replaceAll("\"", "");
+				
+				// This method limits the response text in this sample
+				// app to two paragraphs.
+				String bodyTwoPara = limitParagraph(body);
+				
+				documentPayload.setBody(bodyTwoPara);
+				
+				documentPayload.setBodySnippet(getSniplet(body));
 
 			} else {
 				documentPayload.setBody("empty");
@@ -107,8 +127,6 @@ public class DiscoveryClient {
 			} else {
 				documentPayload.setConfidence("0.0");
 			}
-
-			documentPayload.setHighlight(null);
 
 			payload.add(i, documentPayload);
 
@@ -135,6 +153,26 @@ public class DiscoveryClient {
 		}
 
 		return returnString;
+	}
+	
+	/**
+	 * get first <code>SNIPPET_LENGTH</code> characters of body response
+	 * @param body discovery response
+	 * @return
+	 */
+	private String getSniplet(String body) {
+		if(body == null) {
+			return "";
+		}
+		
+		int len = body.length();
+		
+		if(len > SNIPPET_LENGTH) {
+			
+			body = body.substring(0, SNIPPET_LENGTH - 3) + "...";
+		}
+
+		return body;
 	}
 
 }

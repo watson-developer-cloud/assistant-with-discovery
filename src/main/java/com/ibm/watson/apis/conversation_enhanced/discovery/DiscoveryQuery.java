@@ -33,8 +33,8 @@ public class DiscoveryQuery {
 	public DiscoveryQuery() {
 		userName = System.getenv("DISCOVERY_USERNAME");
 		password = System.getenv("DISCOVERY_PASSWORD");
-		collectionId = System.getenv("DISCOVERY_COLECTION_ID");
-		environmentId = System.getenv("DISCOVERY_ENVIROMENT_ID");
+		collectionId = System.getenv("DISCOVERY_COLLECTION_ID");
+		environmentId = System.getenv("DISCOVERY_ENVIRONMENT_ID");
 
 		discovery = new Discovery(Constants.DISCOVERY_VERSION);
 		discovery.setEndPoint(Constants.DISCOVERY_URL);

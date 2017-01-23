@@ -56,8 +56,8 @@ public class SetupThread extends Thread {
 
 			String userName = System.getenv("DISCOVERY_USERNAME");
 			String password = System.getenv("DISCOVERY_PASSWORD");
-			String collectionId = System.getenv("DISCOVERY_COLECTION_ID");
-			String environmentId = System.getenv("DISCOVERY_ENVIROMENT_ID");
+			String collectionId = System.getenv("DISCOVERY_COLLECTION_ID");
+			String environmentId = System.getenv("DISCOVERY_ENVIRONMENT_ID");
 
 			if (userName == null || password == null || collectionId == null || environmentId == null) {
 				throw new IllegalArgumentException(Messages.getString("SetupThread.DISC_INVALID_CREDS"));

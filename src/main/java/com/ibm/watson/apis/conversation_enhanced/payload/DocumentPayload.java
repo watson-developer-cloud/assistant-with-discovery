@@ -23,6 +23,7 @@ public class DocumentPayload {
 
 	private String title;
 	private String body;
+	private String bodySnippet;
 	private String sourceUrl;
 	private String highlight;
 	private String id;
@@ -149,6 +150,15 @@ public class DocumentPayload {
 	 */
 	public void setConfidence(String confidence) {
 		this.confidence = confidence;
+	}
+	
+
+	public String getBodySnippet() {
+		return bodySnippet;
+	}
+
+	public void setBodySnippet(String bodySnippet) {
+		this.bodySnippet = bodySnippet;
 	}
 
 	@Override

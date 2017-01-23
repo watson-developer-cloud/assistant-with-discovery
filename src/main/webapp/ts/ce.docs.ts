@@ -24,7 +24,7 @@ import {Component} from 'angular2/core';
   <div>
       <div title='View detailed Content' (click)='toggle(!isExpand)' class='docBody'>
         <div class='docBodyTitle' [innerHtml]='getTitle()'></div>
-        <div class='docBodySnippet' [innerHtml]=''></div>
+        <div class='docBodySnippet' [innerHtml]='getBodySnippet()'></div>
       </div>
       <div class ='modal' [hidden]='isExpand'>
       <div class='modal-header'><div [innerHtml]='getTitle()' class='modal-doc'></div>
@@ -76,6 +76,13 @@ export class CeDocComponent {
   private getBody () {
     if (this.doc) {
       return this.doc.body;
+    }
+    return '';
+  }
+
+  private getBodySnippet () {
+    if (this.doc) {
+      return this.doc.bodySnippet;
     }
     return '';
   }
