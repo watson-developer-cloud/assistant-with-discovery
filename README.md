@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-enhanced.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-enhanced)
 
-This application demonstrates the combination of the [Conversation](http://www.ibm.com/watson/developercloud/doc/conversation/index.shtml) and [Retrieve and Rank](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/#overview) services. First, users pose questions to the Conversation service. If Conversation is not able to confidently answer, Conversation Enhanced executes a call to Retrieve and Rank to provide the user with a list of helpful answers.
+This application demonstrates the combination of the [Conversation](http://www.ibm.com/watson/developercloud/doc/conversation/index.shtml) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services. First, users pose questions to the Conversation service. If Conversation is not able to confidently answer, Conversation Enhanced executes a call to Discovery to provide the user with a list of helpful answers.
 
 <b>Either way you deploy this app, you must have a Bluemix account and run some steps within Bluemix.</b>
 
@@ -90,13 +90,13 @@ To watch a video about the code behind this app, see below.
 ## Setup Bluemix components
 </a>
 
-1. In Bluemix, [create a Conversation Service](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
+1. In Bluemix, [create a Conversation Service instance](http://www.ibm.com/watson/developercloud/doc/conversation/convo_getstart.shtml).
   * Create the [Service Credentials](#credentials).
   * [Import a workspace](#workspace).
 
-2. In Bluemix, [create a Retrieve and Rank Service](http://www.ibm.com/watson/developercloud/doc/retrieve-rank/get_start.shtml).<br>
+2. In Bluemix, [create a Discovery Service instance](https://console.ng.bluemix.net/catalog/services/discovery/).
   * Create the [Service Credentials](#credentials).
-
+  * [Ingest the documents into a new Discovery collection](#ingestion).
 
 ## Building locally
 
@@ -116,24 +116,62 @@ To build the application:
 1. Copy the WAR file generated above into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.<br>
 2. Navigate to the `conversation-enhanced/src/main/resources` folder. Copy the `server.env` file.<br>
 3. Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where < server name > is the name of the Liberty server you wish to use). Paste the `server.env` here.<br>
-4. In the `server.env` file, search for **"retrieve_and_rank"**:
-  - Replace the "name" field with the name you gave your Retrieve and Rank Service.  
-  - Replace the "password" field.
-  - Replace the "username" field.<br>
-5. In the `server.env`, search for **"conversation"**.  
-  - Replace the "name" field with the name you gave your Conversation Service.  
-  - Replace the "password" field.
-  - Replace the "username" field.<br>
-6. Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).<br>
-7. Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server).<br>
-8. Liberty notifies you when the server starts and includes the port information.<br>
-9. Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
+4. In the `server.env` file, in the **"conversation"** section.  
+  - Populate the "password" field.
+  - Populate the "username" field.
+  - Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).<br>
+5. In the `server.env` file, in the **"discovery"** section.  
+  - Populate the "password" field.
+  - Populate the "username" field.
+  - Add the **COLLECTION_ID** and **ENVIRONMENT_ID** that you [copied from the Discovery UI](#environmentID)<br>
+6. Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server).<br>
+7. Liberty notifies you when the server starts and includes the port information.<br>
+8. Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
+
+<a name="ingestion">
+# Create a collection and ingest documents in Discovery
+</a>
+
+1. Navigate to your Discovery instance in your Bluemix dashboard
+2. Launch the Discovery tooling
+  ![](readme_images/image.PNG)
+3. Create a new data collection, name it whatever you like, and select the default configuration.
+  ![](readme_images/image.PNG)
+  - After you're done, there should be a new private collection in the UI
+  ![](readme_image/image.PNG)
+4. Set up the custom configuration using **one** of the **two** options
+  4a. Upload the configuration [using the Discovery API](#configAPI)
+  4b. Enter the configuration settings [in the Discovery UI](#configUI)
+5. In the tooling interface, click "Switch" on the Configuration line and select the new CarManualConfig configuration
+  ![](readme_image/image.PNG)
+6. Add documents to your new collection
+  - Download the [manualdocs.zip]() in this repo
+  - Unzip this file to reveal a set of car manual docs in JSON format
+  - In the tooling interface, drag and drop (or browse and select) all of the JSON files into the "Add data to this collection" box
+  - This may take a few minutes -- you will see a notification when the process is finished
+
+<a name="configAPI">
+# Set up a custom configuration with the Discovery API
+</a>
+
+1. Download the [FordConfig.json]() in this repo
+2. Open your computer's command line interface and copy and paste the following the curl command
+```
+curl -X POST -u "{username}:{password}" -H "Content-Type: application/json" –data “@{path to config} "https://gateway.watsonplatform.net/discovery/api/v1/environments/{environment_id}/configurations?version=2016-12-01"
+```
+3. Copy and paste your [credentials](#credentials), path to FordConfig.json, and [environment id](#environmentID) into the curl command and run it
+
+<a name="configUI">
+# Set up a custom configuration with the Discovery Tooling
+</a>
+
+...
 
 <a name="credentials">
 # Service Credentials
 </a>
 
-1. Go to the Bluemix Dashboard and select the Conversation service instance. Once there, select the **Service Credentials** menu item.
+1. Go to the Bluemix Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
 
   <img src="readme_images/credentials.PNG" width="300")></img>
 
