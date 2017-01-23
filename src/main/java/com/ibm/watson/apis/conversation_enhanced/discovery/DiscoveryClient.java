@@ -73,39 +73,39 @@ public class DiscoveryClient {
 	 *         the user's query
 	 */
 	private List<DocumentPayload> createPayload(String input, String results) {
-		logger.info(Messages.getString("Service.CREATING_DISCOVERY_PAYLOAD")); //$NON-NLS-1$
+		logger.info(Messages.getString("Service.CREATING_DISCOVERY_PAYLOAD"));
 		List<DocumentPayload> payload = new ArrayList<DocumentPayload>();
 		HashMap<String, Integer> hm = new HashMap<String, Integer>();
 		JsonElement jelement = new JsonParser().parse(results);
 		JsonArray jarray = jelement.getAsJsonArray();
 		for (int i = 0; i < jarray.size() && i < Constants.DISCOVERY_MAX_SEARCH_RESULTS_TO_SHOW; i++) {
 			DocumentPayload documentPayload = new DocumentPayload();
-			String id = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"", //$NON-NLS-1$
-					""); //$NON-NLS-1$
+			String id = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"",
+					"");
 			documentPayload.setId(id);
 			documentPayload.setTitle(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_TITLE).toString()
-					.replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
+					.replaceAll("\"", ""));
 			if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY) != null) {
 				documentPayload.setBody(
 						// This method limits the response text in this sample
 						// app to two paragraphs.
 						limitParagraph(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY).toString()
-								.replaceAll("\"", ""))); //$NON-NLS-1$ //$NON-NLS-2$
+								.replaceAll("\"", "")));
 
 			} else {
-				documentPayload.setBody("empty"); //$NON-NLS-1$
+				documentPayload.setBody("empty");
 			}
 			if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_SOURCE_URL) == null) {
-				documentPayload.setSourceUrl("empty"); //$NON-NLS-1$
+				documentPayload.setSourceUrl("empty");
 			} else {
 				documentPayload.setSourceUrl(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_SOURCE_URL)
-						.toString().replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
+						.toString().replaceAll("\"", ""));
 			}
 			if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_CONFIDENCE) != null) {
 				documentPayload.setConfidence(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_CONFIDENCE)
-						.toString().replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
+						.toString().replaceAll("\"", ""));
 			} else {
-				documentPayload.setConfidence("0.0"); //$NON-NLS-1$
+				documentPayload.setConfidence("0.0");
 			}
 
 			documentPayload.setHighlight(null);

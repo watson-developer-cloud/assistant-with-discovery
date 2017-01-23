@@ -31,49 +31,52 @@ import com.ibm.watson.apis.conversation_enhanced.utils.Constants;
 import com.ibm.watson.apis.conversation_enhanced.utils.Messages;
 
 /**
- * The SetupResource is used to fetch the configuration file with the WorkspaceId from the env file
- * and the setup configuration stage that the application is currently in. The API endpoint points
- * to '/rest/setup'
+ * The SetupResource is used to fetch the configuration file with the
+ * WorkspaceId from the env file and the setup configuration stage that the
+ * application is currently in. The API endpoint points to '/rest/setup'
  * 
  */
 @Path("setup")
 public class SetupResource {
-  private static final Logger logger = LogManager.getLogger(SetupResource.class.getName());
+	private static final Logger logger = LogManager.getLogger(SetupResource.class.getName());
 
-  /**
-   * Method to fetch config JSON object and also the workspace_id.
-   * 
-   * @return response
-   */
-  @GET @Produces(MediaType.APPLICATION_JSON) public Response getConfig() {
-    String workspace_id = System.getenv(Constants.WORKSPACE_ID); //$NON-NLS-1$
-    logger.debug(MessageFormat.format(Messages.getString("SetupResource.WORKSPACE_ID_IS"), workspace_id));
+	/**
+	 * Method to fetch config JSON object and also the workspace_id.
+	 * 
+	 * @return response
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getConfig() {
+		String workspace_id = System.getenv(Constants.WORKSPACE_ID);
+		logger.debug(MessageFormat.format(Messages.getString("SetupResource.WORKSPACE_ID_IS"), workspace_id));
 
-    JsonObject config = new JsonObject();
-    config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG")); //$NON-NLS-1$ //$NON-NLS-2$
-    config.addProperty(Constants.SETUP_STEP, "0"); //$NON-NLS-1$ //$NON-NLS-2$
-    config.addProperty(Constants.SETUP_STATE, Constants.NOT_READY); //$NON-NLS-1$ //$NON-NLS-2$
-    config.addProperty(Constants.SETUP_PHASE, Messages.getString("SetupResource.PHASE_ERROR")); //$NON-NLS-1$ //$NON-NLS-2$
-    config.addProperty(Constants.SETUP_MESSAGE, Messages.getString("SetupResource.CHECK_LOGS")); //$NON-NLS-1$ //$NON-NLS-2$
+		JsonObject config = new JsonObject();
+		config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG"));
+		config.addProperty(Constants.SETUP_STEP, "0");
+		config.addProperty(Constants.SETUP_STATE, Constants.NOT_READY);
+		config.addProperty(Constants.SETUP_PHASE, Messages.getString("SetupResource.PHASE_ERROR"));
+		config.addProperty(Constants.SETUP_MESSAGE, Messages.getString("SetupResource.CHECK_LOGS"));
 
-    // Fetch the updated config JSON object from the servlet listener
-    config = new ServletContextListener().getJsonConfig();
-    config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG")); //$NON-NLS-1$ //$NON-NLS-2$
+		// Fetch the updated config JSON object from the servlet listener
+		config = new ServletContextListener().getJsonConfig();
+		config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG"));
 		logger.debug(Messages.getString("SetupResource.CONFIG_STATUS") + config);
 
-    if (config.get(Constants.SETUP_STEP).getAsInt() == 3 && config.get(Constants.SETUP_STATE).getAsString().equalsIgnoreCase(Constants.READY)) {
-      if (StringUtils.isNotBlank(workspace_id)) {
-        config.addProperty(Constants.WORKSPACE_ID, workspace_id); //$NON-NLS-1$
-      } else {
-        config.addProperty(Constants.SETUP_STEP, "0"); //$NON-NLS-1$ //$NON-NLS-2$
-        config.addProperty(Constants.SETUP_STATE, Constants.NOT_READY); //$NON-NLS-1$ //$NON-NLS-2$
-        config.addProperty(Constants.SETUP_PHASE, Messages.getString("SetupResource.PHASE_ERROR")); //$NON-NLS-1$ //$NON-NLS-2$
-        config.addProperty(Constants.SETUP_MESSAGE, Messages.getString("SetupResource.WORKSPACE_ID_ERROR")); //$NON-NLS-1$ //$NON-NLS-2$
-      }
-    }
+		if (config.get(Constants.SETUP_STEP).getAsInt() == 3
+				&& config.get(Constants.SETUP_STATE).getAsString().equalsIgnoreCase(Constants.READY)) {
+			if (StringUtils.isNotBlank(workspace_id)) {
+				config.addProperty(Constants.WORKSPACE_ID, workspace_id);
+			} else {
+				config.addProperty(Constants.SETUP_STEP, "0");
+				config.addProperty(Constants.SETUP_STATE, Constants.NOT_READY);
+				config.addProperty(Constants.SETUP_PHASE, Messages.getString("SetupResource.PHASE_ERROR"));
+				config.addProperty(Constants.SETUP_MESSAGE, Messages.getString("SetupResource.WORKSPACE_ID_ERROR"));
+			}
+		}
 
-    return Response.ok(config.getAsJsonObject().toString().trim()).type(MediaType.APPLICATION_JSON)
-        .header("Cache-Control", "no-cache").build();
-  }
+		return Response.ok(config.getAsJsonObject().toString().trim()).type(MediaType.APPLICATION_JSON)
+				.header("Cache-Control", "no-cache").build();
+	}
 
 }

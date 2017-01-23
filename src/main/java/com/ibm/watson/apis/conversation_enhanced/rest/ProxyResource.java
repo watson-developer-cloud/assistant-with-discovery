@@ -163,7 +163,7 @@ public class ProxyResource {
 
 				// Append the discovery answers to the output object that will
 				// be sent to the UI
-				output.put("CEPayload", docs); //$NON-NLS-1$
+				output.put("CEPayload", docs);
 			}
 		}
 
@@ -190,18 +190,18 @@ public class ProxyResource {
 
 		} catch (Exception e) {
 			if (e instanceof UnauthorizedException) {
-				errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS")); //$NON-NLS-1$
+				errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS"));
 			} else if (e instanceof IllegalArgumentException) {
 				errorsOutput.put(ERROR, e.getMessage());
 			} else if (e instanceof MalformedURLException) {
-				errorsOutput.put(ERROR, Messages.getString("ProxyResource.MALFORMED_URL")); //$NON-NLS-1$
+				errorsOutput.put(ERROR, Messages.getString("ProxyResource.MALFORMED_URL"));
 			} else if (e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")) {
-				errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_WORKSPACEID")); //$NON-NLS-1$
+				errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_WORKSPACEID"));
 			} else {
-				errorsOutput.put(ERROR, Messages.getString("ProxyResource.GENERIC_ERROR")); //$NON-NLS-1$
+				errorsOutput.put(ERROR, Messages.getString("ProxyResource.GENERIC_ERROR"));
 			}
 
-			logger.error(Messages.getString("ProxyResource.QUERY_EXCEPTION") + e.getMessage()); //$NON-NLS-1$
+			logger.error(Messages.getString("ProxyResource.QUERY_EXCEPTION") + e.getMessage());
 			return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
 		}
 		return Response.ok(new Gson().toJson(response, MessageResponse.class)).type(MediaType.APPLICATION_JSON).build();
