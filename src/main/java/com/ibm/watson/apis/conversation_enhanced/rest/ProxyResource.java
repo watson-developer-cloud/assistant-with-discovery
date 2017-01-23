@@ -126,9 +126,10 @@ public class ProxyResource {
     MessageResponse response = service.message(id, request).execute();
 
     // Determine if conversation's response is sufficient to answer the user's question or if we
-    // should call the retrieve and rank service to obtain better answers
-    if (response.getContext().containsKey("call_retrieve_and_rank") &&
-    		(boolean)(response.getContext().get("call_retrieve_and_rank")) == true) {
+    // should call the discovery service to obtain better answers
+    
+    if (response.getOutput().containsKey("action") &&
+    		response.getOutput().get("action").toString().indexOf("call_discovery") != -1) {
       String query = response.getInputText();
 
       // Extract the user's original query from the conversational response
