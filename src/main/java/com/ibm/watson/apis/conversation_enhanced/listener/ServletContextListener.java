@@ -21,32 +21,33 @@ import com.google.gson.JsonObject;
 
 public class ServletContextListener implements javax.servlet.ServletContextListener, PropertyChangeListener {
 
-  public static JsonObject config;
+	public static JsonObject config;
 
-  public void contextDestroyed(ServletContextEvent arg0) {
-  }
+	public void contextDestroyed(ServletContextEvent arg0) {
+	}
 
-  public void contextInitialized(ServletContextEvent arg0) {
-    SetupThread setupThread = new SetupThread();
-    setupThread.addChangeListener(this);
-    setupThread.start();
-  }
+	public void contextInitialized(ServletContextEvent arg0) {
+		SetupThread setupThread = new SetupThread();
+		setupThread.addChangeListener(this);
+		setupThread.start();
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
-   */
-  public void propertyChange(PropertyChangeEvent evt) {
-    config = (JsonObject) evt.getNewValue();
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.
+	 * PropertyChangeEvent)
+	 */
+	public void propertyChange(PropertyChangeEvent evt) {
+		config = (JsonObject) evt.getNewValue();
+	}
 
-  /**
-   * Fetches the config JSON Object that is sent to the UI
-   * 
-   * @return config
-   */
-  public JsonObject getJsonConfig() {
-    return config;
-  }
+	/**
+	 * Fetches the config JSON Object that is sent to the UI
+	 * 
+	 * @return config
+	 */
+	public JsonObject getJsonConfig() {
+		return config;
+	}
 }

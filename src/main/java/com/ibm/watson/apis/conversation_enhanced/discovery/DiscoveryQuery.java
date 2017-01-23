@@ -21,13 +21,13 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
 public class DiscoveryQuery {
 
 	private String userName;
-	
+
 	private String password;
-	
+
 	private String collectionId;
-	
+
 	private String environmentId;
-	
+
 	private Discovery discovery;
 
 	public DiscoveryQuery() {
@@ -35,7 +35,7 @@ public class DiscoveryQuery {
 		password = System.getenv("DISCOVERY_PASSWORD");
 		collectionId = System.getenv("DISCOVERY_COLECTION_ID");
 		environmentId = System.getenv("DISCOVERY_ENVIROMENT_ID");
-		
+
 		discovery = new Discovery(Constants.DISCOVERY_VERSION);
 		discovery.setEndPoint(Constants.DISCOVERY_URL);
 		discovery.setUsernameAndPassword(userName, password);
@@ -52,17 +52,17 @@ public class DiscoveryQuery {
 	 */
 	public QueryResponse query(String userQuery) throws Exception {
 		QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("searchText:");
 		sb.append(userQuery);
 		sb.append(",");
 		sb.append("enrichedText:");
 		sb.append(userQuery);
-		
+
 		queryBuilder.query(sb.toString());
 		QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-		
+
 		return queryResponse;
 	}
 }

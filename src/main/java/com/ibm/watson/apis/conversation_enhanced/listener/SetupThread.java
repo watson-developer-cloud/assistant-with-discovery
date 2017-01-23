@@ -32,21 +32,19 @@ import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 
 /**
  * This class is forked when the application is accessed for the first time. It
- * tests if the conversation and discovery service associated with the app (either
- * bound on bluemix or specified in server.env)
+ * tests if the conversation and discovery service associated with the app
+ * (either bound on bluemix or specified in server.env)
  */
 public class SetupThread extends Thread {
-	
-	
+
 	private static final Logger logger = LogManager.getLogger(SetupThread.class.getName());
 
 	private List<PropertyChangeListener> listener = new ArrayList<PropertyChangeListener>();
-	
-	
+
 	public JsonObject config = new JsonObject();
 
 	public void run() {
-		
+
 		String status = "";
 
 		try {
@@ -68,7 +66,7 @@ public class SetupThread extends Thread {
 					|| environmentId.length() == 0) {
 				throw new IllegalArgumentException(Messages.getString("SetupThread.DISC_INVALID_CREDS"));
 			}
-			
+
 			status = "Discovery ";
 
 			Discovery discovery = new Discovery(Constants.DISCOVERY_VERSION);
@@ -80,7 +78,7 @@ public class SetupThread extends Thread {
 			discovery.query(queryBuilder.build()).execute();
 
 			// test conversation credentials
-			
+
 			updateConfigObject("2", Constants.NOT_READY, Messages.getString("SetupThread.EMPTY"),
 					Messages.getString("SetupThread.GETTING_CREDENTIALS"));
 
@@ -94,7 +92,7 @@ public class SetupThread extends Thread {
 			if (userName.length() == 0 || password.length() == 0 || workspaceId.length() == 0) {
 				throw new IllegalArgumentException(Messages.getString("SetupThread.CONV_INVALID_CREDS"));
 			}
-			
+
 			status = "Conversation ";
 
 			ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
@@ -109,7 +107,8 @@ public class SetupThread extends Thread {
 		} catch (Exception e) {
 			logger.error(Messages.getString("SetupThread.ERROR_COLLECTION_INIT") + e.getMessage());
 			if (e instanceof UnauthorizedException) {
-				updateConfigObject("0", Constants.NOT_READY, Messages.getString("SetupThread.ERROR"), status + e.getMessage());
+				updateConfigObject("0", Constants.NOT_READY, Messages.getString("SetupThread.ERROR"),
+						status + e.getMessage());
 			} else {
 				updateConfigObject("0", Constants.NOT_READY, Messages.getString("SetupThread.ERROR"),
 						e.getMessage() + " " + Messages.getString("SetupThread.CHECK_LOGS"));

@@ -59,7 +59,7 @@ public class SetupResource {
     // Fetch the updated config JSON object from the servlet listener
     config = new ServletContextListener().getJsonConfig();
     config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG")); //$NON-NLS-1$ //$NON-NLS-2$
-    logger.debug(Messages.getString("SetupResource.CONFIG_STATUS") + config);
+		logger.debug(Messages.getString("SetupResource.CONFIG_STATUS") + config);
 
     if (config.get(Constants.SETUP_STEP).getAsInt() == 3 && config.get(Constants.SETUP_STATE).getAsString().equalsIgnoreCase(Constants.READY)) {
       if (StringUtils.isNotBlank(workspace_id)) {
