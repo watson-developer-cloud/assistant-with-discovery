@@ -140,14 +140,12 @@ To build the application:
   - After you're done, there should be a new private collection in the UI
   ![](readme_image/image.PNG)
 4. Set up the custom configuration using **one** of the **two** options
-  4a. Upload the configuration [using the Discovery API](#configAPI)
-  4b. Enter the configuration settings [in the Discovery UI](#configUI)
+  - (4a.) Upload the configuration [using the Discovery API](#configAPI)
+  - (4b.) Enter the configuration settings [in the Discovery UI](#configUI)
 5. In the tooling interface, click "Switch" on the Configuration line and select the new CarManualConfig configuration
   ![](readme_image/image.PNG)
-6. Add documents to your new collection
-  - Download the [manualdocs.zip]() in this repo
-  - Unzip this file to reveal a set of car manual docs in JSON format
-  - In the tooling interface, drag and drop (or browse and select) all of the JSON files into the "Add data to this collection" box
+6. Download and unzip the [manualdocs.zip]() in this repo to reveal a set of JSON documents
+7. In the tooling interface, drag and drop (or browse and select) all of the JSON files into the "Add data to this collection" box
   - This may take a few minutes -- you will see a notification when the process is finished
 
 <a name="configAPI">
@@ -155,12 +153,13 @@ To build the application:
 </a>
 
 1. Download the [FordConfig.json]() in this repo
-2. Open your computer's command line interface and copy and paste the following the curl command
+2. Open your computer's command line interface or terminal
+3. Copy and paste the curl command below into your command line
+4. Replace the placeholders in the curl command with your [credentials](#credentials), path to FordConfig.json, and [environment id](#environmentID)
+5. Run the command
 ```
 curl -X POST -u "{username}:{password}" -H "Content-Type: application/json" –data “@{path to config} "https://gateway.watsonplatform.net/discovery/api/v1/environments/{environment_id}/configurations?version=2016-12-01"
-```
-3. Copy and paste your [credentials](#credentials), path to FordConfig.json, and [environment id](#environmentID) into the curl command and run it
-
+``` 
 <a name="configUI">
 # Set up a custom configuration with the Discovery Tooling
 </a>
