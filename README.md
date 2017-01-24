@@ -50,29 +50,25 @@ To watch a video about the code behind this app, see below.
   ![](readme_images/deployapp1.PNG)<br>
   This performs multiple actions:
     - Creates the app
-    - Creates a Document Conversion service instance for use with the Retrieve & Rank tooling
     - Creates a Conversation service instance that the user needs for workspace creation
-    - Creates a Retrieve & Rank service instance<br>
+    - Creates a Discovery service instance for long-tail answers<br>
 
   The status of the deployment is shown. This can take some time.
 
   ![](readme_images/createproject.PNG)
 4. Once your app has deployed, select VIEW YOUR APP.<br>
   ![](readme_images/viewyourapp.PNG)<br>
-5. This lauches more actions, including:
-  - Creating a SOLR cluster, config, and collection in the Retrieve & Rank service
-  - Ingesting documents into the collection
-  - Creating a trained ranker to aide in answering questions
 
   A dialog shows the progress.
 
   ![](readme_images/deployPicture.PNG)
 
-  When setup is complete, you are informed that you need to add a WORKSPACE_ID.<br>
+  When setup is complete, you are informed that you need to add environment variables.<br>
   <a name="returnbluemix">
-6. Navigate to your Bluemix Dashboard and [import a workspace](#workspace). Setup your workspace then <b>return to these steps</b>.
+5. Navigate to the Conversations service in your Bluemix Dashboard and [import a workspace](#workspace). Set up your workspace then <b>return to these steps</b>.
 </a><br>
-7. After you have set up a workspace, [add the WORKSPACE_ID environment variable](#env).
+6. Navigate to the Discovery service in your Bluemix Dashboard and [ingest the provided documents into a new Discovery collection](#ingestion). Afterwards, <b>return to these steps</b>.
+7. After you have set up a workspace, [add your environment variables](#env) to your Bluemix app.
 
 <a name="local">
 # Getting Started locally
@@ -225,6 +221,12 @@ For more information on workspaces, see the full  [Conversation service  documen
 2. In the **User Defined** section, add a variable with the name **WORKSPACE_ID**. For the value, paste in the Workspace ID you [copied earlier](#workspaceID). Select **SAVE**.
 
   ![](readme_images/env_var_text.png)
+
+3. Then add the following four Discovery environment variables to this section:
+  - **DISCOVERY_PASSWORD**: Use your Discovery service credentials
+  - **DISCOVERY_USERNAME**: Use your Discovery service credentials
+  - **DISCOVERY_COLLECTION_ID**: Find your collection ID in the Discovery collection you created
+  - **DISCOVERY_ENVIRONMENT_ID**: Find your environment ID in the Discovery collection you created
 
 3. Restart your application.
 
