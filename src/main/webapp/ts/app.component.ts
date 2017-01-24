@@ -81,7 +81,6 @@ export class AppComponent {
   private langData : any;
 
   constructor (private _dialogService : DialogService, private http : Http) {
-    let polyglot = new Polyglot();
     this.getLang();
   }
 /*
@@ -119,7 +118,7 @@ export class AppComponent {
   }
 /*
  * This method is responsible for detecting if the set-up processs involving creation of various Watson services
- * and configuring them is complete. The status is checked every one minute till its complete.
+ * and configuring them is complete. The status is checked every 5 seconds till its complete.
  * A loading screen is displayed to show set-up progress accordingly.
  */
   private checkSetup (_dialogService : DialogService) {
@@ -183,7 +182,7 @@ export class AppComponent {
           }
           this.setupTimer = setTimeout(() => {
             this.checkSetup(_dialogService);
-          }, 60000);
+          }, 5000);
         } else {
           let payload = {'input': {'text': ''}};
           let chatColumn = <HTMLElement>document.querySelector ('#scrollingChat');
@@ -329,11 +328,7 @@ export class AppComponent {
   private callConversationService (chatColumn, payload) {
     let responseText = '';
     let ce : any = null;
-    // Before calling conversation, set the call_retrieve_and_rank flag to false
-    // conversation and not the app should control when retrieve and rank is called
-    if (payload.context) {
-       payload.context.call_retrieve_and_rank = false;
-    }
+
     // Send the user utterance to dialog, also send previous context
     this._dialogService.message (this.workspace_id, payload).subscribe (
       data1 => {
@@ -358,7 +353,7 @@ export class AppComponent {
         }
         this.timer = setTimeout (function () {
          let messages = document.getElementById('scrollingChat').getElementsByClassName('clear');
-         document.getElementById('scrollingChat').scrollTop = messages[messages.length - 2].offsetTop;
+         document.getElementById('scrollingChat').scrollTop = messages[messages.length - 1].offsetTop;
         }, 50);
         document.getElementById('textInput').focus();
       },

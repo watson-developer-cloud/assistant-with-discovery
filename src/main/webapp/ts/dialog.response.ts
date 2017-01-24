@@ -28,7 +28,7 @@ export class DialogResponse {
     if (ce) {
       this.arr = [];
       for (let i = 0; i < ce.length; i++) {
-        this.arr.push ({body : ce[i].body, confidence : ce[i].confidence,
+        this.arr.push ({body : ce[i].body, bodySnippet : ce[i].bodySnippet, confidence : ce[i].confidence,
           highlight : ce[i].highlight, sourceUrl : ce[i].sourceUrl, title : ce[i].title});
       }
     }

@@ -13,6 +13,10 @@
  */
 package com.ibm.watson.apis.conversation_enhanced.rest;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import javax.ws.rs.core.Response;
 
 import org.junit.Before;
@@ -24,10 +28,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.apis.conversation_enhanced.listener.ServletContextListener;
-import com.ibm.watson.apis.conversation_enhanced.rest.SetupResource;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for the {@link SetupResource}
@@ -42,12 +42,14 @@ public class SetupResourceTest {
   String WORKSPACE_ID = "123456";
   String EMPTY_WORKSPACE_ID = "";
 
-  @Before public void setUp() {
+  @Before
+  public void setUp() {
     setupResource = new SetupResource();
     PowerMockito.mockStatic(System.class);
   }
 
-  @Test public void shouldReturnReadyState() throws Exception {
+  @Test
+  public void shouldReturnReadyState() throws Exception {
 
     // given
     config.addProperty("setup_step", "3");
@@ -57,6 +59,8 @@ public class SetupResourceTest {
     when(mockServletContextListener.getJsonConfig()).thenReturn(config);
     PowerMockito.whenNew(ServletContextListener.class).withAnyArguments().thenReturn(mockServletContextListener);
     when(System.getenv("WORKSPACE_ID")).thenReturn(WORKSPACE_ID);
+    when(System.getenv("PASSWORD")).thenReturn("accdefghi");
+    when(System.getenv("USERNAME")).thenReturn("abcd-efgh-ijkl");
 
     // when
     Response response = setupResource.getConfig();
@@ -65,7 +69,8 @@ public class SetupResourceTest {
     assertTrue(response.getEntity().toString().indexOf("\"setup_state\":\"ready\"") > 1);
   }
 
-  @Test public void shouldReturnNotReadyState() throws Exception {
+  @Test
+  public void shouldReturnNotReadyState() throws Exception {
 
     // given
     config.addProperty("setup_step", "2");
@@ -74,6 +79,8 @@ public class SetupResourceTest {
     when(mockServletContextListener.getJsonConfig()).thenReturn(config);
     PowerMockito.whenNew(ServletContextListener.class).withAnyArguments().thenReturn(mockServletContextListener);
     when(System.getenv("WORKSPACE_ID")).thenReturn(WORKSPACE_ID);
+    when(System.getenv("PASSWORD")).thenReturn("accdefghi");
+    when(System.getenv("USERNAME")).thenReturn("abcd-efgh-ijkl");
 
     // when
     Response response = setupResource.getConfig();
@@ -82,12 +89,16 @@ public class SetupResourceTest {
     assertTrue(response.getEntity().toString().indexOf("\"setup_state\":\"not_ready\"") > 1);
   }
 
-  @Test public void shouldReturnErrorState() throws Exception {
+  @Test
+  public void shouldReturnErrorState() throws Exception {
 
     // given
     config.addProperty("setup_step", "0");
     config.addProperty("setup_state", "not_ready");
     config.addProperty("setup_message", "error");
+
+    when(System.getenv("PASSWORD")).thenReturn("accdefghi");
+    when(System.getenv("USERNAME")).thenReturn("abcd-efgh-ijkl");
 
     when(mockServletContextListener.getJsonConfig()).thenReturn(config);
     PowerMockito.whenNew(ServletContextListener.class).withAnyArguments().thenReturn(mockServletContextListener);
@@ -99,12 +110,15 @@ public class SetupResourceTest {
     assertTrue(response.getEntity().toString().indexOf("\"setup_message\":\"error\"") > 1);
   }
 
-  @Test public void shouldReturnErrorWorkspaceId() throws Exception {
+  @Test
+  public void shouldReturnErrorWorkspaceId() throws Exception {
 
     // given
     config.addProperty("setup_step", "3");
     config.addProperty("setup_state", "ready");
     config.addProperty("setup_message", "all good");
+    when(System.getenv("PASSWORD")).thenReturn("accdefghi");
+    when(System.getenv("USERNAME")).thenReturn("abcd-efgh-ijkl");
 
     when(mockServletContextListener.getJsonConfig()).thenReturn(config);
     PowerMockito.whenNew(ServletContextListener.class).withAnyArguments().thenReturn(mockServletContextListener);
@@ -113,6 +127,7 @@ public class SetupResourceTest {
     Response response = setupResource.getConfig();
 
     // then
-    assertTrue(response.getEntity().toString().indexOf("\"setup_message\":\"See steps on Github for adding an environment variable\"") > 1);
+    assertTrue(response.getEntity().toString()
+        .indexOf("\"setup_message\":\"See steps on Github for adding an environment variable\"") > 1);
   }
 }
