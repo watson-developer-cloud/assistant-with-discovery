@@ -20,49 +20,49 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
 
 public class DiscoveryQuery {
 
-	private String userName;
+  private String userName;
 
-	private String password;
+  private String password;
 
-	private String collectionId;
+  private String collectionId;
 
-	private String environmentId;
+  private String environmentId;
 
-	private Discovery discovery;
+  private Discovery discovery;
 
-	public DiscoveryQuery() {
-		userName = System.getenv("DISCOVERY_USERNAME");
-		password = System.getenv("DISCOVERY_PASSWORD");
-		collectionId = System.getenv("DISCOVERY_COLLECTION_ID");
-		environmentId = System.getenv("DISCOVERY_ENVIRONMENT_ID");
+  public DiscoveryQuery() {
+    userName = System.getenv("DISCOVERY_USERNAME");
+    password = System.getenv("DISCOVERY_PASSWORD");
+    collectionId = System.getenv("DISCOVERY_COLLECTION_ID");
+    environmentId = System.getenv("DISCOVERY_ENVIRONMENT_ID");
 
-		discovery = new Discovery(Constants.DISCOVERY_VERSION);
-		discovery.setEndPoint(Constants.DISCOVERY_URL);
-		discovery.setUsernameAndPassword(userName, password);
-	}
+    discovery = new Discovery(Constants.DISCOVERY_VERSION);
+    discovery.setEndPoint(Constants.DISCOVERY_URL);
+    discovery.setUsernameAndPassword(userName, password);
+  }
 
-	/**
-	 * Use the Watson Developer Cloud SDK to send the user's query to the
-	 * discovery service
-	 * 
-	 * @param userQuery
-	 *            The user's query to be sent to the discovery service
-	 * @return The query responses obtained from the discovery service
-	 * @throws Exception
-	 */
-	public QueryResponse query(String userQuery) throws Exception {
-		QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
+  /**
+   * Use the Watson Developer Cloud SDK to send the user's query to the
+   * discovery service
+   * 
+   * @param userQuery
+   *          The user's query to be sent to the discovery service
+   * @return The query responses obtained from the discovery service
+   * @throws Exception
+   */
+  public QueryResponse query(String userQuery) throws Exception {
+    QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
 
-		StringBuilder sb = new StringBuilder();
-		sb.append("searchText:");
-		sb.append(userQuery);
-		sb.append(",");
-		sb.append("enrichedText:");
-		sb.append(userQuery);
+    StringBuilder sb = new StringBuilder();
+    sb.append("searchText:");
+    sb.append(userQuery);
+    sb.append(",");
+    sb.append("enrichedText:");
+    sb.append(userQuery);
 
-		queryBuilder.query(sb.toString());
-		QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    queryBuilder.query(sb.toString());
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
 
-		return queryResponse;
-	}
+    return queryResponse;
+  }
 }

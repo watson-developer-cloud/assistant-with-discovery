@@ -47,163 +47,163 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 @Path("conversation/api/v1/workspaces")
 public class ProxyResource {
-	private static final Logger logger = LogManager.getLogger(ProxyResource.class.getName());
+  private static final Logger logger = LogManager.getLogger(ProxyResource.class.getName());
 
-	private static String API_VERSION;
+  private static String API_VERSION;
 
-	private static final String ERROR = "error";
+  private static final String ERROR = "error";
 
-	private String password = System.getenv("CONVERSATION_PASSWORD");
+  private String password = System.getenv("CONVERSATION_PASSWORD");
 
-	private String url;
+  private String url;
 
-	private String username = System.getenv("CONVERSATION_USERNAME");
+  private String username = System.getenv("CONVERSATION_USERNAME");
 
-	private DiscoveryClient discoveryClient = new DiscoveryClient();
+  private DiscoveryClient discoveryClient = new DiscoveryClient();
 
-	public static void setConversationAPIVersion(String version) {
-		API_VERSION = version;
-	}
+  public static void setConversationAPIVersion(String version) {
+    API_VERSION = version;
+  }
 
-	public void setCredentials(String username, String password, String url) {
-		this.username = username;
-		this.password = password;
-		this.url = url;
-	}
+  public void setCredentials(String username, String password, String url) {
+    this.username = username;
+    this.password = password;
+    this.url = url;
+  }
 
-	private MessageRequest buildMessageFromPayload(InputStream body) {
-		StringBuilder sbuilder = null;
-		BufferedReader reader = null;
-		try {
-			reader = new BufferedReader(new InputStreamReader(body, "UTF-8"));
-			sbuilder = new StringBuilder();
-			String str = reader.readLine();
-			while (str != null) {
-				sbuilder.append(str);
-				str = reader.readLine();
-				if (str != null) {
-					sbuilder.append("\n");
-				}
-			}
-			return GsonSingleton.getGson().fromJson(sbuilder.toString(), MessageRequest.class);
-		} catch (IOException e) {
-			logger.error(Messages.getString("ProxyResource.JSON_READ"), e);
-		} finally {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				logger.error(Messages.getString("ProxyResource.STREAM_CLOSE"), e);
-			}
-		}
-		return null;
-	}
+  private MessageRequest buildMessageFromPayload(InputStream body) {
+    StringBuilder sbuilder = null;
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader(new InputStreamReader(body, "UTF-8"));
+      sbuilder = new StringBuilder();
+      String str = reader.readLine();
+      while (str != null) {
+        sbuilder.append(str);
+        str = reader.readLine();
+        if (str != null) {
+          sbuilder.append("\n");
+        }
+      }
+      return GsonSingleton.getGson().fromJson(sbuilder.toString(), MessageRequest.class);
+    } catch (IOException e) {
+      logger.error(Messages.getString("ProxyResource.JSON_READ"), e);
+    } finally {
+      try {
+        reader.close();
+      } catch (IOException e) {
+        logger.error(Messages.getString("ProxyResource.STREAM_CLOSE"), e);
+      }
+    }
+    return null;
+  }
 
-	/**
-	 * This method is responsible for sending the query the user types into the
-	 * UI to the Watson services. The code demonstrates how the conversation
-	 * service is called, how the response is evaluated, and how the response is
-	 * then sent to the discovery service if necessary.
-	 * 
-	 * @param request
-	 *            The full query the user asked of Watson
-	 * @param id
-	 *            The ID of the conversational workspace
-	 * @return The response from Watson. The response will always contain the
-	 *         conversation service's response. If the intent confidence is high
-	 *         or the intent is out_of_scope, the response will also contain
-	 *         information from the discovery service
-	 */
-	private MessageResponse getWatsonResponse(MessageRequest request, String id) throws Exception {
+  /**
+   * This method is responsible for sending the query the user types into the UI
+   * to the Watson services. The code demonstrates how the conversation service
+   * is called, how the response is evaluated, and how the response is then sent
+   * to the discovery service if necessary.
+   * 
+   * @param request
+   *          The full query the user asked of Watson
+   * @param id
+   *          The ID of the conversational workspace
+   * @return The response from Watson. The response will always contain the
+   *         conversation service's response. If the intent confidence is high
+   *         or the intent is out_of_scope, the response will also contain
+   *         information from the discovery service
+   */
+  private MessageResponse getWatsonResponse(MessageRequest request, String id) throws Exception {
 
-		// Configure the Watson Developer Cloud SDK to make a call to the
-		// appropriate conversation
-		// service. Specific information is obtained from the VCAP_SERVICES
-		// environment variable
-		ConversationService service = new ConversationService(
-				API_VERSION != null ? API_VERSION : ConversationService.VERSION_DATE_2016_09_20);
-		if (username != null || password != null) {
-			service.setUsernameAndPassword(username, password);
-		}
+    // Configure the Watson Developer Cloud SDK to make a call to the
+    // appropriate conversation
+    // service. Specific information is obtained from the VCAP_SERVICES
+    // environment variable
+    ConversationService service = new ConversationService(
+        API_VERSION != null ? API_VERSION : ConversationService.VERSION_DATE_2016_09_20);
+    if (username != null || password != null) {
+      service.setUsernameAndPassword(username, password);
+    }
 
-		service.setEndPoint(url == null ? Constants.CONVERSATION_URL : url);
+    service.setEndPoint(url == null ? Constants.CONVERSATION_URL : url);
 
-		// Use the previously configured service object to make a call to the
-		// conversational service
-		MessageResponse response = service.message(id, request).execute();
+    // Use the previously configured service object to make a call to the
+    // conversational service
+    MessageResponse response = service.message(id, request).execute();
 
-		// Determine if conversation's response is sufficient to answer the
-		// user's question or if we
-		// should call the discovery service to obtain better answers
+    // Determine if conversation's response is sufficient to answer the
+    // user's question or if we
+    // should call the discovery service to obtain better answers
 
-		if (response.getOutput().containsKey("action")
-				&& response.getOutput().get("action").toString().indexOf("call_discovery") != -1) {
-			String query = response.getInputText();
+    if (response.getOutput().containsKey("action")
+        && response.getOutput().get("action").toString().indexOf("call_discovery") != -1) {
+      String query = response.getInputText();
 
-			// Extract the user's original query from the conversational
-			// response
-			if (query != null && !query.isEmpty()) {
+      // Extract the user's original query from the conversational
+      // response
+      if (query != null && !query.isEmpty()) {
 
-				// For this app, both the original conversation response and the
-				// discovery response
-				// are sent to the UI. Extract and add the conversational
-				// response to the ultimate response
-				// we will send to the user. The UI will process this response
-				// and show the top 3 retrieve
-				// and rank answers to the user in the main UI. The JSON
-				// response section of the UI will
-				// show information from the calls to both services.
-				Map<String, Object> output = response.getOutput();
-				if (output == null) {
-					output = new HashMap<String, Object>();
-					response.setOutput(output);
-				}
+        // For this app, both the original conversation response and the
+        // discovery response
+        // are sent to the UI. Extract and add the conversational
+        // response to the ultimate response
+        // we will send to the user. The UI will process this response
+        // and show the top 3 retrieve
+        // and rank answers to the user in the main UI. The JSON
+        // response section of the UI will
+        // show information from the calls to both services.
+        Map<String, Object> output = response.getOutput();
+        if (output == null) {
+          output = new HashMap<String, Object>();
+          response.setOutput(output);
+        }
 
-				// Send the user's question to the discovery service
-				List<DocumentPayload> docs = discoveryClient.getDocuments(query);
+        // Send the user's question to the discovery service
+        List<DocumentPayload> docs = discoveryClient.getDocuments(query);
 
-				// Append the discovery answers to the output object that will
-				// be sent to the UI
-				output.put("CEPayload", docs);
-			}
-		}
+        // Append the discovery answers to the output object that will
+        // be sent to the UI
+        output.put("CEPayload", docs);
+      }
+    }
 
-		return response;
-	}
+    return response;
+  }
 
-	@POST
-	@Path("{id}/message")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response postMessage(@PathParam("id") String id, InputStream body) {
+  @POST
+  @Path("{id}/message")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response postMessage(@PathParam("id") String id, InputStream body) {
 
-		HashMap<String, Object> errorsOutput = new HashMap<String, Object>();
-		MessageRequest request = buildMessageFromPayload(body);
+    HashMap<String, Object> errorsOutput = new HashMap<String, Object>();
+    MessageRequest request = buildMessageFromPayload(body);
 
-		if (request == null) {
-			throw new IllegalArgumentException(Messages.getString("ProxyResource.NO_REQUEST"));
-		}
+    if (request == null) {
+      throw new IllegalArgumentException(Messages.getString("ProxyResource.NO_REQUEST"));
+    }
 
-		MessageResponse response = null;
+    MessageResponse response = null;
 
-		try {
-			response = getWatsonResponse(request, id);
+    try {
+      response = getWatsonResponse(request, id);
 
-		} catch (Exception e) {
-			if (e instanceof UnauthorizedException) {
-				errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS"));
-			} else if (e instanceof IllegalArgumentException) {
-				errorsOutput.put(ERROR, e.getMessage());
-			} else if (e instanceof MalformedURLException) {
-				errorsOutput.put(ERROR, Messages.getString("ProxyResource.MALFORMED_URL"));
-			} else if (e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")) {
-				errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_WORKSPACEID"));
-			} else {
-				errorsOutput.put(ERROR, Messages.getString("ProxyResource.GENERIC_ERROR"));
-			}
+    } catch (Exception e) {
+      if (e instanceof UnauthorizedException) {
+        errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_CONVERSATION_CREDS"));
+      } else if (e instanceof IllegalArgumentException) {
+        errorsOutput.put(ERROR, e.getMessage());
+      } else if (e instanceof MalformedURLException) {
+        errorsOutput.put(ERROR, Messages.getString("ProxyResource.MALFORMED_URL"));
+      } else if (e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")) {
+        errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_WORKSPACEID"));
+      } else {
+        errorsOutput.put(ERROR, Messages.getString("ProxyResource.GENERIC_ERROR"));
+      }
 
-			logger.error(Messages.getString("ProxyResource.QUERY_EXCEPTION") + e.getMessage());
-			return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
-		}
-		return Response.ok(new Gson().toJson(response, MessageResponse.class)).type(MediaType.APPLICATION_JSON).build();
-	}
+      logger.error(Messages.getString("ProxyResource.QUERY_EXCEPTION") + e.getMessage());
+      return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
+    }
+    return Response.ok(new Gson().toJson(response, MessageResponse.class)).type(MediaType.APPLICATION_JSON).build();
+  }
 }
