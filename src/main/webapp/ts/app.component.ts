@@ -81,7 +81,6 @@ export class AppComponent {
   private langData : any;
 
   constructor (private _dialogService : DialogService, private http : Http) {
-    let polyglot = new Polyglot();
     this.getLang();
   }
 /*
@@ -354,7 +353,7 @@ export class AppComponent {
         }
         this.timer = setTimeout (function () {
          let messages = document.getElementById('scrollingChat').getElementsByClassName('clear');
-         document.getElementById('scrollingChat').scrollTop = messages[messages.length - 2].offsetTop;
+         document.getElementById('scrollingChat').scrollTop = messages[messages.length - 1].offsetTop;
         }, 50);
         document.getElementById('textInput').focus();
       },
