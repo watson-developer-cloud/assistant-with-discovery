@@ -50,8 +50,8 @@ To watch a video about the code behind this app, see below.
   ![](readme_images/deployapp1.PNG)<br>
   This performs multiple actions:
     - Creates the app
-    - Creates a Conversation service instance that the user needs for workspace creation
-    - Creates a Discovery service instance for long-tail answers<br>
+    - Creates a Conversation service instance
+    - Creates a Discovery service instance<br>
 
   The status of the deployment is shown. This can take some time.
 
@@ -138,7 +138,7 @@ To build the application:
 4. Set up the custom configuration using **one** of the **two** options
   - (4a.) Upload the configuration [using the Discovery API](#configAPI)
   - (4b.) Enter the configuration settings [in the Discovery UI](#configUI)
-5. In the tooling interface, click "Switch" on the Configuration line and select the new CarManualConfig configuration
+5. In the tooling interface, click "Switch" on the Configuration line and select your new configuration
   ![](readme_image/image.PNG)
 6. Download and unzip the [manualdocs.zip]() in this repo to reveal a set of JSON documents
 7. In the tooling interface, drag and drop (or browse and select) all of the JSON files into the "Add data to this collection" box
@@ -153,14 +153,37 @@ To build the application:
 3. Copy and paste the curl command below into your command line
 4. Replace the placeholders in the curl command with your [credentials](#credentials), path to FordConfig.json, and [environment id](#environmentID)
 5. Run the command
-```
-curl -X POST -u "{username}:{password}" -H "Content-Type: application/json" –data “@{path to config} "https://gateway.watsonplatform.net/discovery/api/v1/environments/{environment_id}/configurations?version=2016-12-01"
+```Markdown
+curl -X POST -u "<username>:<password>" -H "Content-Type: application/json" –data “@<path_to_config> "https://gateway.watsonplatform.net/discovery/api/v1/environments/<environment_id>/configurations?version=2016-12-01"
 ``` 
 <a name="configUI">
 # Set up a custom configuration with the Discovery Tooling
 </a>
 
-...
+1. The configuration for this app includes several updates from the default that are meant to help improve the results for long-tail searches. To create this configuration in the tooling, go into the collection and where the DefaultConfiguration is listed, select “Switch”
+2. Then choose "Create a new configuration"
+3. This brings up the configuration editor. There are three steps in a configuration, Convert, Enrich, and Normalize. The configuration editor allows you to upload a sample document to preview the results of a configuration as you make changes.
+  - To use the preview, add manual_0.json from [here]() in the pane on the right
+4. For the Convert step, only JSON cleanup is needed for these documents. In this case what is needed is to create two new fields that are copies of the original body and title fields so that we can use the copies in a later step to create a searchable text field.
+  a. To create these   fields, select “Add field”, set the action to “copy” and enter title to searchTitle, and repeat for body to searchText
+  b. To see how the preview is affected by this step and ensure it is creating the new fields, click Apply & Save at the bottom of the page then select manual_0.json. The right side preview pane should update to display the results of the changes. 
+5. The next step in configuration is Enrich. Select “Enrich” from the top bar. In this we’ll set the configuration to enrich the body field of each document so we can use the enriched metadata to improve search.
+  a. First remove the existing “text” field that is being enriched with the default configuration by clicking the – to the right of the field. 
+  b. Under “Add a field” enter “body” or select “body” from the dropdown
+  c. This will add a new field to be enriched below. You can then select the enrichments that should be applied to this field by clicking “Add enrichments”. In this case we can apply Keyword Extraction, Concept Extraction, Taxonomy Classification, and Entity Extraction. These enrichments add meta data to the documents that help improve search. 
+  d. Once the enrichments have been selected, choose “Done” then again choose “Apply and Save” to see the results of the changes. Now there should be a body_enriched field in the preview that shows all the applied enrichments over the document
+6. The final step in configuration is Normalize. This step allow you to clean up the data and fields so that you have a consistent structure for your use cases.
+  a. For these documents, we want to create searchable fields that can be use to improve the quality of results we get back for long tail questions 
+  b. We will create two fields, one searchText that contains the combination of title and body, and one enrichedText field that contains the combination of extracted concepts and keywords from the body field. 
+  c. To do this the concepts and keywords text first need to be copied into intermediate fields. To do this, click “Add field” and enter the fully qualified path to the keyword text (body_enriched.keywords.text) to enrichedText. Hint: Use the preview pane to find the paths to fields you need. Repeat this step for body_enirched.concepts.text to conceptText
+  d. Now we can merge the two intermediate fields together into the enrichedText field. Again select “Add a field”, choose the “merge” action and enter conceptText to enrichedText. This will merge the conceptText field into the enrichedText field, removing conceptText and preserving the combined enirchedText
+  e. Similarly we want to combine searchTitle and searchText, so click “Add a field” and merge searchTitle into searchText
+  f. Finally, again select apply&save to store the updated the configuration and see the preview results. 
+  g. In the preview pane scroll to the bottom of the new document, and you should see a searchText field containing title + body and an enrichedText field containing a list of the concepts and keywords extracted from the data. 
+
+
+
+
 
 <a name="credentials">
 # Service Credentials
@@ -178,7 +201,7 @@ curl -X POST -u "{username}:{password}" -H "Content-Type: application/json" –d
 # Import a workspace
 </a>
 
-To use the app you're creating, you need to add a worksapce to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
+To use the app you're creating, you need to add a workspace to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
 
 For more information on workspaces, see the full  [Conversation service  documentation](http://www.ibm.com/watson/developercloud/doc/conversation/).
 
@@ -215,20 +238,19 @@ For more information on workspaces, see the full  [Conversation service  documen
 </a>
 
 1. In Bluemix, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
-
   ![](readme_images/env_var_tab.png)
-
-2. In the **User Defined** section, add a variable with the name **WORKSPACE_ID**. For the value, paste in the Workspace ID you [copied earlier](#workspaceID). Select **SAVE**.
-
-  ![](readme_images/env_var_text.png)
-
+2. In the **User Defined** section, add the following Conversations environment variables:
+  - **CONVERSATION_PASSWORD**: Use your Conversations [service credentials](#credentials)
+  - **CONVERSATION_USERNAME**: Use your Conversations service credentials
+  - **WORKSPACE_ID**: Add the Workspace ID you [copied earlier](#workspaceID). 
 3. Then add the following four Discovery environment variables to this section:
-  - **DISCOVERY_PASSWORD**: Use your Discovery service credentials
+  - **DISCOVERY_PASSWORD**: Use your Discovery [service credentials](#credentials)
   - **DISCOVERY_USERNAME**: Use your Discovery service credentials
   - **DISCOVERY_COLLECTION_ID**: Find your collection ID in the Discovery collection you created
   - **DISCOVERY_ENVIRONMENT_ID**: Find your environment ID in the Discovery collection you created
-
-3. Restart your application.
+  ![](readme_images/env_var_text.png)
+4. Select **SAVE**.
+5. Restart your application.
 
 
 # Troubleshooting in Bluemix
