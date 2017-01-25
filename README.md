@@ -133,7 +133,7 @@ To build the application:
   ![](readme_images/discovery_tooling.png)
 3. Create a new data collection, name it whatever you like, and select the default configuration.
   ![](readme_images/discovery_collection.png)
-  - After you're done, there should be a new private collection in the UI
+  - After you're done, there should be a new private collection in the UI<br>
   ![](readme_images/ford_collection.png)
 4. Set up the custom configuration using **one** of the **two** options
   - (4a.) Upload the configuration [using the Discovery API](#configAPI)
@@ -166,7 +166,7 @@ curl -X POST -u "<username>:<password>" -H "Content-Type: application/json" –d
   ![](readme_images/default_config.png)
 3. This brings up the configuration editor. There are three steps in a configuration, Convert, Enrich, and Normalize. The configuration editor allows you to upload a sample document to preview the results of a configuration as you make changes.
   - To use the preview, add [manual_0.json]() into the pane on the right
-  ![](readme_images/collection_add.png)
+  ![](readme_images/convert.png)
 4. For the Convert step, only JSON cleanup is needed for these documents. In this case what is needed is to create two new fields that are copies of the original body and title fields so that we can use the copies in a later step to create a searchable text field.
   ![](readme_images/convert_json.png)
   - To create these   fields, select “Add field”, set the action to “copy” and enter title to searchTitle, and repeat for body to searchText
