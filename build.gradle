@@ -103,3 +103,10 @@ gulp {
     // Whether output from Gulp should be buffered - useful when running tasks in parallel
     bufferOutput = false
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
