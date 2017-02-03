@@ -1,19 +1,20 @@
 {
-  "name": "conversation-enhanced",
+  "name": "conversation-with-discovery",
   "description": "A simple java based web app which shows how to use the Conversation proxy component to make calls to the Conversation service API.",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "repository": {
     "type": "git",
-    "url": "git@github.ibm.com:watson-engagement-advisor/wea-app.git"
+    "url": "https://github.com/watson-developer-cloud/conversation-with-discovery.git"
   },
-  "main": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/watson-developer-cloud/conversation-with-discovery/issues"
+  },
   "scripts": {
     "build": "gulp build"
   },
   "author": "IBM Corp.",
-  "license": "Apache-2.0",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "angular2": "^2.0.0-beta.17",
     "autoprefixer": "^6.2.1",

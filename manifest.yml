@@ -1,14 +1,7 @@
 ---
-declared-services:
-  discovery-service:
-    label: discovery
-    plan: free
-  conversation-service:
-    label: conversation
-    plan: free
 applications:
 - services:
   - discovery-service
   - conversation-service
-  path: build/libs/conversation-enhanced-0.1-SNAPSHOT.war
+  path: build/libs/conversation-with-discovery-0.1-SNAPSHOT.war
   memory: 512M
