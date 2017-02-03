@@ -8,6 +8,6 @@
 		<welcome-file>redirect.html</welcome-file>
 	</welcome-file-list>
 	<listener>
-		<listener-class>com.ibm.watson.apis.conversation_enhanced.listener.ServletContextListener</listener-class>
+		<listener-class>com.ibm.watson.apis.conversation_with_discovery.listener.AppServletContextListener</listener-class>
 	</listener>
 </web-app>

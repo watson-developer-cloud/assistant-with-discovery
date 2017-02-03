@@ -25,7 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.apis.conversation_enhanced.listener.AppServletContextListener;
+import com.ibm.watson.apis.conversation_with_discovery.listener.AppServletContextListener;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Messages;
 
@@ -57,7 +57,6 @@ public class SetupResource {
     config.addProperty(Constants.SETUP_MESSAGE, Messages.getString("SetupResource.CHECK_LOGS"));
 
     // Fetch the updated config JSON object from the servlet listener
-    config = new AppServletContextListener().getJsonConfig();
     config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG"));
     logger.debug(Messages.getString("SetupResource.CONFIG_STATUS") + config);
 

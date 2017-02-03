@@ -20,7 +20,7 @@ gradle-app.setting
 /node/*
 /src/main/webapp/dist/*
 .sass-cache
-conversation_enhanced.log
+app.log
 
 ### Eclipse ###
 .classpath

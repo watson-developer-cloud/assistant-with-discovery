@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.apis.conversation_enhanced.listener;
+package com.ibm.watson.apis.conversation_with_discovery.listener;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -33,7 +33,7 @@ import com.google.gson.JsonObject;
 public class AppServletContextListener implements javax.servlet.ServletContextListener, PropertyChangeListener {
 
   /** The config. */
-  private JsonObject config;
+  private JsonObject config = new JsonObject();
   private static final Logger logger = LogManager.getLogger(AppServletContextListener.class.getName());
 
   /*
