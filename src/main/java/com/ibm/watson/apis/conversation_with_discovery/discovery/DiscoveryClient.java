@@ -13,7 +13,6 @@
 package com.ibm.watson.apis.conversation_with_discovery.discovery;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
