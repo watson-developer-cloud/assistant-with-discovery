@@ -27,14 +27,14 @@ import com.ibm.watson.apis.conversation_enhanced.rest.ProxyResource;
  *
  */
 public class WinkApplication extends Application {
-  
-  
+
   /*
    * (non-Javadoc)
    *
    * @see javax.ws.rs.core.Application#getClasses()
    */
-  @Override public Set<Class<?>> getClasses() {
+  @Override
+  public Set<Class<?>> getClasses() {
     // Returns the list of classes which are to be added as REST endpoints
     Set<Class<?>> classes = new HashSet<Class<?>>();
     classes.add(ProxyResource.class);
