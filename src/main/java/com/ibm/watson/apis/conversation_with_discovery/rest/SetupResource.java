@@ -56,6 +56,7 @@ public class SetupResource {
     config.addProperty(Constants.SETUP_MESSAGE, Messages.getString("SetupResource.CHECK_LOGS"));
 
     // Fetch the updated config JSON object from the servlet listener
+    config = new AppServletContextListener().getJsonConfig();
     config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG"));
     logger.debug(Messages.getString("SetupResource.CONFIG_STATUS") + config);
 
