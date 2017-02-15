@@ -93,7 +93,6 @@ public class SetupThread extends Thread {
     String status = "";
 
     try {
-
       updateConfigObject("1", Constants.NOT_READY, Messages.getString("SetupThread.EMPTY"),
           Messages.getString("SetupThread.GETTING_CREDENTIALS"));
 

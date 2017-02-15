@@ -52,19 +52,13 @@ public class ProxyResource {
   private static String API_VERSION;
   private static final String ERROR = "error";
   private static final Logger logger = LogManager.getLogger(ProxyResource.class.getName());
-
-  /**
-   * Sets the conversation API version.
-   *
-   * @param version the new conversation API version
-   */
-  public static void setConversationAPIVersion(String version) {
-    API_VERSION = version;
-  }
-
+  
   private DiscoveryClient discoveryClient = new DiscoveryClient();
+  
   private String password = System.getenv("CONVERSATION_PASSWORD");
+  
   private String url;
+  
   private String username = System.getenv("CONVERSATION_USERNAME");
 
   private MessageRequest buildMessageFromPayload(InputStream body) {
@@ -110,9 +104,8 @@ public class ProxyResource {
   private MessageResponse getWatsonResponse(MessageRequest request, String id) throws Exception {
 
     // Configure the Watson Developer Cloud SDK to make a call to the
-    // appropriate conversation
-    // service. Specific information is obtained from the VCAP_SERVICES
-    // environment variable
+    // appropriate conversation service.
+
     ConversationService service =
         new ConversationService(API_VERSION != null ? API_VERSION : ConversationService.VERSION_DATE_2016_09_20);
     if ((username != null) || (password != null)) {
@@ -206,6 +199,15 @@ public class ProxyResource {
       return Response.ok(new Gson().toJson(errorsOutput, HashMap.class)).type(MediaType.APPLICATION_JSON).build();
     }
     return Response.ok(new Gson().toJson(response, MessageResponse.class)).type(MediaType.APPLICATION_JSON).build();
+  }
+  
+  /**
+   * Sets the conversation API version.
+   *
+   * @param version the new conversation API version
+   */
+  public static void setConversationAPIVersion(String version) {
+    API_VERSION = version;
   }
 
   /**

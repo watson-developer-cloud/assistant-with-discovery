@@ -25,6 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonObject;
+import com.ibm.watson.apis.conversation_with_discovery.listener.AppServletContextListener;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Messages;
 
@@ -60,11 +61,11 @@ public class SetupResource {
     config.addProperty(Constants.SETUP_STATUS_MESSAGE, Messages.getString("SetupResource.SETUP_STATUS_MSG"));
     logger.debug(Messages.getString("SetupResource.CONFIG_STATUS") + config);
 
-    if ((config.get(Constants.SETUP_STEP).getAsInt() == 3)
+    config.addProperty(Constants.WORKSPACE_ID, workspaceId);
+    
+    if (config.has(Constants.SETUP_STEP) && (config.get(Constants.SETUP_STEP).getAsInt() == 3)
         && config.get(Constants.SETUP_STATE).getAsString().equalsIgnoreCase(Constants.READY)) {
-      if (StringUtils.isNotBlank(workspaceId)) {
-        config.addProperty(Constants.WORKSPACE_ID, workspaceId);
-      } else {
+      if (StringUtils.isBlank(workspaceId)) {
         config.addProperty(Constants.SETUP_STEP, "0");
         config.addProperty(Constants.SETUP_STATE, Constants.NOT_READY);
         config.addProperty(Constants.SETUP_PHASE, Messages.getString("SetupResource.PHASE_ERROR"));
