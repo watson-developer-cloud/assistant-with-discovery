@@ -40,6 +40,24 @@ public class DiscoveryClient {
   private static final int SNIPPET_LENGTH = 150;
 
   private Pattern pattern = Pattern.compile("((.+?)</p>){1,2}");
+  
+  /**
+   * This method uses the Query object to send the user's query (the <code>input</code> param) to the discovery service.
+   *
+   * @param input The user's query to be sent to the discovery service
+   * @return A list of DocumentPayload objects, each representing a single document the discovery service believes is a
+   *         possible answer to the user's query
+   * @throws Exception the exception
+   */
+  public List<DocumentPayload> getDocuments(String input) throws Exception {
+    DiscoveryQuery discoveryQuery = new DiscoveryQuery();
+    QueryResponse output = discoveryQuery.query(input);
+    List<Map<String, Object>> results = output.getResults();
+    String jsonRes = new Gson().toJson(results);
+    JsonElement jelement = new JsonParser().parse(jsonRes);
+
+    return createPayload(jelement);
+  }
 
   /**
    * Helper Method to include highlighting information along with the Discovery response so the final payload
@@ -127,23 +145,4 @@ public class DiscoveryClient {
 
     return returnString;
   }
-
-  /**
-   * This method uses the Query object to send the user's query (the <code>input</code> param) to the discovery service.
-   *
-   * @param input The user's query to be sent to the discovery service
-   * @return A list of DocumentPayload objects, each representing a single document the discovery service believes is a
-   *         possible answer to the user's query
-   * @throws Exception the exception
-   */
-  public List<DocumentPayload> getDocuments(String input) throws Exception {
-    DiscoveryQuery discoveryQuery = new DiscoveryQuery();
-    QueryResponse output = discoveryQuery.query(input);
-    List<Map<String, Object>> results = output.getResults();
-    String jsonRes = new Gson().toJson(results);
-    JsonElement jelement = new JsonParser().parse(jsonRes);
-
-    return createPayload(jelement);
-  }
-
 }
