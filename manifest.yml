@@ -1,18 +1,7 @@
 ---
-declared-services:
-  retrieve-and-rank-service:
-    label: retrieve_and_rank
-    plan: standard
-  document-conversion-service:
-    label: document_conversion
-    plan: standard
-  conversation-service:
-    label: conversation
-    plan: free
 applications:
 - services:
-  - retrieve-and-rank-service
-  - document-conversion-service
+  - discovery-service
   - conversation-service
-  path: build/libs/conversation-enhanced-0.1-SNAPSHOT.war
+  path: build/libs/conversation-with-discovery-0.1-SNAPSHOT.war
   memory: 512M

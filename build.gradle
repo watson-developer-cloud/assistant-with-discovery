@@ -21,6 +21,7 @@ buildscript {
 apply plugin: 'war'
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: 'findbugs'
 apply plugin: 'com.moowork.node'
@@ -48,9 +49,8 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.1'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
-    compile group: 'com.ibm.watson.developer_cloud', name: 'java-sdk', version:'3.0.2-SNAPSHOT'
-    compile group: 'com.cloudant', name: 'cloudant-client', version: '2.5.0'
-
+    compile group: 'com.ibm.watson.developer_cloud', name: 'conversation', version:'3.5.3'
+    compile group: 'com.ibm.watson.developer_cloud', name: 'discovery', version:'3.5.3'
     testCompile 'com.sun.jersey:jersey-client:1.19.1'
     testCompile 'org.mockito:mockito-core:1.+'
     testCompile 'org.powermock:powermock-module-junit4:1.6.5'
@@ -76,7 +76,7 @@ artifacts {
 }
 
 war {
-    archiveName = 'conversation-enhanced-0.1-SNAPSHOT.war'
+    archiveName = 'conversation-with-discovery-0.1-SNAPSHOT.war'
 }
 
 gulp_build.dependsOn 'installGulp'
@@ -104,9 +104,17 @@ gulp {
     bufferOutput = false
 }
 
+
 jacocoTestReport {
     reports {
         xml.enabled true
-        html.enabled false
+        html.enabled true
     }
+}
+
+tasks.withType(FindBugs) {
+  reports {
+      xml.enabled = false
+      html.enabled = true
+  }
 }
