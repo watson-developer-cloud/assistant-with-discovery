@@ -21,6 +21,8 @@ This app has also ingested and trained itself based on a car manual. In addition
 
     How do I check my tire pressure
     How do I turn on cruise control
+    How do I improve fuel efficiency
+    How do I connect my phone to bluetooth
 
 
 <a name="bluemix">
