@@ -10,6 +10,13 @@ before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
+env:
+  global:
+  - CF_APP=conversation-with-discovery
+  - CF_API=https://api.ng.bluemix.net
+  - CF_ORGANIZATION=WatsonPlatformServices
+  - CF_SPACE=demos
+
 cache:
   directories:
     - $HOME/.gradle/caches/
