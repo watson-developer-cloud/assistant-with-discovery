@@ -32,7 +32,7 @@ In addition to conversational commands, you can also ask questions that you woul
 # Getting Started using Bluemix
 </a>
 
-![](readme_images/Deploy on Bluemix - EIR app.png)
+![](readme_images/deploy-bluemix.png)
 
 ## Deploy the App
 
@@ -62,7 +62,7 @@ In addition to conversational commands, you can also ask questions that you woul
 # Getting Started locally
 </a>
 
-![](readme_images/Deploy locally - EIR app.png)
+![](readme_images/deploy-locally.png)
 
 
 ### Before you begin
