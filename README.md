@@ -1,14 +1,16 @@
 # Conversation with Discovery [![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-with-discovery.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-with-discovery)
 
-This application demonstrates the combination of the [Conversation](http://www.ibm.com/watson/developercloud/doc/conversation/index.shtml) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services. First, users pose questions to the Conversation service. If Conversation is not able to confidently answer, Conversation with Discovery executes a call to Discovery to provide the user with a list of helpful answers.
+This application demonstrates how you can combine the [Conversation](http://www.ibm.com/watson/developercloud/doc/conversation/index.shtml) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services to allow customers, employees or the public to get answers to a wide range of questions about a product, service or other topic using plain English. First, users pose a questions to the Conversation service. If Conversation is not able to confidently answer, the app executes a call to Discovery, which to provides a list of helpful answers.
 
-<b>Either way you deploy this app, you must have a Bluemix account and run some steps within Bluemix.</b>
+<b>Whether you deploy this app locally or on the Bluemix platform, you must have a Bluemix account and run some steps within Bluemix.</b>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/bluemix.png" width="200"/>](#bluemix)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/local.png" width="200"/>](#local)
 
 ## How the app works
 
-The application is designed and trained for chatting with a cognitive car. The chat interface is on the left, and the JSON that the JavaScript code receives from the server is on the right. A user is able to ask two primary categories of questions.
+The app has a conversational interface that can answer basic questions about a fictitious cognitive car, as well as more obscure questions whose answers can be found in the car’s manual. The app uses two Watson services: Conversation and Discovery. The Conversation service powers the basic Q&A using intents, relationships and natural language, and calls the Discovery app when it encounters questions it can’t answer. Discovery searches and ranks responses from the manual to answer those questions.
+
+The application is designed and trained for chatting with your cognitive car. The chat interface is on the left, and the JSON that the JavaScript code receives from the server is on the right. A user is able to ask two primary categories of questions.
 
 Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities".
 
@@ -17,13 +19,14 @@ Example commands that can be executed by the Conversation service are:
     turn on windshield wipers
     play music
 
-This app has also ingested and trained itself based on a car manual. In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example:
+In addition to conversational commands, you can also ask questions that you would expect to have answered in your car manual. For example:
 
     How do I check my tire pressure
     How do I turn on cruise control
     How do I improve fuel efficiency
     How do I connect my phone to bluetooth
 
+[![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38)
 
 <a name="bluemix">
 # Getting Started using Bluemix
@@ -136,7 +139,7 @@ To build the application:
 5. On the collection tooling interface, click "Switch" on the Configuration line and select your new configuration
   ![](readme_images/switch_config.png)
 
-6. Download and unzip the [manualdocs.zip]() in this repo to reveal a set of JSON documents
+6. Download and unzip the [manualdocs.zip](src/main/resources/manualdocs.zip) in this repo to reveal a set of JSON documents
 
 7. In the tooling interface, drag and drop (or browse and select) all of the JSON files into the "Add data to this collection" box
   - This may take a few minutes -- you will see a notification when the process is finished
@@ -145,7 +148,7 @@ To build the application:
 ## Set up a custom configuration with the Discovery API
 </a>
 
-1. Download the [FordConfig.json]() in this repo
+1. Download the [FordConfig.json](src/main/resources/FordConfig.json) in this repo
 
 2. Open your computer's command line interface or terminal
 
@@ -173,7 +176,7 @@ curl -X POST -u "<username>:<password>" \
   ![](readme_images/default_config.png)
 
 3. This brings up the configuration editor. There are three steps in a configuration, Convert, Enrich, and Normalize. The configuration editor allows you to upload a sample document to preview the results of a configuration as you make changes.
-  - To use the preview, add [manual_0.json]() into the pane on the right
+  - To use the preview, add [manual_0.json](src/main/resources/manual_0.json) into the pane on the right
   ![](readme_images/convert.png)
 
 4. For the Convert step, only JSON cleanup is needed for these documents. In this case what is needed is to create two new fields that are copies of the original body and title fields so that we can use the copies in a later step to create a searchable text field.
