@@ -26,7 +26,7 @@ In addition to conversational commands, you can also ask questions that you woul
     How do I improve fuel efficiency
     How do I connect my phone to bluetooth
 
-[![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38)
+[![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38&index=8&list=PLZDyxLlNKRY_GJskIreh9sQgExJ4z8oZO)
 
 <a name="bluemix">
 # Getting Started using Bluemix
