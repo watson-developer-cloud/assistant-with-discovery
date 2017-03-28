@@ -161,7 +161,7 @@ To build the application:
 ```sh
 curl -X POST -u "<username>:<password>" \
 -H "Content-Type: application/json" \
-–data “@<path_to_config> \
+--data "@<path_to_config>" \
 "https://gateway.watsonplatform.net/discovery/api/v1/environments/<environment_id>/configurations?version=2016-12-01"
 ```
 
