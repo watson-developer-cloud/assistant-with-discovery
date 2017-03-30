@@ -298,7 +298,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 
 [cloud_foundry]: https://github.com/cloudfoundry/cli
-[getting_started]: https://www.ibm.com/watson/developercloud/doc/getting_started/
+[getting_started]: https://www.ibm.com/watson/developercloud/doc/common/
 [conversation]: http://www.ibm.com/watson/developercloud/conversation.html
 [discovery]: http://www.ibm.com/watson/developercloud/discovery.html
 
