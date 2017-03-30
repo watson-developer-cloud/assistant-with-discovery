@@ -5,3 +5,4 @@ applications:
   - conversation-service
   path: build/libs/conversation-with-discovery-0.1-SNAPSHOT.war
   memory: 512M
+  buildpack: liberty-for-java_v3_7-20170118-2046
