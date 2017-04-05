@@ -33,7 +33,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ## Getting Started using Bluemix
 
-![](readme_images/Deploy on Bluemix - EIR app.png)
+<img src="readme_images/Deploy on Bluemix - EIR app.png"></img>
 
 ### Deploy the App
 
@@ -64,7 +64,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ## Getting Started locally
 
-![](readme_images/Deploy locally - EIR app.png)
+<img src="readme_images/Deploy locally - EIR app.png"></img>
 
 ### Before you begin
 
@@ -154,7 +154,7 @@ To build the application:
 
 1. Go to the Bluemix Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
 
-  <img src="readme_images/credentials.PNG" width="300")></img>
+  <img src="readme_images/credentials.PNG" width="300"></img>
 
 2. Select **New Credential**. Name your credentials then select **Add**.
 
