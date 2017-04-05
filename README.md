@@ -29,12 +29,12 @@ In addition to conversational commands, you can also ask questions that you woul
 [![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38)
 
 <a name="bluemix">
-# Getting Started using Bluemix
+## Getting Started using Bluemix
 </a>
 
 ![](readme_images/Deploy on Bluemix - EIR app.png)
 
-## Deploy the App
+### Deploy the App
 
 1. Select Deploy to Bluemix:   [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/devops/setup/deploy?repository=https://github.com/watson-developer-cloud/conversation-with-discovery)  
 
@@ -59,7 +59,7 @@ In addition to conversational commands, you can also ask questions that you woul
 ----
 
 <a name="local">
-# Getting Started locally
+## Getting Started locally
 </a>
 
 ![](readme_images/Deploy locally - EIR app.png)
@@ -118,7 +118,7 @@ To build the application:
 
 
 <a name="ingestion">
-## Create a collection and ingest documents in Discovery
+### Create a collection and ingest documents in Discovery
 </a>
 
 1. Navigate to your Discovery instance in your Bluemix dashboard
@@ -145,7 +145,7 @@ To build the application:
   - This may take a few minutes -- you will see a notification when the process is finished
 
 <a name="credentials">
-## Service Credentials
+### Service Credentials
 </a>
 
 1. Go to the Bluemix Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
@@ -157,7 +157,7 @@ To build the application:
 3. Copy the credentials (or remember this location) for later use.
 
 <a name="workspace">
-## Import a workspace
+### Import a workspace
 </a>
 
 To use the app you're creating, you need to add a workspace to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
@@ -192,7 +192,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 
 <a name="env">
-## Adding environment variables in Bluemix
+### Adding environment variables in Bluemix
 </a>
 
 1. In Bluemix, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
@@ -212,7 +212,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 ---
 
-## Troubleshooting in Bluemix
+### Troubleshooting in Bluemix
 
 1. Log in to Bluemix, you'll be taken to the dashboard.
 1. Navigate to the the application you previously created.
