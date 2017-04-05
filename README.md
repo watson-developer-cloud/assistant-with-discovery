@@ -28,11 +28,13 @@ In addition to conversational commands, you can also ask questions that you woul
 
 [![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38)
 
-<a name="bluemix">
 ## Getting Started using Bluemix
+<a name="bluemix">
 </a>
 
-![](readme_images/Deploy on Bluemix - EIR app.png)
+## Getting Started using Bluemix
+
+[Deploy on Bluemix](readme_images/Deploy on Bluemix - EIR app.png)
 
 ### Deploy the App
 
