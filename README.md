@@ -28,13 +28,12 @@ In addition to conversational commands, you can also ask questions that you woul
 
 [![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38)
 
-## Getting Started using Bluemix
 <a name="bluemix">
 </a>
 
 ## Getting Started using Bluemix
 
-[Deploy on Bluemix](readme_images/Deploy on Bluemix - EIR app.png)
+![](readme_images/Deploy on Bluemix - EIR app.png)
 
 ### Deploy the App
 
@@ -61,11 +60,11 @@ In addition to conversational commands, you can also ask questions that you woul
 ----
 
 <a name="local">
-## Getting Started locally
 </a>
 
-![](readme_images/Deploy locally - EIR app.png)
+## Getting Started locally
 
+![](readme_images/Deploy locally - EIR app.png)
 
 ### Before you begin
 
@@ -73,8 +72,9 @@ In addition to conversational commands, you can also ask questions that you woul
 -  Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
 
 <a name="returnlocal">
-### Create the services
 </a>
+
+### Create the services
 
 1. In Bluemix, [create a Conversation Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
   * Create the [Service Credentials](#credentials).
@@ -120,8 +120,9 @@ To build the application:
 
 
 <a name="ingestion">
-### Create a collection and ingest documents in Discovery
 </a>
+
+### Create a collection and ingest documents in Discovery
 
 1. Navigate to your Discovery instance in your Bluemix dashboard
 2. Launch the Discovery tooling  
@@ -147,8 +148,9 @@ To build the application:
   - This may take a few minutes -- you will see a notification when the process is finished
 
 <a name="credentials">
-### Service Credentials
 </a>
+
+### Service Credentials
 
 1. Go to the Bluemix Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
 
@@ -159,8 +161,9 @@ To build the application:
 3. Copy the credentials (or remember this location) for later use.
 
 <a name="workspace">
-### Import a workspace
 </a>
+
+### Import a workspace
 
 To use the app you're creating, you need to add a workspace to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
 
@@ -192,10 +195,10 @@ For more information on workspaces, see the full  [Conversation service  documen
   - For Local - [return to step 1](#returnlocal)
   - For Bluemix - [return to step 6](#returnbluemix)
 
-
 <a name="env">
-### Adding environment variables in Bluemix
 </a>
+
+### Adding environment variables in Bluemix
 
 1. In Bluemix, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
   ![](readme_images/env_var_tab.png)
