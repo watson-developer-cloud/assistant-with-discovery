@@ -33,7 +33,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ## Getting Started using Bluemix
 
-<img src="readme_images/Deploy on Bluemix - EIR app.png"></img>
+<img src="readme_images/Deploy on Bluemix - EIR app.png" width="600"></img>
 
 ### Deploy the App
 
@@ -64,7 +64,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ## Getting Started locally
 
-<img src="readme_images/Deploy locally - EIR app.png"></img>
+<img src="readme_images/Deploy locally - EIR app.png" width="600"></img>
 
 ### Before you begin
 
@@ -135,9 +135,7 @@ To build the application:
   <div style="text-align:center;"><img src='readme_images/ford_collection.png'></div>
 
 
-4. Set up the custom configuration using **one** of the **two** options
-  - (4a.) Upload the configuration [using the Discovery API](#configAPI)
-  - (4b.) Enter the configuration settings [in the Discovery UI](#configUI)
+4. (Optional) [Set up the custom configuration](custom_config/config_instructions.md) in order to enrich specific Discovery fields and improve results
 
 5. On the collection tooling interface, click "Switch" on the Configuration line and select your new configuration
   ![](readme_images/switch_config.png)
@@ -154,7 +152,7 @@ To build the application:
 
 1. Go to the Bluemix Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
 
-  <img src="readme_images/credentials.PNG" width="300"></img>
+  <img src="readme_images/credentials.PNG" width="400"></img>
 
 2. Select **New Credential**. Name your credentials then select **Add**.
 
