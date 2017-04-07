@@ -2,8 +2,6 @@
 
 This application demonstrates how you can combine the [Conversation](http://www.ibm.com/watson/developercloud/doc/conversation/index.shtml) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services to allow customers, employees or the public to get answers to a wide range of questions about a product, service or other topic using plain English. First, users pose a questions to the Conversation service. If Conversation is not able to confidently answer, the app executes a call to Discovery, which to provides a list of helpful answers.
 
-<b>Whether you deploy this app locally or on the Bluemix platform, you must have a Bluemix account and run some steps within Bluemix.</b>
-
 ## How the app works
 
 The app has a conversational interface that can answer basic questions about a fictitious cognitive car, as well as more obscure questions whose answers can be found in the car’s manual. The app uses two Watson services: Conversation and Discovery. The Conversation service powers the basic Q&A using intents, relationships and natural language, and calls the Discovery app when it encounters questions it can’t answer. Discovery searches and ranks responses from the manual to answer those questions.
@@ -26,6 +24,8 @@ In addition to conversational commands, you can also ask questions that you woul
 
 [![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38)
 
+<b>Whether you deploy this app locally or on the Bluemix platform, you must have a Bluemix account and run some steps within Bluemix.</b>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/bluemix.png" width="200"/>](#bluemix)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/local.png" width="200"/>](#local)
 
 <a name="bluemix">
@@ -33,7 +33,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ## Getting Started using Bluemix
 
-<img src="readme_images/Deploy on Bluemix - EIR app.png" width="600"></img>
+<img src="readme_images/Deploy on Bluemix - EIR app.png"></img>
 
 ### Deploy the App
 
@@ -64,7 +64,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ## Getting Started locally
 
-<img src="readme_images/Deploy locally - EIR app.png" width="600"></img>
+<img src="readme_images/Deploy locally - EIR app.png"></img>
 
 ### Before you begin
 
@@ -138,7 +138,8 @@ To build the application:
 4. (Optional) [Set up the custom configuration](custom_config/config_instructions.md) in order to enrich specific Discovery fields and improve results
 
 5. On the collection tooling interface, click "Switch" on the Configuration line and select your new configuration
-  ![](readme_images/switch_config.png)
+
+  <img src="readme_images/switch_config.png" width="550"></img>
 
 6. Download and unzip the [manualdocs.zip](src/main/resources/manualdocs.zip) in this repo to reveal a set of JSON documents
 
@@ -152,7 +153,7 @@ To build the application:
 
 1. Go to the Bluemix Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
 
-  <img src="readme_images/credentials.PNG" width="400"></img>
+  <img src="readme_images/credentials.PNG" width="500"></img>
 
 2. Select **New Credential**. Name your credentials then select **Add**.
 
