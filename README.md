@@ -24,41 +24,6 @@ In addition to conversational commands, you can also ask questions that you woul
 
 [![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38)
 
-<b>Whether you deploy this app locally or on the Bluemix platform, you must have a Bluemix account and run some steps within Bluemix.</b>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/bluemix.png" width="200"/>](#bluemix)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/local.png" width="200"/>](#local)
-
-<a name="bluemix">
-</a>
-
-## Getting Started using Bluemix
-
-<img src="readme_images/Deploy on Bluemix - EIR app.png"></img>
-
-### Deploy the App
-
-1. Select Deploy to Bluemix:   [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/devops/setup/deploy?repository=https://github.com/watson-developer-cloud/conversation-with-discovery)  
-
-2. Log in with an existing Bluemix account or [sign up][sign_up].  
-3. Name your app and then select **Create**.
-  This performs multiple actions:
-    - Creates the web application
-    - Creates a Conversation service instance
-    - Creates a Discovery service instance
-
-  The status of the deployment is shown. This can take some time.
-
-  When setup is complete, you are informed that you need to add environment variables.  
-
-5. Navigate to the Conversations service in your Bluemix Dashboard and [import a workspace](#workspace). Set up your workspace then <b>return to these steps</b>.
-</a>
-
-6. Navigate to the Discovery service in your Bluemix Dashboard and [ingest the provided documents into a new Discovery collection](#ingestion). Afterwards, <b>return to these steps</b>
-
-7. After you have set up a Conversations workspace and a Discovery collection, [add your environment variables](#env) to your Bluemix app
-
-----
-
 <a name="local">
 </a>
 
@@ -117,7 +82,6 @@ To build the application:
 8. Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
 
 ---
-
 
 <a name="ingestion">
 </a>
@@ -192,7 +156,6 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 6. Return to the deploy steps that you were following:
   - For Local - [return to step 1](#returnlocal)
-  - For Bluemix - [return to step 6](#returnbluemix)
 
 <a name="env">
 </a>
