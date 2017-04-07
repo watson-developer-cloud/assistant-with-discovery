@@ -4,6 +4,7 @@ There are two ways you can update your Discovery configuration: upload a configu
 
 <a name="configAPI">
 </a>
+
 ## Set up a custom configuration with the Discovery API
 
 1. Download the [FordConfig.json](FordConfig.json) in this repo
@@ -25,6 +26,7 @@ curl -X POST -u "<username>:<password>" \
 
 <a name="configUI">
 </a>
+
 ## Set up a custom configuration with the Discovery Tooling
 
 1. The configuration for this app includes several updates from the default that are meant to help improve the results for long-tail searches. To create this configuration in the tooling, go into the collection and where the DefaultConfiguration is listed, select “Switch”
