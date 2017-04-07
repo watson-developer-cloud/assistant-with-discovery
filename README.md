@@ -131,7 +131,7 @@ To build the application:
 3. Create a new data collection, name it whatever you like, and select the default configuration.
   <div style="text-align:center;"><img src='readme_images/discovery_collection.png'></div><br>
 
-  After you're done, there should be a new private collection in the UI  
+  - After you're done, there should be a new private collection in the UI  
   <div style="text-align:center;"><img src='readme_images/ford_collection.png'></div>
 
 

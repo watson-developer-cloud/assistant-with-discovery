@@ -1,5 +1,7 @@
 # Custom Configuration Setup
 
+There are two ways you can update your Discovery configuration: upload a configuration file to the API using the command line, or update configuration settings in the Discovery UI.
+
 <a name="configAPI">
 </a>
 ## Set up a custom configuration with the Discovery API
