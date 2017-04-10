@@ -26,8 +26,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
  * The Class DiscoveryQuery.
  */
 public class DiscoveryQuery {
-  
-  private static final Logger logger = LogManager.getLogger(DiscoveryClient.class.getName());
 
   private String collectionId;
 
@@ -81,8 +79,6 @@ public class DiscoveryQuery {
         }
       }
     }
-    
-    logger.info("Query: " + sb.toString());
 
     queryBuilder.query(sb.toString());
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
