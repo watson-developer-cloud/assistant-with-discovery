@@ -22,10 +22,11 @@ In addition to conversational commands, you can also ask questions that you woul
     How do I improve fuel efficiency
     How do I connect my phone to bluetooth
 
-[![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38)
+[![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38&index=8&list=PLZDyxLlNKRY_GJskIreh9sQgExJ4z8oZO)
 
 <a name="local">
 </a>
+
 
 ## Getting Started locally
 
@@ -203,7 +204,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 
 [cloud_foundry]: https://github.com/cloudfoundry/cli
-[getting_started]: https://www.ibm.com/watson/developercloud/doc/getting_started/
+[getting_started]: https://www.ibm.com/watson/developercloud/doc/common/
 [conversation]: http://www.ibm.com/watson/developercloud/conversation.html
 [discovery]: http://www.ibm.com/watson/developercloud/discovery.html
 

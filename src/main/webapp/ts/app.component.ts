@@ -342,7 +342,11 @@ export class AppComponent {
               ce = data1.output.CEPayload;
               responseText = this.langData.Great;
             } else if (data1.output.text) {
-              responseText = data1.output.text.length >= 1 && !data1.output.text[0] ? data1.output.text.join(' ').trim() : data1.output.text[0]; // tslint:disable-line max-line-length
+              if (data1.output.text.length >= 1) {
+                responseText = data1.output.text.join('<br>');
+              }
+              // responseText = data1.output.text.length >= 1 && !data1.output.text[0] ?
+              // data1.output.text.join(' ').trim() : data1.output.text[0]; // tslint:disable-line max-line-length
             }
           }
         }
