@@ -30,7 +30,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ## Getting Started locally
 
-<img src="readme_images/Deploy locally - EIR app.png"></img>
+<img src="readme_images/deploy-locally.png"></img>
 
 ### Before you begin
 
