@@ -2,10 +2,6 @@
 
 This application demonstrates how you can combine the [Conversation](http://www.ibm.com/watson/developercloud/doc/conversation/index.shtml) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services to allow customers, employees or the public to get answers to a wide range of questions about a product, service or other topic using plain English. First, users pose a questions to the Conversation service. If Conversation is not able to confidently answer, the app executes a call to Discovery, which to provides a list of helpful answers.
 
-<b>Whether you deploy this app locally or on the Bluemix platform, you must have a Bluemix account and run some steps within Bluemix.</b>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/bluemix.png" width="200"/>](#bluemix)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img src="readme_images/local.png" width="200"/>](#local)
-
 ## How the app works
 
 The app has a conversational interface that can answer basic questions about a fictitious cognitive car, as well as more obscure questions whose answers can be found in the car’s manual. The app uses two Watson services: Conversation and Discovery. The Conversation service powers the basic Q&A using intents, relationships and natural language, and calls the Discovery app when it encounters questions it can’t answer. Discovery searches and ranks responses from the manual to answer those questions.
@@ -28,42 +24,13 @@ In addition to conversational commands, you can also ask questions that you woul
 
 [![](readme_images/thumbnail.png)](https://www.youtube.com/watch?v=SasXUqBE-38&index=8&list=PLZDyxLlNKRY_GJskIreh9sQgExJ4z8oZO)
 
-<a name="bluemix">
-# Getting Started using Bluemix
-</a>
-
-![](readme_images/deploy-bluemix.png)
-
-## Deploy the App
-
-1. Select Deploy to Bluemix:   [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/devops/setup/deploy?repository=https://github.com/watson-developer-cloud/conversation-with-discovery)  
-
-2. Log in with an existing Bluemix account or [sign up][sign_up].  
-3. Name your app and then select **Create**.
-  This performs multiple actions:
-    - Creates the web application
-    - Creates a Conversation service instance
-    - Creates a Discovery service instance
-
-  The status of the deployment is shown. This can take some time.
-
-  When setup is complete, you are informed that you need to add environment variables.  
-
-5. Navigate to the Conversations service in your Bluemix Dashboard and [import a workspace](#workspace). Set up your workspace then <b>return to these steps</b>.
-</a>
-
-6. Navigate to the Discovery service in your Bluemix Dashboard and [ingest the provided documents into a new Discovery collection](#ingestion). Afterwards, <b>return to these steps</b>
-
-7. After you have set up a Conversations workspace and a Discovery collection, [add your environment variables](#env) to your Bluemix app
-
-----
-
 <a name="local">
-# Getting Started locally
 </a>
 
-![](readme_images/deploy-locally.png)
 
+## Getting Started locally
+
+<img src="readme_images/Deploy locally - EIR app.png"></img>
 
 ### Before you begin
 
@@ -71,8 +38,9 @@ In addition to conversational commands, you can also ask questions that you woul
 -  Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
 
 <a name="returnlocal">
-### Create the services
 </a>
+
+### Create the services
 
 1. In Bluemix, [create a Conversation Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
   * Create the [Service Credentials](#credentials).
@@ -116,10 +84,10 @@ To build the application:
 
 ---
 
-
 <a name="ingestion">
-## Create a collection and ingest documents in Discovery
 </a>
+
+### Create a collection and ingest documents in Discovery
 
 1. Navigate to your Discovery instance in your Bluemix dashboard
 2. Launch the Discovery tooling  
@@ -128,98 +96,38 @@ To build the application:
 3. Create a new data collection, name it whatever you like, and select the default configuration.
   <div style="text-align:center;"><img src='readme_images/discovery_collection.png'></div><br>
 
-  After you're done, there should be a new private collection in the UI  
+  - After you're done, there should be a new private collection in the UI  
   <div style="text-align:center;"><img src='readme_images/ford_collection.png'></div>
 
 
-4. Set up the custom configuration using **one** of the **two** options
-  - (4a.) Upload the configuration [using the Discovery API](#configAPI)
-  - (4b.) Enter the configuration settings [in the Discovery UI](#configUI)
+4. (Optional) [Set up the custom configuration](custom_config/config_instructions.md) in order to enrich specific Discovery fields and improve results
 
 5. On the collection tooling interface, click "Switch" on the Configuration line and select your new configuration
-  ![](readme_images/switch_config.png)
+
+  <img src="readme_images/switch_config.png" width="550"></img>
 
 6. Download and unzip the [manualdocs.zip](src/main/resources/manualdocs.zip) in this repo to reveal a set of JSON documents
 
 7. In the tooling interface, drag and drop (or browse and select) all of the JSON files into the "Add data to this collection" box
   - This may take a few minutes -- you will see a notification when the process is finished
 
-<a name="configAPI">
-## Set up a custom configuration with the Discovery API
-</a>
-
-1. Download the [FordConfig.json](src/main/resources/FordConfig.json) in this repo
-
-2. Open your computer's command line interface or terminal
-
-3. Copy and paste the curl command below into your command line
-
-4. Replace the placeholders in the curl command with your [credentials](#credentials), path to FordConfig.json, and [environment id](#environmentID)
-
-5. Run the command
-
-```sh
-curl -X POST -u "<username>:<password>" \
--H "Content-Type: application/json" \
---data "@<path_to_config>" \
-"https://gateway.watsonplatform.net/discovery/api/v1/environments/<environment_id>/configurations?version=2016-12-01"
-```
-
-<a name="configUI">
-## Set up a custom configuration with the Discovery Tooling
-</a>
-
-1. The configuration for this app includes several updates from the default that are meant to help improve the results for long-tail searches. To create this configuration in the tooling, go into the collection and where the DefaultConfiguration is listed, select “Switch”
-  ![](readme_images/config.png)
-
-2. Then choose "Create a new configuration"
-  ![](readme_images/default_config.png)
-
-3. This brings up the configuration editor. There are three steps in a configuration, Convert, Enrich, and Normalize. The configuration editor allows you to upload a sample document to preview the results of a configuration as you make changes.
-  - To use the preview, add [manual_0.json](src/main/resources/manual_0.json) into the pane on the right
-  ![](readme_images/convert.png)
-
-4. For the Convert step, only JSON cleanup is needed for these documents. In this case what is needed is to create two new fields that are copies of the original body and title fields so that we can use the copies in a later step to create a searchable text field.
-  ![](readme_images/convert_json.png)
-  - To create these   fields, select “Add field”, set the action to “copy” and enter title to searchTitle, and repeat for body to searchText
-  - To see how the preview is affected by this step and ensure it is creating the new fields, click Apply & Save at the bottom of the page then select manual_0.json. The right side preview pane should update to display the results of the changes.
-  ![](readme_images/convert_json_2.png)
-
-5. The next step in configuration is Enrich. Select “Enrich” from the top bar. In this we’ll set the configuration to enrich the body field of each document so we can use the enriched metadata to improve search.
-  - First remove the existing “text” field that is being enriched with the default configuration by clicking the – to the right of the field.
-  - Under “Add a field” enter “body” or select “body” from the dropdown
-  ![](readme_images/enrich_body.png)
-  - This will add a new field to be enriched below. You can then select the enrichments that should be applied to this field by clicking “Add enrichments”. In this case we can apply Keyword Extraction, Concept Extraction, Taxonomy Classification, and Entity Extraction. These enrichments add meta data to the documents that help improve search.
-  ![](readme_images/enrichments.png)
-  - Once the enrichments have been selected, choose “Done” then again choose “Apply and Save” to see the results of the changes. Now there should be a body_enriched field in the preview that shows all the applied enrichments over the document
-  ![](readme_images/enrich_preview.png)
-
-6. The final step in configuration is Normalize. This step allow you to clean up the data and fields so that you have a consistent structure for your use cases.
-  - For these documents, we want to create searchable fields that can be use to improve the quality of results we get back for long tail questions
-  - We will create two fields, one searchText that contains the combination of title and body, and one enrichedText field that contains the combination of extracted concepts and keywords from the body field.
-  - To do this the concepts and keywords text first need to be copied into intermediate fields. To do this, click “Add field” and enter the fully qualified path to the keyword text (body_enriched.keywords.text) to enrichedText. Hint: Use the preview pane to find the paths to fields you need. Repeat this step for body_enirched.concepts.text to conceptText
-  ![](readme_images/copy_field.png)
-  - Now we can merge the two intermediate fields together into the enrichedText field. Again select “Add a field”, choose the “merge” action and enter conceptText to enrichedText. This will merge the conceptText field into the enrichedText field, removing conceptText and preserving the combined enirchedText
-  - Similarly we want to combine searchTitle and searchText, so click “Add a field” and merge searchTitle into searchText
-  ![](readme_images/normalize.png)
-  - Finally, again select apply&save to store the updated the configuration and see the preview results.
-  - In the preview pane scroll to the bottom of the new document, and you should see a searchText field containing title + body and an enrichedText field containing a list of the concepts and keywords extracted from the data.
-
 <a name="credentials">
-## Service Credentials
 </a>
+
+### Service Credentials
 
 1. Go to the Bluemix Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
 
-  <img src="readme_images/credentials.PNG" width="300")></img>
+  <img src="readme_images/credentials.PNG" width="500"></img>
 
 2. Select **New Credential**. Name your credentials then select **Add**.
 
 3. Copy the credentials (or remember this location) for later use.
 
 <a name="workspace">
-## Import a workspace
 </a>
+
+### Import a workspace
 
 To use the app you're creating, you need to add a workspace to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
 
@@ -249,13 +157,11 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 6. Return to the deploy steps that you were following:
   - For Local - [return to step 1](#returnlocal)
-  - For Bluemix - [return to step 6](#returnbluemix)
-
-
 
 <a name="env">
-## Adding environment variables in Bluemix
 </a>
+
+### Adding environment variables in Bluemix
 
 1. In Bluemix, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
   ![](readme_images/env_var_tab.png)
@@ -274,7 +180,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 ---
 
-## Troubleshooting in Bluemix
+### Troubleshooting in Bluemix
 
 1. Log in to Bluemix, you'll be taken to the dashboard.
 1. Navigate to the the application you previously created.
@@ -298,7 +204,7 @@ For more information on workspaces, see the full  [Conversation service  documen
 
 
 [cloud_foundry]: https://github.com/cloudfoundry/cli
-[getting_started]: https://www.ibm.com/watson/developercloud/doc/getting_started/
+[getting_started]: https://www.ibm.com/watson/developercloud/doc/common/
 [conversation]: http://www.ibm.com/watson/developercloud/conversation.html
 [discovery]: http://www.ibm.com/watson/developercloud/discovery.html
 
