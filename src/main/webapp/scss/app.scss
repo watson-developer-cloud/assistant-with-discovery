@@ -342,11 +342,11 @@ body {
   vertical-align: middle;
 }
 
-#view-change-button:not(.full) .not-full {
+#view-change-button:not(.hide) .not-hide {
   display: inline-block;
 }
 
-#view-change-button.full .full {
+#view-change-button.hide .hide {
   display: inline-block;
 }
 .parentDiv{
@@ -382,10 +382,8 @@ body {
   min-width: 25.6875rem;
 }
 
-#payload-column.full {
-  width: 100%;
-  max-width: none;
-  min-width: initial;
+#payload-column.hide {
+  display: none;
 }
 
 #payload-column .header-text, #payload-column #payload-initial-message {
