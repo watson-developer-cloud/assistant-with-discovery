@@ -12,6 +12,11 @@
  */
 package com.ibm.watson.apis.conversation_with_discovery.discovery;
 
+import java.util.StringTokenizer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.developer_cloud.discovery.v1.Discovery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
@@ -32,6 +37,8 @@ public class DiscoveryQuery {
 
   private String userName;
 
+  private String queryFields = "none";
+
   /**
    * Instantiates a new discovery query.
    */
@@ -40,6 +47,7 @@ public class DiscoveryQuery {
     password = System.getenv("DISCOVERY_PASSWORD");
     collectionId = System.getenv("DISCOVERY_COLLECTION_ID");
     environmentId = System.getenv("DISCOVERY_ENVIRONMENT_ID");
+    queryFields = System.getenv("DISCOVERY_QUERY_FIELDS");
 
     discovery = new Discovery(Constants.DISCOVERY_VERSION);
     discovery.setEndPoint(Constants.DISCOVERY_URL);
@@ -55,13 +63,22 @@ public class DiscoveryQuery {
    */
   public QueryResponse query(String userQuery) throws Exception {
     QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
-
+    
     StringBuilder sb = new StringBuilder();
-    sb.append("searchText:");
-    sb.append(userQuery);
-    sb.append(",");
-    sb.append("enrichedText:");
-    sb.append(userQuery);
+    
+    if(queryFields == null || queryFields.length() == 0 || queryFields.equalsIgnoreCase("none")) {
+      sb.append(userQuery);
+    } else {
+      StringTokenizer st = new StringTokenizer(queryFields, ",");
+      while (st.hasMoreTokens()) {
+        sb.append(st.nextToken().trim());
+        sb.append(":");
+        sb.append(userQuery);
+        if (st.hasMoreTokens()) {
+          sb.append(",");
+        }
+      }
+    }
 
     queryBuilder.query(sb.toString());
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
