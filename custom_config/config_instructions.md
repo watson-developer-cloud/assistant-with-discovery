@@ -2,6 +2,8 @@
 
 There are two ways you can update your Discovery configuration: upload a configuration file to the API using the command line, or update configuration settings in the Discovery UI.
 
+After you are done setting up the custom configuration in Discovery, make sure you set the `DISCOVERY_QUERY_FIELDS` variable in your `server.env` file to the names of the Discovery fields that hold your enrichments, separated by commas. For example, if you are following the instructions exactly as below, use `DISCOVERY_QUERY_FIELDS=searchText,enrichedText` instead of the default `DISCOVERY_QUERY_FIELDS=none`.
+
 <a name="configAPI">
 </a>
 
