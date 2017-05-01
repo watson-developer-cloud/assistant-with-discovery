@@ -61,7 +61,7 @@ To build the application:
 
 2. Navigate to the `conversation-with-discovery` folder
 
-3. For Windows, type `gradlew.bat build`. Otherwise, type `gradlew build`.
+3. For Windows, type `gradlew.bat build`. Otherwise, type `./gradlew build`.
 
 4. The built WAR file (conversation-with-discovery-0.1-SNAPSHOT.war) is in the `conversation-with-discovery/build/libs/` folder.
 
@@ -77,8 +77,9 @@ To build the application:
 5. In the `server.env` file, in the **"discovery"** section.  
   - Populate the "password" field.
   - Populate the "username" field.
-  - Add the **COLLECTION_ID** and **ENVIRONMENT_ID** that you [copied from the Discovery UI](#environmentID)  
-6. Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server).  
+  - Add the **COLLECTION_ID** and **ENVIRONMENT_ID** that you [copied from the Discovery UI](#environmentID) 
+  - (Optional) Edit the **DISCOVERY_QUERY_FIELDS** field if you set up a custom configuration . [Learn more here](custom_config/config_instructions.md).
+6. Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server). If you are using a Unix command line, first navigate to the `<liberty install directory>/bin/` folder and then `./server run <server name>`.
 7. Liberty notifies you when the server starts and includes the port information.  
 8. Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
 
@@ -174,6 +175,7 @@ For more information on workspaces, see the full  [Conversation service  documen
   - **DISCOVERY_USERNAME**: Use your Discovery service credentials
   - **DISCOVERY_COLLECTION_ID**: Find your collection ID in the Discovery collection you created
   - **DISCOVERY_ENVIRONMENT_ID**: Find your environment ID in the Discovery collection you created
+  - **DISCOVERY_QUERY_FIELDS**: Set this value to 'none'. If you set up a custom configuration (optional), set this value to the name of your enrichment fields, separated by commas. [Learn more here.](custom_config/config_instructions.md).
   ![](readme_images/env_var_text.png)
 4. Select **SAVE**.
 5. Restart your application.
