@@ -341,11 +341,16 @@ export class AppComponent {
             if (data1.output.CEPayload && data1.output.CEPayload.length > 0) {
               ce = data1.output.CEPayload;
               responseText = this.langData.Great;
+
+              if (ce.length === 1 && ce[0].title === 'No results found') {
+                responseText = this.langData.NoResult;
+                ce = null;
+              }
             } else if (data1.output.text) {
               if (data1.output.text.length >= 1) {
                 responseText = data1.output.text.join('<br>');
               }
-              // responseText = data1.output.text.length >= 1 && !data1.output.text[0] ?
+              // responseText  data1.output.text.length >= 1 && !data1.output.text[0] ?
               // data1.output.text.join(' ').trim() : data1.output.text[0]; // tslint:disable-line max-line-length
             }
           }

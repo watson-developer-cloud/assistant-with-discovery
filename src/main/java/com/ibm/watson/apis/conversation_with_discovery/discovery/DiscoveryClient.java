@@ -72,39 +72,48 @@ public class DiscoveryClient {
     List<DocumentPayload> payload = new ArrayList<DocumentPayload>();
     JsonArray jarray = resultsElement.getAsJsonArray();
 
-    for (int i = 0; (i < jarray.size()) && (i < Constants.DISCOVERY_MAX_SEARCH_RESULTS_TO_SHOW); i++) {
+    if (jarray.size() > 0) {
+      for (int i = 0; (i < jarray.size()) && (i < Constants.DISCOVERY_MAX_SEARCH_RESULTS_TO_SHOW); i++) {
+        DocumentPayload documentPayload = new DocumentPayload();
+        String id = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"", "");
+        documentPayload.setId(id);
+        documentPayload.setTitle(
+            jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_TITLE).toString().replaceAll("\"", ""));
+        if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY) != null) {
+          String body = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY).toString().replaceAll("\"",
+              "");
+
+          // This method limits the response text in this sample
+          // app to two paragraphs.
+          String bodyTwoPara = limitParagraph(body);
+          documentPayload.setBody(bodyTwoPara);
+          documentPayload.setBodySnippet(getSniplet(body));
+
+        } else {
+          documentPayload.setBody("empty");
+        }
+        if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_SOURCE_URL) == null) {
+          documentPayload.setSourceUrl("empty");
+        } else {
+          documentPayload.setSourceUrl(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_SOURCE_URL)
+              .toString().replaceAll("\"", ""));
+        }
+        if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_CONFIDENCE) != null) {
+          documentPayload.setConfidence(jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_CONFIDENCE)
+              .toString().replaceAll("\"", ""));
+        } else {
+          documentPayload.setConfidence("0.0");
+        }
+        payload.add(i, documentPayload);
+      }
+    } else {
       DocumentPayload documentPayload = new DocumentPayload();
-      String id = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"", "");
-      documentPayload.setId(id);
-      documentPayload.setTitle(
-          jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_TITLE).toString().replaceAll("\"", ""));
-      if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY) != null) {
-        String body = jarray.get(i).getAsJsonObject()
-            .get(Constants.DISCOVERY_FIELD_BODY)
-            .toString().replaceAll("\"", "");
-
-        // This method limits the response text in this sample
-        // app to two paragraphs.
-        String bodyTwoPara = limitParagraph(body);
-        documentPayload.setBody(bodyTwoPara);
-        documentPayload.setBodySnippet(getSniplet(body));
-
-      } else {
-        documentPayload.setBody("empty");
-      }
-      if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_SOURCE_URL) == null) {
-        documentPayload.setSourceUrl("empty");
-      } else {
-        documentPayload.setSourceUrl(
-            jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_SOURCE_URL).toString().replaceAll("\"", ""));
-      }
-      if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_CONFIDENCE) != null) {
-        documentPayload.setConfidence(
-            jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_CONFIDENCE).toString().replaceAll("\"", ""));
-      } else {
-        documentPayload.setConfidence("0.0");
-      }
-      payload.add(i, documentPayload);
+      documentPayload.setTitle("No results found");
+      documentPayload.setBody("empty");
+      documentPayload.setSourceUrl("empty");
+      documentPayload.setBodySnippet("empty");
+      documentPayload.setConfidence("0.0");
+      payload.add(documentPayload);
     }
 
     return payload;
