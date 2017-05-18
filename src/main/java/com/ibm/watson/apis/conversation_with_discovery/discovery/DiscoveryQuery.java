@@ -14,9 +14,6 @@ package com.ibm.watson.apis.conversation_with_discovery.discovery;
 
 import java.util.StringTokenizer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.developer_cloud.discovery.v1.Discovery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
