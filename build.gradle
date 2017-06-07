@@ -49,7 +49,7 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.1'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
-    compile group: 'com.ibm.watson.developer_cloud', name: 'conversation', version:'3.5.3'
+    compile group: 'com.ibm.watson.developer_cloud', name: 'conversation', version:'3.7.2'
     compile group: 'com.ibm.watson.developer_cloud', name: 'discovery', version:'3.5.3'
     testCompile 'com.sun.jersey:jersey-client:1.19.1'
     testCompile 'org.mockito:mockito-core:1.+'
