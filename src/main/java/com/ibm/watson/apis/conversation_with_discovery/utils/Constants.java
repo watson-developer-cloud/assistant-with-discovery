@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.apis.conversation_with_discovery.utils;
 
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+
 /**
  * The Class Constants.
  */
@@ -22,6 +24,9 @@ public class Constants {
   }
   /** The Constant CONVERSATION_URL. */
   public static final String CONVERSATION_URL = "https://gateway.watsonplatform.net/conversation/api";
+  
+  /** The Constant CONVERSATION_VERSION. */
+  public static final String CONVERSATION_VERSION = ConversationService.VERSION_DATE_2016_09_20;
 
   /** The Constant DISCOVERY_FIELD_BODY. */
   public static final String DISCOVERY_FIELD_BODY = "contentHtml";
@@ -45,7 +50,7 @@ public class Constants {
   public static final String DISCOVERY_URL = "https://gateway.watsonplatform.net/discovery/api/";
 
   /** The Constant DISCOVERY_VERSION. */
-  public static final String DISCOVERY_VERSION = "2016-12-01";
+  public static final String DISCOVERY_VERSION = "2016-12-15";
 
   /** The Constant NOT_READY. */
   public static final String NOT_READY = "not_ready";
