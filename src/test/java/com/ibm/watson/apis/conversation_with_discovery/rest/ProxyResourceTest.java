@@ -91,7 +91,7 @@ public class ProxyResourceTest {
    * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the 4interrupted exception
    */
-  //@Test
+  @Test
   public void testSendMessage() throws IOException, InterruptedException {
 
     String text = "I'd like to get a quote to replace my windows";
