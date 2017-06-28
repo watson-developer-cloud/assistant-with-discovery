@@ -139,7 +139,7 @@ public class SetupThread extends Thread {
 
       status = "Conversation ";
 
-      ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
+      ConversationService service = new ConversationService(Constants.CONVERSATION_VERSION);
       service.setUsernameAndPassword(userName, password);
       MessageRequest newMessage = new MessageRequest.Builder().inputText("hi").context(null).build();
       service.message(workspaceId, newMessage).execute();
