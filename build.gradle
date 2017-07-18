@@ -90,6 +90,9 @@ node {
     // Version of node to use.
     version = '4.4.7'
 
+    // Version of npm to use
+    npmVersion = '3.7.0'
+
     // Enabled the automatic download.
     download = true
 }
