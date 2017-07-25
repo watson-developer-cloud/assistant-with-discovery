@@ -189,7 +189,7 @@ public class ProxyResource {
         errorsOutput.put(ERROR, e.getMessage());
       } else if (e instanceof MalformedURLException) {
         errorsOutput.put(ERROR, Messages.getString("ProxyResource.MALFORMED_URL"));
-      } else if (e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")) {
+      } else if (e.getMessage() != null && e.getMessage().contains("URL workspaceid parameter is not a valid GUID.")) {
         errorsOutput.put(ERROR, Messages.getString("ProxyResource.INVALID_WORKSPACEID"));
       } else {
         errorsOutput.put(ERROR, Messages.getString("ProxyResource.GENERIC_ERROR"));
