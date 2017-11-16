@@ -360,9 +360,9 @@ export class AppComponent {
         if (this.timer) {
           clearTimeout (this.timer);
         }
-        this.timer = setTimeout (function () {
-         let messages = document.getElementById('scrollingChat').getElementsByClassName('clear');
-         document.getElementById('scrollingChat').scrollTop = messages[messages.length - 1].offsetTop;
+          this.timer = setTimeout (function () {
+          let chatObj = document.getElementById('scrollingChat');
+          chatObj.scrollTop = chatObj.scrollHeight;
         }, 50);
         document.getElementById('textInput').focus();
       },
