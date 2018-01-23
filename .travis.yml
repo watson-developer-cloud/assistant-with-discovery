@@ -11,10 +11,10 @@ before_cache:
 
 env:
   global:
-  - CF_APP=conversation-with-discovery
-  - CF_API=https://api.ng.bluemix.net
-  - CF_ORGANIZATION=WatsonPlatformServices
-  - CF_SPACE=demos
+  - BX_APP=conversation-with-discovery
+  - BX_API=https://api.ng.bluemix.net
+  - BX_ORGANIZATION=WatsonPlatformServices
+  - BX_SPACE=demos
 
 cache:
   directories:
@@ -28,3 +28,13 @@ script:
   - ./gradlew clean build jacoco jacocoTestReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+before_deploy: npm install -g https://github.com/andresfvilla/bx-blue-green
+deploy:
+  skip_cleanup: true
+  provider: script
+  script:
+  - bx-blue-green-travis
+  on:
+    branch: master
+    repo: watson-developer-cloud/conversation-with-discovery
