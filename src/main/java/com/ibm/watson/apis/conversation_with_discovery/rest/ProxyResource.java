@@ -20,7 +20,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -38,9 +37,12 @@ import com.ibm.watson.apis.conversation_with_discovery.discovery.DiscoveryClient
 import com.ibm.watson.apis.conversation_with_discovery.payload.DocumentPayload;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Messages;
-import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
+import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
@@ -61,7 +63,7 @@ public class ProxyResource {
   
   private String username = System.getenv("CONVERSATION_USERNAME");
 
-  private MessageRequest buildMessageFromPayload(InputStream body) {
+  private MessageOptions buildMessageFromPayload(InputStream body, String workspaceId) {
     StringBuilder sbuilder = null;
     BufferedReader reader = null;
     try {
@@ -75,7 +77,20 @@ public class ProxyResource {
           sbuilder.append("\n");
         }
       }
-      return GsonSingleton.getGson().fromJson(sbuilder.toString(), MessageRequest.class);
+      
+      MessageResponse response = GsonSingleton.getGson().fromJson(sbuilder.toString(), MessageResponse.class);
+      
+      Context context =  response.getContext();
+      
+      String intent = response.getInput().getText();
+      
+      InputData input = new InputData.Builder(intent).build();
+      
+      MessageOptions options = new MessageOptions.Builder(workspaceId).context(context)
+          .input(input)
+          .build();
+      
+      return options;
     } catch (IOException e) {
       logger.error(Messages.getString("ProxyResource.JSON_READ"), e);
     } finally {
@@ -101,13 +116,14 @@ public class ProxyResource {
    *         intent confidence is high or the intent is out_of_scope, the response will also contain information from
    *         the discovery service
    */
-  private MessageResponse getWatsonResponse(MessageRequest request, String id) throws Exception {
+  private MessageResponse getWatsonResponse(MessageOptions options) throws Exception {
 
     // Configure the Watson Developer Cloud SDK to make a call to the
     // appropriate conversation service.
 
-    ConversationService service =
-        new ConversationService(API_VERSION != null ? API_VERSION : Constants.CONVERSATION_VERSION);
+    Conversation service =
+        new Conversation(API_VERSION != null ? API_VERSION : Constants.CONVERSATION_VERSION);
+    
     if ((username != null) || (password != null)) {
       service.setUsernameAndPassword(username, password);
     }
@@ -116,7 +132,11 @@ public class ProxyResource {
 
     // Use the previously configured service object to make a call to the
     // conversational service
-    MessageResponse response = service.message(id, request).execute();
+
+    
+    MessageResponse response = service.message(options).execute();
+    
+
 
     // Determine if conversation's response is sufficient to answer the
     // user's question or if we
@@ -124,7 +144,7 @@ public class ProxyResource {
 
     if (response.getOutput().containsKey("action")
         && (response.getOutput().get("action").toString().indexOf("call_discovery") != -1)) {
-      String query = response.getInputText();
+      String query = response.getInput().getText();
 
       // Extract the user's original query from the conversational
       // response
@@ -139,9 +159,10 @@ public class ProxyResource {
         // and rank answers to the user in the main UI. The JSON
         // response section of the UI will
         // show information from the calls to both services.
-        Map<String, Object> output = response.getOutput();
+
+        OutputData output = response.getOutput();
         if (output == null) {
-          output = new HashMap<String, Object>();
+          output = new OutputData();
           response.setOutput(output);
         }
 
@@ -168,19 +189,19 @@ public class ProxyResource {
   @Path("{id}/message")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public Response postMessage(@PathParam("id") String id, InputStream body) {
+  public Response postMessage(@PathParam("id") String workspaceId, InputStream body) {
 
     HashMap<String, Object> errorsOutput = new HashMap<String, Object>();
-    MessageRequest request = buildMessageFromPayload(body);
+    MessageOptions options = buildMessageFromPayload(body,  workspaceId);
 
-    if (request == null) {
+    if (options == null) {
       throw new IllegalArgumentException(Messages.getString("ProxyResource.NO_REQUEST"));
     }
 
     MessageResponse response = null;
 
     try {
-      response = getWatsonResponse(request, id);
+      response = getWatsonResponse(options);
 
     } catch (Exception e) {
       if (e instanceof UnauthorizedException) {

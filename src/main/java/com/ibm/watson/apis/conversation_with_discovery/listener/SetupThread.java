@@ -23,8 +23,9 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.JsonObject;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Messages;
-import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
+import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.Discovery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
@@ -139,10 +140,17 @@ public class SetupThread extends Thread {
 
       status = "Conversation ";
 
-      ConversationService service = new ConversationService(Constants.CONVERSATION_VERSION);
+      Conversation service = new Conversation(Constants.CONVERSATION_VERSION);
       service.setUsernameAndPassword(userName, password);
-      MessageRequest newMessage = new MessageRequest.Builder().inputText("hi").context(null).build();
-      service.message(workspaceId, newMessage).execute();
+      
+      InputData input = new InputData.Builder("Hi").build();
+
+      MessageOptions options = new MessageOptions.Builder(workspaceId)
+        .input(input)
+        .build();
+      
+      service.message(options).execute();
+
 
       updateConfigObject("3", Constants.READY, Messages.getString("SetupThread.EMPTY"),
           Messages.getString("SetupThread.EMPTY"));

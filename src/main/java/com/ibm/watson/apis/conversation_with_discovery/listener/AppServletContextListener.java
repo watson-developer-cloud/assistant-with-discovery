@@ -21,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonObject;
+import com.ibm.watson.apis.conversation_with_discovery.utils.Messages;
 
 /**
  * The listener interface for receiving servletContext events. The class that is interested in processing a
@@ -76,5 +77,6 @@ public class AppServletContextListener implements javax.servlet.ServletContextLi
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     config = (JsonObject) evt.getNewValue();
+    logger.info(config.toString());
   }
 }
