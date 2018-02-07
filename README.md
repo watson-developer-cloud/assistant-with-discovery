@@ -34,7 +34,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ### Before you begin
 
--  Ensure that you have a [Bluemix account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use Bluemix.
+-  Ensure that you have an [IBM Cloud account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use IBM Cloud.
 -  Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
 
 <a name="returnlocal">
@@ -42,11 +42,11 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ### Create the services
 
-1. In Bluemix, [create a Conversation Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
+1. In IBM Cloud, [create a Conversation Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
   * Create the [Service Credentials](#credentials).
   * [Import a workspace](#workspace).
 
-2. In Bluemix, [create a Discovery Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/discovery/).
+2. In IBM Cloud, [create a Discovery Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/discovery/).
   * Create the [Service Credentials](#credentials).
   * [Ingest the documents into a new Discovery collection](#ingestion).
 
@@ -90,7 +90,7 @@ To build the application:
 
 ### Create a collection and ingest documents in Discovery
 
-1. Navigate to your Discovery instance in your Bluemix dashboard
+1. Navigate to your Discovery instance in your IBM Cloud dashboard
 2. Launch the Discovery tooling  
   ![](readme_images/discovery_tooling.png)
 
@@ -117,7 +117,7 @@ To build the application:
 
 ### Service Credentials
 
-1. Go to the Bluemix Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
+1. Go to the IBM Cloud Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
 
   <img src="readme_images/credentials.PNG" width="500"></img>
 
@@ -134,11 +134,11 @@ To use the app you're creating, you need to add a workspace to your Conversation
 
 For more information on workspaces, see the full  [Conversation service documentation](https://console.bluemix.net/docs/services/conversation/configure-workspace.html#configuring-a-conversation-workspace).
 
-1. Navigate to the Bluemix dashboard and select the **Conversation** service you created.
+1. Navigate to the IBM Cloud dashboard and select the **Conversation** service you created.
 
   ![](readme_images/workspace_dashboard.png)
 
-2. Click the **Launch Tool** button under the **Manage** tab. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your Bluemix credentials.
+2. Click the **Launch Tool** button under the **Manage** tab. This opens a new tab in your browser, where you are prompted to login if you have not done so before. Use your IBM Cloud credentials.
 
   ![](readme_images/workspace_launch.png)
 
@@ -162,9 +162,9 @@ For more information on workspaces, see the full  [Conversation service document
 <a name="env">
 </a>
 
-### Adding environment variables in Bluemix
+### Adding environment variables in IBM Cloud
 
-1. In Bluemix, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
+1. In IBM Cloud, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
   ![](readme_images/env_var_tab.png)
 2. In the **User Defined** section, add the following Conversations environment variables:
   - **CONVERSATION_PASSWORD**: Use your Conversations [service credentials](#credentials)
@@ -182,9 +182,9 @@ For more information on workspaces, see the full  [Conversation service document
 
 ---
 
-### Troubleshooting in Bluemix
+### Troubleshooting in IBM Cloud
 
-1. Log in to Bluemix, you'll be taken to the dashboard.
+1. Log in to IBM Cloud, you'll be taken to the dashboard.
 1. Navigate to the the application you previously created.
 1. Select **Logs**.  
   ![](readme_images/logs_new.png)
