@@ -23,11 +23,12 @@ public class Constants {
   private Constants() {
 
   }
+
   /** The Constant CONVERSATION_URL. */
   public static final String CONVERSATION_URL = "https://gateway.watsonplatform.net/conversation/api";
-  
+
   /** The Constant CONVERSATION_VERSION. */
-  public static final String CONVERSATION_VERSION = Conversation.VERSION_DATE_2017_05_26;
+  public static final String CONVERSATION_VERSION = "2017-05-26";
 
   /** The Constant DISCOVERY_FIELD_BODY. */
   public static final String DISCOVERY_FIELD_BODY = "contentHtml";
@@ -51,7 +52,7 @@ public class Constants {
   public static final String DISCOVERY_URL = "https://gateway.watsonplatform.net/discovery/api/";
 
   /** The Constant DISCOVERY_VERSION. */
-  public static final String DISCOVERY_VERSION = Discovery.VERSION_DATE_2017_09_01;
+  public static final String DISCOVERY_VERSION = "2017-09-01";
 
   /** The Constant NOT_READY. */
   public static final String NOT_READY = "not_ready";

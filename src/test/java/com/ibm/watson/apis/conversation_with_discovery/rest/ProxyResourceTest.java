@@ -66,7 +66,8 @@ public class ProxyResourceTest {
   /**
    * Sets the up.
    *
-   * @throws Exception the exception
+   * @throws Exception
+   *           the exception
    */
   // @Override
   @Before
@@ -78,7 +79,8 @@ public class ProxyResourceTest {
   /**
    * Tear down.
    *
-   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
    */
   @After
   public void tearDown() throws IOException {
@@ -88,8 +90,10 @@ public class ProxyResourceTest {
   /**
    * Test send message.
    *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the 4interrupted exception
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   * @throws InterruptedException
+   *           the 4interrupted exception
    */
   @Test
   public void testSendMessage() throws IOException, InterruptedException {
@@ -122,7 +126,6 @@ public class ProxyResourceTest {
     assertNotNull(mockText);
     assertTrue(serviceText.containsAll(mockText) && mockText.containsAll(serviceText));
     assertEquals(serviceResponse, mockResponse);
-    //assertEquals(serviceResponse.getTextConcatenated(" "), mockResponse.getTextConcatenated(" "));
 
     assertEquals(mockRequest.getMethod(), "POST");
     assertNotNull(mockRequest.getHeader(HttpHeaders.AUTHORIZATION));
@@ -131,11 +134,15 @@ public class ProxyResourceTest {
   /**
    * Load fixture.
    *
-   * @param <T> the generic type
-   * @param filename the filename
-   * @param returnType the return type
+   * @param <T>
+   *          the generic type
+   * @param filename
+   *          the filename
+   * @param returnType
+   *          the return type
    * @return the t
-   * @throws FileNotFoundException the file not found exception
+   * @throws FileNotFoundException
+   *           the file not found exception
    */
   public static <T> T loadFixture(String filename, Class<T> returnType) throws FileNotFoundException {
     String jsonString = getStringFromInputStream(new FileInputStream(filename));
@@ -145,7 +152,8 @@ public class ProxyResourceTest {
   /**
    * Gets the string from input stream.
    *
-   * @param is the is
+   * @param is
+   *          the is
    * @return the string from input stream
    */
   public static String getStringFromInputStream(InputStream is) {
@@ -175,9 +183,11 @@ public class ProxyResourceTest {
   }
 
   /**
-   * Create a MockResponse with JSON content type and the object serialized to JSON as body.
+   * Create a MockResponse with JSON content type and the object serialized to
+   * JSON as body.
    *
-   * @param body the body
+   * @param body
+   *          the body
    * @return the mock response
    */
   protected static MockResponse jsonResponse(Object body) {

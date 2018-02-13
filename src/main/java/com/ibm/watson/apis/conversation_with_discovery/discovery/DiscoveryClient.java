@@ -20,7 +20,6 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -42,20 +41,24 @@ public class DiscoveryClient {
   private static final int SNIPPET_LENGTH = 150;
 
   private Pattern pattern = Pattern.compile("((.+?)</p>){1,2}");
-  
+
   /**
-   * This method uses the Query object to send the user's query (the <code>input</code> param) to the discovery service.
+   * This method uses the Query object to send the user's query (the
+   * <code>input</code> param) to the discovery service.
    *
-   * @param input The user's query to be sent to the discovery service
-   * @return A list of DocumentPayload objects, each representing a single document the discovery service believes is a
-   *         possible answer to the user's query
-   * @throws Exception the exception
+   * @param input
+   *          The user's query to be sent to the discovery service
+   * @return A list of DocumentPayload objects, each representing a single
+   *         document the discovery service believes is a possible answer to the
+   *         user's query
+   * @throws Exception
+   *           the exception
    */
   public List<DocumentPayload> getDocuments(String input) throws Exception {
     DiscoveryQuery discoveryQuery = new DiscoveryQuery();
     QueryResponse output = discoveryQuery.query(input);
     List<QueryResult> results = output.getResults();
-    
+
     String jsonRes = GsonSingleton.getGson().toJson(results);
     JsonElement jelement = new JsonParser().parse(jsonRes);
 
@@ -63,12 +66,15 @@ public class DiscoveryClient {
   }
 
   /**
-   * Helper Method to include highlighting information along with the Discovery response so the final payload
-   * includes id,title,body,sourceUrl as json key value pairs.
+   * Helper Method to include highlighting information along with the Discovery
+   * response so the final payload includes id,title,body,sourceUrl as json key
+   * value pairs.
    *
-   * @param resultsElement the results element
-   * @return A list of DocumentPayload objects, each representing a single document the discovery service believes is a
-   *         possible answer to the user's query
+   * @param resultsElement
+   *          the results element
+   * @return A list of DocumentPayload objects, each representing a single
+   *         document the discovery service believes is a possible answer to the
+   *         user's query
    */
   private List<DocumentPayload> createPayload(JsonElement resultsElement) {
     logger.info(Messages.getString("Service.CREATING_DISCOVERY_PAYLOAD"));
@@ -82,12 +88,10 @@ public class DiscoveryClient {
 
         String id = jObj.get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"", "");
         documentPayload.setId(id);
-        documentPayload.setTitle(
-            jObj.get(Constants.DISCOVERY_FIELD_TITLE).toString().replaceAll("\"", ""));
+        documentPayload.setTitle(jObj.get(Constants.DISCOVERY_FIELD_TITLE).toString().replaceAll("\"", ""));
         if (jObj.get(Constants.DISCOVERY_FIELD_BODY) != null) {
-          String body = jObj.get(Constants.DISCOVERY_FIELD_BODY).toString().replaceAll("\"",
-              "");
-          
+          String body = jObj.get(Constants.DISCOVERY_FIELD_BODY).toString().replaceAll("\"", "");
+
           // This method limits the response text in this sample
           // app to two paragraphs.
           String bodyTwoPara = limitParagraph(body);
@@ -128,7 +132,8 @@ public class DiscoveryClient {
   /**
    * get first <code>SNIPPET_LENGTH</code> characters of body response.
    *
-   * @param body discovery response
+   * @param body
+   *          discovery response
    * @return
    */
   private String getSniplet(String body) {
@@ -144,8 +149,9 @@ public class DiscoveryClient {
   }
 
   /**
-   * This method limits the response text in this sample app to two paragraphs. For your own application, you can
-   * comment out the method to allow the full text to be returned.
+   * This method limits the response text in this sample app to two paragraphs.
+   * For your own application, you can comment out the method to allow the full
+   * text to be returned.
    *
    * @param body
    * @return string

@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.solr.client.solrj.request.QueryRequest;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
@@ -29,12 +28,12 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.Discovery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 
 /**
- * This class is forked when the application is accessed for the first time. It tests if the conversation and discovery
- * service associated with the app (either bound on bluemix or specified in server.env)
+ * This class is forked when the application is accessed for the first time. It
+ * tests if the conversation and discovery service associated with the app
+ * (either bound on bluemix or specified in server.env)
  */
 public class SetupThread extends Thread {
 
@@ -46,8 +45,8 @@ public class SetupThread extends Thread {
   public JsonObject config = new JsonObject();
 
   /**
-   * Method to update the listeners about any property changes. This is used by the UI to inform user what the status of
-   * the setup.
+   * Method to update the listeners about any property changes. This is used by
+   * the UI to inform user what the status of the setup.
    *
    * @param object
    * @param config
@@ -59,14 +58,20 @@ public class SetupThread extends Thread {
   }
 
   /**
-   * This method is used to update the JSON Config Object that will be sent back to the UI.
+   * This method is used to update the JSON Config Object that will be sent back
+   * to the UI.
    *
    * @param config
-   * @param setupStep The step at which the setup is
-   * @param setupState The state of the setup(accepts ready/not_ready)
-   * @param setupPhase The current phase of the setup(this can be that the services is being setup or if any other
-   *        phase of the application is being setup)
-   * @param setupMessage The message that you want to be shown in the UI.
+   * @param setupStep
+   *          The step at which the setup is
+   * @param setupState
+   *          The state of the setup(accepts ready/not_ready)
+   * @param setupPhase
+   *          The current phase of the setup(this can be that the services is
+   *          being setup or if any other phase of the application is being
+   *          setup)
+   * @param setupMessage
+   *          The message that you want to be shown in the UI.
    */
   private void updateConfigObject(String setupStep, String setupState, String setupPhase, String setupMessage) {
     config.addProperty(Constants.SETUP_STEP, setupStep); // $NON-NLS-1$
@@ -79,7 +84,8 @@ public class SetupThread extends Thread {
   /**
    * Method to add a listener.
    *
-   * @param newListener PropertyChangeListener
+   * @param newListener
+   *          PropertyChangeListener
    */
   public void addChangeListener(PropertyChangeListener newListener) {
     listener.add(newListener);
@@ -119,13 +125,10 @@ public class SetupThread extends Thread {
       Discovery discovery = new Discovery(Constants.DISCOVERY_VERSION);
       discovery.setEndPoint(Constants.DISCOVERY_URL);
       discovery.setUsernameAndPassword(userName, password);
-      
-      QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).query("searchText:car tire pressure").build();
-      discovery.query(queryOptions).execute();
 
-      //QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
-      //queryBuilder.query("searchText:car tire pressure");
-      //discovery.query(queryBuilder.build()).execute();
+      QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId)
+          .query("searchText:car tire pressure").build();
+      discovery.query(queryOptions).execute();
 
       // test conversation credentials
 
@@ -147,13 +150,11 @@ public class SetupThread extends Thread {
 
       Conversation service = new Conversation(Constants.CONVERSATION_VERSION);
       service.setUsernameAndPassword(userName, password);
-      
+
       InputData input = new InputData.Builder("Hi").build();
 
-      MessageOptions options = new MessageOptions.Builder(workspaceId)
-        .input(input)
-        .build();
-      
+      MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+
       service.message(options).execute();
 
       updateConfigObject("3", Constants.READY, Messages.getString("SetupThread.EMPTY"),

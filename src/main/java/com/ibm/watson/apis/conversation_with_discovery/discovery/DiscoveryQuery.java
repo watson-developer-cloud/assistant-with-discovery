@@ -26,7 +26,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
  * The Class DiscoveryQuery.
  */
 public class DiscoveryQuery {
-  
+
   private static final Logger logger = LogManager.getLogger(DiscoveryQuery.class.getName());
 
   private String collectionId;
@@ -57,17 +57,20 @@ public class DiscoveryQuery {
   }
 
   /**
-   * Use the Watson Developer Cloud SDK to send the user's query to the discovery service.
+   * Use the Watson Developer Cloud SDK to send the user's query to the
+   * discovery service.
    *
-   * @param userQuery The user's query to be sent to the discovery service
+   * @param userQuery
+   *          The user's query to be sent to the discovery service
    * @return The query responses obtained from the discovery service
-   * @throws Exception the exception
+   * @throws Exception
+   *           the exception
    */
   public QueryResponse query(String userQuery) throws Exception {
-    
+
     StringBuilder sb = new StringBuilder();
-    
-    if(queryFields == null || queryFields.length() == 0 || queryFields.equalsIgnoreCase("none")) {
+
+    if (queryFields == null || queryFields.length() == 0 || queryFields.equalsIgnoreCase("none")) {
       sb.append(userQuery);
     } else {
       StringTokenizer st = new StringTokenizer(queryFields, ",");
@@ -80,9 +83,7 @@ public class DiscoveryQuery {
         }
       }
     }
-    
-    logger.info("Query: " + sb.toString());
-    
+
     QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).query(sb.toString()).build();
 
     return discovery.query(queryOptions).execute();

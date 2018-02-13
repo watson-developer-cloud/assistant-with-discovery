@@ -42,7 +42,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
@@ -51,16 +50,15 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  */
 @Path("conversation/api/v1/workspaces")
 public class ProxyResource {
-  private static String API_VERSION;
   private static final String ERROR = "error";
   private static final Logger logger = LogManager.getLogger(ProxyResource.class.getName());
-  
+
   private DiscoveryClient discoveryClient = new DiscoveryClient();
-  
+
   private String password = System.getenv("CONVERSATION_PASSWORD");
-  
+
   private String url;
-  
+
   private String username = System.getenv("CONVERSATION_USERNAME");
 
   private MessageOptions buildMessageFromPayload(InputStream body, String workspaceId) {
@@ -77,19 +75,13 @@ public class ProxyResource {
           sbuilder.append("\n");
         }
       }
-      
+
       MessageResponse response = GsonSingleton.getGson().fromJson(sbuilder.toString(), MessageResponse.class);
-      
-      Context context =  response.getContext();
-      
+      Context context = response.getContext();
       String intent = response.getInput().getText();
-      
       InputData input = new InputData.Builder(intent).build();
-      
-      MessageOptions options = new MessageOptions.Builder(workspaceId).context(context)
-          .input(input)
-          .build();
-      
+      MessageOptions options = new MessageOptions.Builder(workspaceId).context(context).input(input).build();
+
       return options;
     } catch (IOException e) {
       logger.error(Messages.getString("ProxyResource.JSON_READ"), e);
@@ -106,24 +98,27 @@ public class ProxyResource {
   }
 
   /**
-   * This method is responsible for sending the query the user types into the UI to the Watson services. The code
-   * demonstrates how the conversation service is called, how the response is evaluated, and how the response is then
-   * sent to the discovery service if necessary.
+   * This method is responsible for sending the query the user types into the UI
+   * to the Watson services. The code demonstrates how the conversation service
+   * is called, how the response is evaluated, and how the response is then sent
+   * to the discovery service if necessary.
    *
-   * @param request The full query the user asked of Watson
-   * @param id The ID of the conversational workspace
-   * @return The response from Watson. The response will always contain the conversation service's response. If the
-   *         intent confidence is high or the intent is out_of_scope, the response will also contain information from
-   *         the discovery service
+   * @param request
+   *          The full query the user asked of Watson
+   * @param id
+   *          The ID of the conversational workspace
+   * @return The response from Watson. The response will always contain the
+   *         conversation service's response. If the intent confidence is high
+   *         or the intent is out_of_scope, the response will also contain
+   *         information from the discovery service
    */
   private MessageResponse getWatsonResponse(MessageOptions options) throws Exception {
 
     // Configure the Watson Developer Cloud SDK to make a call to the
     // appropriate conversation service.
 
-    Conversation service =
-        new Conversation(API_VERSION != null ? API_VERSION : Constants.CONVERSATION_VERSION);
-    
+    Conversation service = new Conversation(Constants.CONVERSATION_VERSION);
+
     if ((username != null) || (password != null)) {
       service.setUsernameAndPassword(username, password);
     }
@@ -156,7 +151,6 @@ public class ProxyResource {
         // response section of the UI will
         // show information from the calls to both services.
 
-
         // Send the user's question to the discovery service
         List<DocumentPayload> docs = discoveryClient.getDocuments(query);
 
@@ -172,8 +166,10 @@ public class ProxyResource {
   /**
    * Post message.
    *
-   * @param id the id
-   * @param body the body
+   * @param id
+   *          the id
+   * @param body
+   *          the body
    * @return the response
    */
   @POST
@@ -183,7 +179,7 @@ public class ProxyResource {
   public Response postMessage(@PathParam("id") String workspaceId, InputStream body) {
 
     HashMap<String, Object> errorsOutput = new HashMap<String, Object>();
-    MessageOptions options = buildMessageFromPayload(body,  workspaceId);
+    MessageOptions options = buildMessageFromPayload(body, workspaceId);
 
     if (options == null) {
       throw new IllegalArgumentException(Messages.getString("ProxyResource.NO_REQUEST"));
@@ -212,22 +208,16 @@ public class ProxyResource {
     }
     return Response.ok(new Gson().toJson(response, MessageResponse.class)).type(MediaType.APPLICATION_JSON).build();
   }
-  
-  /**
-   * Sets the conversation API version.
-   *
-   * @param version the new conversation API version
-   */
-  public static void setConversationAPIVersion(String version) {
-    API_VERSION = version;
-  }
 
   /**
    * Sets the credentials.
    *
-   * @param username the username
-   * @param password the password
-   * @param url the url
+   * @param username
+   *          the username
+   * @param password
+   *          the password
+   * @param url
+   *          the url
    */
   public void setCredentials(String username, String password, String url) {
     this.username = username;
