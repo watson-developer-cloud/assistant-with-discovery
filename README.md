@@ -94,7 +94,7 @@ To build the application:
 2. Launch the Discovery tooling  
   ![](readme_images/discovery_tooling.png)
 
-3. Create a new data collection, name it whatever you like, and select the default configuration. The default configuration is now uses Natural Language Understanding ``NLU``.
+3. Create a new data collection, name it whatever you like, and select the default configuration. The default configuration now uses Natural Language Understanding ``NLU``.
   <div style="text-align:center;"><img src='readme_images/discovery_collection.png'></div><br>
 
   - After you're done, there should be a new private collection in the UI  
