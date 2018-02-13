@@ -132,11 +132,7 @@ public class ProxyResource {
 
     // Use the previously configured service object to make a call to the
     // conversational service
-
-    
     MessageResponse response = service.message(options).execute();
-    
-
 
     // Determine if conversation's response is sufficient to answer the
     // user's question or if we
@@ -160,18 +156,13 @@ public class ProxyResource {
         // response section of the UI will
         // show information from the calls to both services.
 
-        OutputData output = response.getOutput();
-        if (output == null) {
-          output = new OutputData();
-          response.setOutput(output);
-        }
 
         // Send the user's question to the discovery service
         List<DocumentPayload> docs = discoveryClient.getDocuments(query);
 
         // Append the discovery answers to the output object that will
         // be sent to the UI
-        output.put("CEPayload", docs);
+        response.put("DiscoveryPayload", docs);
       }
     }
 

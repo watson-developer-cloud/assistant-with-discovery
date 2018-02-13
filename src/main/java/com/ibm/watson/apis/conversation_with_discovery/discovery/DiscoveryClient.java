@@ -14,7 +14,6 @@ package com.ibm.watson.apis.conversation_with_discovery.discovery;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,11 +23,14 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.apis.conversation_with_discovery.payload.DocumentPayload;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Messages;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResult;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * DiscoveryClient.
@@ -52,8 +54,9 @@ public class DiscoveryClient {
   public List<DocumentPayload> getDocuments(String input) throws Exception {
     DiscoveryQuery discoveryQuery = new DiscoveryQuery();
     QueryResponse output = discoveryQuery.query(input);
-    List<Map<String, Object>> results = output.getResults();
-    String jsonRes = new Gson().toJson(results);
+    List<QueryResult> results = output.getResults();
+    
+    String jsonRes = GsonSingleton.getGson().toJson(results);
     JsonElement jelement = new JsonParser().parse(jsonRes);
 
     return createPayload(jelement);
@@ -75,14 +78,16 @@ public class DiscoveryClient {
     if (jarray.size() > 0) {
       for (int i = 0; (i < jarray.size()) && (i < Constants.DISCOVERY_MAX_SEARCH_RESULTS_TO_SHOW); i++) {
         DocumentPayload documentPayload = new DocumentPayload();
-        String id = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"", "");
+        JsonObject jObj = jarray.get(i).getAsJsonObject();
+
+        String id = jObj.get(Constants.DISCOVERY_FIELD_ID).toString().replaceAll("\"", "");
         documentPayload.setId(id);
         documentPayload.setTitle(
-            jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_TITLE).toString().replaceAll("\"", ""));
-        if (jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY) != null) {
-          String body = jarray.get(i).getAsJsonObject().get(Constants.DISCOVERY_FIELD_BODY).toString().replaceAll("\"",
+            jObj.get(Constants.DISCOVERY_FIELD_TITLE).toString().replaceAll("\"", ""));
+        if (jObj.get(Constants.DISCOVERY_FIELD_BODY) != null) {
+          String body = jObj.get(Constants.DISCOVERY_FIELD_BODY).toString().replaceAll("\"",
               "");
-
+          
           // This method limits the response text in this sample
           // app to two paragraphs.
           String bodyTwoPara = limitParagraph(body);
@@ -104,6 +109,7 @@ public class DiscoveryClient {
         } else {
           documentPayload.setConfidence("0.0");
         }
+        logger.info("documentPayloada: " + documentPayload);
         payload.add(i, documentPayload);
       }
     } else {

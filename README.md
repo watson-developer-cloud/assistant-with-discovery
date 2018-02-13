@@ -94,22 +94,15 @@ To build the application:
 2. Launch the Discovery tooling  
   ![](readme_images/discovery_tooling.png)
 
-3. Create a new data collection, name it whatever you like, and select the default configuration.
+3. Create a new data collection, name it whatever you like, and select the default configuration. The default configuration is now uses Natural Language Understanding ``NLU``.
   <div style="text-align:center;"><img src='readme_images/discovery_collection.png'></div><br>
 
   - After you're done, there should be a new private collection in the UI  
   <div style="text-align:center;"><img src='readme_images/ford_collection.png'></div>
 
+4. Download and unzip the [manualdocs.zip](src/main/resources/manualdocs.zip) in this repo to reveal a set of JSON documents
 
-4. (Optional) [Set up the custom configuration](custom_config/config_instructions.md) in order to enrich specific Discovery fields and improve results
-
-5. On the collection tooling interface, click "Switch" on the Configuration line and select your new configuration
-
-  <img src="readme_images/switch_config.png" width="550"></img>
-
-6. Download and unzip the [manualdocs.zip](src/main/resources/manualdocs.zip) in this repo to reveal a set of JSON documents
-
-7. In the tooling interface, drag and drop (or browse and select) all of the JSON files into the "Add data to this collection" box
+5. In the tooling interface, drag and drop (or browse and select) all of the JSON files into the "Add data to this collection" box
   - This may take a few minutes -- you will see a notification when the process is finished
 
 <a name="credentials">

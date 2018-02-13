@@ -19,8 +19,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.developer_cloud.discovery.v1.Discovery;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 
 /**
  * The Class DiscoveryQuery.
@@ -64,7 +64,6 @@ public class DiscoveryQuery {
    * @throws Exception the exception
    */
   public QueryResponse query(String userQuery) throws Exception {
-    QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
     
     StringBuilder sb = new StringBuilder();
     
@@ -83,10 +82,9 @@ public class DiscoveryQuery {
     }
     
     logger.info("Query: " + sb.toString());
+    
+    QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).query(sb.toString()).build();
 
-    queryBuilder.query(sb.toString());
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-
-    return queryResponse;
+    return discovery.query(queryOptions).execute();
   }
 }

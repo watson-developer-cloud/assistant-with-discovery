@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.solr.client.solrj.request.QueryRequest;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
@@ -27,7 +28,8 @@ import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.Discovery;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 
 /**
@@ -117,10 +119,13 @@ public class SetupThread extends Thread {
       Discovery discovery = new Discovery(Constants.DISCOVERY_VERSION);
       discovery.setEndPoint(Constants.DISCOVERY_URL);
       discovery.setUsernameAndPassword(userName, password);
+      
+      QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).query("searchText:car tire pressure").build();
+      discovery.query(queryOptions).execute();
 
-      QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
-      queryBuilder.query("searchText:car tire pressure");
-      discovery.query(queryBuilder.build()).execute();
+      //QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
+      //queryBuilder.query("searchText:car tire pressure");
+      //discovery.query(queryBuilder.build()).execute();
 
       // test conversation credentials
 
@@ -150,7 +155,6 @@ public class SetupThread extends Thread {
         .build();
       
       service.message(options).execute();
-
 
       updateConfigObject("3", Constants.READY, Messages.getString("SetupThread.EMPTY"),
           Messages.getString("SetupThread.EMPTY"));

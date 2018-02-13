@@ -50,7 +50,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
     compile group: 'com.ibm.watson.developer_cloud', name: 'conversation', version:'4.2.1'
-    compile group: 'com.ibm.watson.developer_cloud', name: 'discovery', version:'3.8.0'
+    compile group: 'com.ibm.watson.developer_cloud', name: 'discovery', version:'4.2.1'
     testCompile 'com.sun.jersey:jersey-client:1.19.1'
     testCompile 'org.mockito:mockito-core:1.+'
     testCompile 'org.powermock:powermock-module-junit4:1.6.5'
