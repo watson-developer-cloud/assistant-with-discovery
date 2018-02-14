@@ -19,14 +19,14 @@ import org.apache.logging.log4j.Logger;
 
 import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.developer_cloud.discovery.v1.Discovery;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 
 /**
  * The Class DiscoveryQuery.
  */
 public class DiscoveryQuery {
-  
+
   private static final Logger logger = LogManager.getLogger(DiscoveryQuery.class.getName());
 
   private String collectionId;
@@ -57,18 +57,20 @@ public class DiscoveryQuery {
   }
 
   /**
-   * Use the Watson Developer Cloud SDK to send the user's query to the discovery service.
+   * Use the Watson Developer Cloud SDK to send the user's query to the
+   * discovery service.
    *
-   * @param userQuery The user's query to be sent to the discovery service
+   * @param userQuery
+   *          The user's query to be sent to the discovery service
    * @return The query responses obtained from the discovery service
-   * @throws Exception the exception
+   * @throws Exception
+   *           the exception
    */
   public QueryResponse query(String userQuery) throws Exception {
-    QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
-    
+
     StringBuilder sb = new StringBuilder();
-    
-    if(queryFields == null || queryFields.length() == 0 || queryFields.equalsIgnoreCase("none")) {
+
+    if (queryFields == null || queryFields.length() == 0 || queryFields.equalsIgnoreCase("none")) {
       sb.append(userQuery);
     } else {
       StringTokenizer st = new StringTokenizer(queryFields, ",");
@@ -81,12 +83,9 @@ public class DiscoveryQuery {
         }
       }
     }
-    
-    logger.info("Query: " + sb.toString());
 
-    queryBuilder.query(sb.toString());
-    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).query(sb.toString()).build();
 
-    return queryResponse;
+    return discovery.query(queryOptions).execute();
   }
 }

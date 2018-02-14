@@ -338,8 +338,8 @@ export class AppComponent {
             responseText = data1.error;
             data1 = this.langData.NResponse;
           } else if (data1.output) {
-            if (data1.output.CEPayload && data1.output.CEPayload.length > 0) {
-              ce = data1.output.CEPayload;
+            if (data1.DiscoveryPayload && data1.DiscoveryPayload.length > 0) {
+              ce = data1.DiscoveryPayload;
               responseText = this.langData.Great;
 
               if (ce.length === 1 && ce[0].title === 'No results found') {

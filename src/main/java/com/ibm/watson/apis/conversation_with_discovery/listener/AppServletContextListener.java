@@ -21,12 +21,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonObject;
+import com.ibm.watson.apis.conversation_with_discovery.utils.Messages;
 
 /**
- * The listener interface for receiving servletContext events. The class that is interested in processing a
- * servletContext event implements this interface, and the object created with that class is registered with a component
- * using the component's <code>addServletContextListener<code> method. When the servletContext event occurs, that
- * object's appropriate method is invoked.
+ * The listener interface for receiving servletContext events. The class that is
+ * interested in processing a servletContext event implements this interface,
+ * and the object created with that class is registered with a component using
+ * the component's <code>addServletContextListener<code> method. When the
+ * servletContext event occurs, that object's appropriate method is invoked.
  *
  * @see ServletContextEvent
  */
@@ -39,17 +41,19 @@ public class AppServletContextListener implements javax.servlet.ServletContextLi
   /*
    * (non-Javadoc)
    *
-   * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
+   * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.
+   * ServletContextEvent)
    */
   @Override
-  public void contextDestroyed(ServletContextEvent arg0) { 
+  public void contextDestroyed(ServletContextEvent arg0) {
     logger.info("Destroying ServletContextListener");
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
+   * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.
+   * ServletContextEvent)
    */
   @Override
   public void contextInitialized(ServletContextEvent arg0) {
@@ -71,10 +75,12 @@ public class AppServletContextListener implements javax.servlet.ServletContextLi
   /*
    * (non-Javadoc)
    *
-   * @see java.beans.PropertyChangeListener#propertyChange(java.beans. PropertyChangeEvent)
+   * @see java.beans.PropertyChangeListener#propertyChange(java.beans.
+   * PropertyChangeEvent)
    */
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     config = (JsonObject) evt.getNewValue();
+    logger.info(config.toString());
   }
 }

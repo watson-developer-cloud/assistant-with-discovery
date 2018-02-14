@@ -60,7 +60,8 @@ public class SetupResourceTest {
   /**
    * Should return ready state.
    *
-   * @throws Exception the exception
+   * @throws Exception
+   *           the exception
    */
   @Test
   public void shouldReturnReadyState() throws Exception {
@@ -86,7 +87,8 @@ public class SetupResourceTest {
   /**
    * Should return not ready state.
    *
-   * @throws Exception the exception
+   * @throws Exception
+   *           the exception
    */
   @Test
   public void shouldReturnNotReadyState() throws Exception {
@@ -111,7 +113,8 @@ public class SetupResourceTest {
   /**
    * Should return error state.
    *
-   * @throws Exception the exception
+   * @throws Exception
+   *           the exception
    */
   @Test
   public void shouldReturnErrorState() throws Exception {
@@ -137,7 +140,8 @@ public class SetupResourceTest {
   /**
    * Should return error workspace id.
    *
-   * @throws Exception the exception
+   * @throws Exception
+   *           the exception
    */
   @Test
   public void shouldReturnErrorWorkspaceId() throws Exception {

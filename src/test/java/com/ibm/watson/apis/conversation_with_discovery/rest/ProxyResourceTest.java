@@ -33,7 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.Gson;
-import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
@@ -66,7 +66,8 @@ public class ProxyResourceTest {
   /**
    * Sets the up.
    *
-   * @throws Exception the exception
+   * @throws Exception
+   *           the exception
    */
   // @Override
   @Before
@@ -78,7 +79,8 @@ public class ProxyResourceTest {
   /**
    * Tear down.
    *
-   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
    */
   @After
   public void tearDown() throws IOException {
@@ -88,8 +90,10 @@ public class ProxyResourceTest {
   /**
    * Test send message.
    *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the 4interrupted exception
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   * @throws InterruptedException
+   *           the 4interrupted exception
    */
   @Test
   public void testSendMessage() throws IOException, InterruptedException {
@@ -103,7 +107,10 @@ public class ProxyResourceTest {
 
     server.enqueue(jsonResponse(mockResponse));
 
-    MessageRequest request = new MessageRequest.Builder().inputText(text).build();
+    InputData input = new InputData.Builder(text).build();
+    MessageRequest request = new MessageRequest();
+    request.setInput(input);
+
     String payload = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(request, MessageRequest.class);
 
     InputStream inputStream = new ByteArrayInputStream(payload.getBytes("UTF-8"));
@@ -113,13 +120,12 @@ public class ProxyResourceTest {
         .fromJson(jaxResponse.getEntity().toString(), MessageResponse.class);
 
     RecordedRequest mockRequest = server.takeRequest();
-    List<String> serviceText = serviceResponse.getText();
-    List<String> mockText = serviceResponse.getText();
+    List<String> serviceText = serviceResponse.getOutput().getText();
+    List<String> mockText = serviceResponse.getOutput().getText();
     assertNotNull(serviceText);
     assertNotNull(mockText);
     assertTrue(serviceText.containsAll(mockText) && mockText.containsAll(serviceText));
     assertEquals(serviceResponse, mockResponse);
-    assertEquals(serviceResponse.getTextConcatenated(" "), mockResponse.getTextConcatenated(" "));
 
     assertEquals(mockRequest.getMethod(), "POST");
     assertNotNull(mockRequest.getHeader(HttpHeaders.AUTHORIZATION));
@@ -128,11 +134,15 @@ public class ProxyResourceTest {
   /**
    * Load fixture.
    *
-   * @param <T> the generic type
-   * @param filename the filename
-   * @param returnType the return type
+   * @param <T>
+   *          the generic type
+   * @param filename
+   *          the filename
+   * @param returnType
+   *          the return type
    * @return the t
-   * @throws FileNotFoundException the file not found exception
+   * @throws FileNotFoundException
+   *           the file not found exception
    */
   public static <T> T loadFixture(String filename, Class<T> returnType) throws FileNotFoundException {
     String jsonString = getStringFromInputStream(new FileInputStream(filename));
@@ -142,7 +152,8 @@ public class ProxyResourceTest {
   /**
    * Gets the string from input stream.
    *
-   * @param is the is
+   * @param is
+   *          the is
    * @return the string from input stream
    */
   public static String getStringFromInputStream(InputStream is) {
@@ -172,9 +183,11 @@ public class ProxyResourceTest {
   }
 
   /**
-   * Create a MockResponse with JSON content type and the object serialized to JSON as body.
+   * Create a MockResponse with JSON content type and the object serialized to
+   * JSON as body.
    *
-   * @param body the body
+   * @param body
+   *          the body
    * @return the mock response
    */
   protected static MockResponse jsonResponse(Object body) {

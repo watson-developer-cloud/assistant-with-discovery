@@ -30,8 +30,9 @@ import com.ibm.watson.apis.conversation_with_discovery.utils.Constants;
 import com.ibm.watson.apis.conversation_with_discovery.utils.Messages;
 
 /**
- * The SetupResource is used to fetch the configuration file with the WorkspaceId from the env file and the setup
- * configuration stage that the application is currently in. The API endpoint points to '/rest/setup'
+ * The SetupResource is used to fetch the configuration file with the
+ * WorkspaceId from the env file and the setup configuration stage that the
+ * application is currently in. The API endpoint points to '/rest/setup'
  *
  */
 @Path("setup")
@@ -62,7 +63,7 @@ public class SetupResource {
     logger.debug(Messages.getString("SetupResource.CONFIG_STATUS") + config);
 
     config.addProperty(Constants.WORKSPACE_ID, workspaceId);
-    
+
     if (config.has(Constants.SETUP_STEP) && (config.get(Constants.SETUP_STEP).getAsInt() == 3)
         && config.get(Constants.SETUP_STATE).getAsString().equalsIgnoreCase(Constants.READY)) {
       if (StringUtils.isBlank(workspaceId)) {
