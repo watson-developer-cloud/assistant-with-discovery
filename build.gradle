@@ -76,7 +76,7 @@ artifacts {
 }
 
 war {
-    archiveName = 'conversation-with-discovery-0.1-SNAPSHOT.war'
+    archiveName = 'watson-assistant-with-discovery-0.1-SNAPSHOT.war'
 }
 
 gulp_build.dependsOn 'installGulp'

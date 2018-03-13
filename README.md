@@ -1,16 +1,16 @@
-# Conversation with Discovery [![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-with-discovery.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-with-discovery)
+# Watson Assistant with Discovery [![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-with-discovery.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-with-discovery)
 
-This application demonstrates how you can combine the [Conversation](https://console.bluemix.net/docs/services/conversation/index.html#about) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services to allow customers, employees or the public to get answers to a wide range of questions about a product, service or other topic using plain English. First, users pose a questions to the Conversation service. If Conversation is not able to confidently answer, the app executes a call to Discovery, which to provides a list of helpful answers.
+This application demonstrates how you can combine the [Watson Assistant](https://console.bluemix.net/docs/services/conversation/index.html#about) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services to allow customers, employees or the public to get answers to a wide range of questions about a product, service or other topic using plain English. First, users pose a questions to the Watson Assistant service. If Watson Assistant is not able to confidently answer, the app executes a call to Discovery, which to provides a list of helpful answers.
 
 ## How the app works
 
-The app has a conversational interface that can answer basic questions about a fictitious cognitive car, as well as more obscure questions whose answers can be found in the car’s manual. The app uses two Watson services: Conversation and Discovery. The Conversation service powers the basic Q&A using intents, relationships and natural language, and calls the Discovery app when it encounters questions it can’t answer. Discovery searches and ranks responses from the manual to answer those questions.
+The app has a conversational interface that can answer basic questions about a fictitious cognitive car, as well as more obscure questions whose answers can be found in the car’s manual. The app uses two Watson services: Watson Assistant and Discovery. The Watson Assistant service powers the basic Q&A using intents, relationships and natural language, and calls the Discovery app when it encounters questions it can’t answer. Discovery searches and ranks responses from the manual to answer those questions.
 
 The application is designed and trained for chatting with your cognitive car. The chat interface is on the left, and the JSON that the JavaScript code receives from the server is on the right. A user is able to ask two primary categories of questions.
 
 Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities".
 
-Example commands that can be executed by the Conversation service are:
+Example commands that can be executed by the Watson Assistant service are:
 
     turn on windshield wipers
     play music
@@ -42,7 +42,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ### Create the services
 
-1. In IBM Cloud, [create a Conversation Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
+1. In IBM Cloud, [create a Watson Assistant Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
   * Create the [Service Credentials](#credentials).
   * [Import a workspace](#workspace).
 
@@ -63,14 +63,14 @@ To build the application:
 
 3. For Windows, type `gradlew.bat build`. Otherwise, type `./gradlew build`.
 
-4. The built WAR file (conversation-with-discovery-0.1-SNAPSHOT.war) is in the `conversation-with-discovery/build/libs/` folder.
+4. The built WAR file (watson-assistant-with-discovery-0.1-SNAPSHOT.war) is in the `conversation-with-discovery/build/libs/` folder.
 
 ### Running locally
 
 1. Copy the WAR file generated above into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.  
 2. Navigate to the `conversation-with-discovery/src/main/resources` folder. Copy the `server.env` file.  
 3. Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where < server name > is the name of the Liberty server you wish to use). Paste the `server.env` here.  
-4. In the `server.env` file, in the **"conversation"** section.  
+4. In the `server.env` file, in the **"Watson Assistant"** section.  
   - Populate the "password" field.
   - Populate the "username" field.
   - Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).  
@@ -110,7 +110,7 @@ To build the application:
 
 ### Service Credentials
 
-1. Go to the IBM Cloud Dashboard and select the Conversation/Discovery service instance. Once there, select the **Service Credentials** menu item.
+1. Go to the IBM Cloud Dashboard and select the Watson Assistant/Discovery service instance. Once there, select the **Service Credentials** menu item.
 
   <img src="readme_images/credentials.PNG" width="500"></img>
 
@@ -123,9 +123,9 @@ To build the application:
 
 ### Import a workspace
 
-To use the app you're creating, you need to add a workspace to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
+To use the app you're creating, you need to add a workspace to your Watson Assistant service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
 
-For more information on workspaces, see the full  [Conversation service documentation](https://console.bluemix.net/docs/services/conversation/configure-workspace.html#configuring-a-conversation-workspace).
+For more information on workspaces, see the full  [Watson Assistant service documentation](https://console.bluemix.net/docs/services/conversation/configure-workspace.html#configuring-a-conversation-workspace).
 
 1. Navigate to the IBM Cloud dashboard and select the **Conversation** service you created.
 
@@ -159,9 +159,9 @@ For more information on workspaces, see the full  [Conversation service document
 
 1. In IBM Cloud, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
   ![](readme_images/env_var_tab.png)
-2. In the **User Defined** section, add the following Conversations environment variables:
-  - **CONVERSATION_PASSWORD**: Use your Conversations [service credentials](#credentials)
-  - **CONVERSATION_USERNAME**: Use your Conversations service credentials
+2. In the **User Defined** section, add the following Watson Assistant environment variables:
+  - **WATSON_ASSISTANT_PASSWORD**: Use your Watson Assistant [service credentials](#credentials)
+  - **WATSON_ASSISTANT_USERNAME**: Use your Watson Assistant service credentials
   - **WORKSPACE_ID**: Add the Workspace ID you [copied earlier](#workspaceID).
 3. Then add the following four Discovery environment variables to this section:
   - **DISCOVERY_PASSWORD**: Use your Discovery [service credentials](#credentials)
