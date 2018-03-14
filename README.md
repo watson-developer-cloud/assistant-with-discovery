@@ -10,7 +10,7 @@ The application is designed and trained for chatting with your cognitive car. Th
 
 Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities".
 
-Example commands that can be executed by the Conversation service are:
+Example commands that can be executed by the Watson Assistant service are:
 
     turn on windshield wipers
     play music
@@ -42,7 +42,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ### Create the services
 
-1. In IBM Cloud, [create a Conversation Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
+1. In IBM Cloud, [create a Watson Assistant Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
   * Create the [Service Credentials](#credentials).
   * [Import a workspace](#workspace).
 
@@ -123,11 +123,11 @@ To build the application:
 
 ### Import a workspace
 
-To use the app you're creating, you need to add a workspace to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
+To use the app you're creating, you need to add a workspace to your Watson Assistant service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
 
 For more information on workspaces, see the full  [Watson Assistant service documentation](https://console.bluemix.net/docs/services/conversation/configure-workspace.html#configuring-a-conversation-workspace).
 
-1. Navigate to the IBM Cloud dashboard and select the **Conversation** service you created.
+1. Navigate to the IBM Cloud dashboard and select the **Watson Assistant** service you created.
 
   ![](readme_images/workspace_dashboard.png)
 
@@ -160,8 +160,8 @@ For more information on workspaces, see the full  [Watson Assistant service docu
 1. In IBM Cloud, open the application from the Dashboard. Select **Runtime** and then **Environment Variables**.
   ![](readme_images/env_var_tab.png)
 2. In the **User Defined** section, add the following Watson Assistant environment variables:
-  - **WATSON_ASSISTANT_PASSWORD**: Use your Watson Assistant [service credentials](#credentials)
-  - **WATSON_ASSISTANT_USERNAME**: Use your Watson Assistant service credentials
+  - **ASSISTANT_PASSWORD**: Use your Watson Assistant [service credentials](#credentials)
+  - **ASSISTANT_USERNAME**: Use your Watson Assistant service credentials
   - **WORKSPACE_ID**: Add the Workspace ID you [copied earlier](#workspaceID).
 3. Then add the following four Discovery environment variables to this section:
   - **DISCOVERY_PASSWORD**: Use your Discovery [service credentials](#credentials)
@@ -200,7 +200,7 @@ For more information on workspaces, see the full  [Watson Assistant service docu
 
 [cloud_foundry]: https://github.com/cloudfoundry/cli
 [getting_started]: https://www.ibm.com/watson/developercloud/doc/common/
-[conversation]: http://www.ibm.com/watson/developercloud/conversation.html
+[Watson Assistant]: http://www.ibm.com/watson/developercloud/conversation.html
 [discovery]: http://www.ibm.com/watson/developercloud/discovery.html
 
 [docs]: http://www.ibm.com/watson/developercloud/conversation/
