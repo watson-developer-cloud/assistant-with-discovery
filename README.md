@@ -1,4 +1,4 @@
-# Watson Assistant with Discovery [![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-with-discovery.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-with-discovery)
+# Watson Assistant (formerly Conversation) with Discovery [![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-with-discovery.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-with-discovery)
 
 This application demonstrates how you can combine the [Watson Assistant](https://console.bluemix.net/docs/services/conversation/index.html#about) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services to allow customers, employees or the public to get answers to a wide range of questions about a product, service or other topic using plain English. First, users pose a questions to the Watson Assistant service. If Watson Assistant is not able to confidently answer, the app executes a call to Discovery, which to provides a list of helpful answers.
 
@@ -10,7 +10,7 @@ The application is designed and trained for chatting with your cognitive car. Th
 
 Commands may be issued to the car to perform simple operations.  These commands are run against a small set of sample data trained with intents like "turn_on", "weather", and "capabilities".
 
-Example commands that can be executed by the Watson Assistant service are:
+Example commands that can be executed by the Conversation service are:
 
     turn on windshield wipers
     play music
@@ -42,7 +42,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ### Create the services
 
-1. In IBM Cloud, [create a Watson Assistant Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
+1. In IBM Cloud, [create a Conversation Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
   * Create the [Service Credentials](#credentials).
   * [Import a workspace](#workspace).
 
@@ -123,7 +123,7 @@ To build the application:
 
 ### Import a workspace
 
-To use the app you're creating, you need to add a workspace to your Watson Assistant service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
+To use the app you're creating, you need to add a workspace to your Conversation service. A workspace is a container for all the artifacts that define the behavior of your service (ie: intents, entities and chat flows). For this sample app, a workspace is provided.
 
 For more information on workspaces, see the full  [Watson Assistant service documentation](https://console.bluemix.net/docs/services/conversation/configure-workspace.html#configuring-a-conversation-workspace).
 
