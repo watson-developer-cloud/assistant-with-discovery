@@ -11,7 +11,7 @@ before_cache:
 
 env:
   global:
-  - BX_APP=conversation-with-discovery
+  - BX_APP=assistant-with-discovery
   - BX_API=https://api.ng.bluemix.net
   - BX_ORGANIZATION=WatsonPlatformServices
   - BX_SPACE=demos
@@ -29,7 +29,7 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-before_deploy: npm install -g https://github.com/andresfvilla/bx-blue-green
+before_deploy: npm install -g bx-blue-green
 deploy:
   skip_cleanup: true
   provider: script
@@ -37,4 +37,4 @@ deploy:
   - bx-blue-green-travis
   on:
     branch: master
-    repo: watson-developer-cloud/conversation-with-discovery
+    repo: watson-developer-cloud/assistant-with-discovery
