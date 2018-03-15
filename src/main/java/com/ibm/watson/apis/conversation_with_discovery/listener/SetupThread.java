@@ -135,8 +135,8 @@ public class SetupThread extends Thread {
       updateConfigObject("2", Constants.NOT_READY, Messages.getString("SetupThread.EMPTY"),
           Messages.getString("SetupThread.GETTING_CREDENTIALS"));
 
-      userName = System.getenv("CONVERSATION_USERNAME");
-      password = System.getenv("CONVERSATION_PASSWORD");
+      userName = System.getenv("ASSISTANT_USERNAME");
+      password = System.getenv("ASSISTANT_PASSWORD");
       String workspaceId = System.getenv("WORKSPACE_ID");
 
       if ((userName == null) || (password == null) || (workspaceId == null)) {
