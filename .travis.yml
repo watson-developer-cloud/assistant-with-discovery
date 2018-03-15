@@ -29,7 +29,7 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-before_deploy: npm install -g https://github.com/andresfvilla/bx-blue-green
+before_deploy: npm install -g bx-blue-green
 deploy:
   skip_cleanup: true
   provider: script
