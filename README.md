@@ -1,4 +1,4 @@
-# Watson Assistant (formerly Conversation) with Discovery [![Build Status](https://travis-ci.org/watson-developer-cloud/conversation-with-discovery.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/conversation-with-discovery)
+# Watson Assistant (formerly Conversation) with Discovery [![Build Status](https://travis-ci.org/watson-developer-cloud/assistant-with-discovery.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/assistant-with-discovery)
 
 This application demonstrates how you can combine the [Watson Assistant](https://console.bluemix.net/docs/services/conversation/index.html#about) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services to allow customers, employees or the public to get answers to a wide range of questions about a product, service or other topic using plain English. First, users pose a questions to the Watson Assistant service. If Watson Assistant is not able to confidently answer, the app executes a call to Discovery, which to provides a list of helpful answers.
 
@@ -34,7 +34,7 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ### Before you begin
 
--  Ensure that you have an [IBM Cloud account](https://console.ng.bluemix.net/registration/). While you can do part of this deployment locally, you must still use IBM Cloud.
+-  Ensure that you have an [IBM Cloud account][sign_up]. While you can do part of this deployment locally, you must still use IBM Cloud.
 -  Ensure that you have [Websphere Liberty Profile Server](https://developer.ibm.com/wasdev/downloads/liberty-profile-using-non-eclipse-environments/).
 
 <a name="returnlocal">
@@ -42,11 +42,11 @@ In addition to conversational commands, you can also ask questions that you woul
 
 ### Create the services
 
-1. In IBM Cloud, [create a Watson Assistant Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/conversation/).
+1. In IBM Cloud, [create a Watson Assistant Service instance](https://console.bluemix.net/registration/?target=/catalog/services/conversation/).
   * Create the [Service Credentials](#credentials).
   * [Import a workspace](#workspace).
 
-2. In IBM Cloud, [create a Discovery Service instance](https://console.ng.bluemix.net/registration/?target=/catalog/services/discovery/).
+2. In IBM Cloud, [create a Discovery Service instance](https://console.bluemix.net/registration/?target=/catalog/services/discovery/).
   * Create the [Service Credentials](#credentials).
   * [Ingest the documents into a new Discovery collection](#ingestion).
 
@@ -54,33 +54,33 @@ In addition to conversational commands, you can also ask questions that you woul
 
 To build the application:
 
-1. Clone the repository  
+1. Clone the repository
    ```
-   git clone https://github.com/watson-developer-cloud/conversation-with-discovery
+   git clone https://github.com/watson-developer-cloud/assistant-with-discovery
    ```
 
-2. Navigate to the `conversation-with-discovery` folder
+2. Navigate to the `assistant-with-discovery` folder
 
 3. For Windows, type `gradlew.bat build`. Otherwise, type `./gradlew build`.
 
-4. The built WAR file (watson-assistant-with-discovery-0.1-SNAPSHOT.war) is in the `conversation-with-discovery/build/libs/` folder.
+4. The built WAR file (watson-assistant-with-discovery-0.1-SNAPSHOT.war) is in the `assistant-with-discovery/build/libs/` folder.
 
 ### Running locally
 
-1. Copy the WAR file generated above into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.  
-2. Navigate to the `conversation-with-discovery/src/main/resources` folder. Copy the `server.env` file.  
-3. Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where < server name > is the name of the Liberty server you wish to use). Paste the `server.env` here.  
-4. In the `server.env` file, in the **"Watson Assistant"** section.  
+1. Copy the WAR file generated above into the Liberty install directory's dropins folder. For example, `<liberty install directory>/usr/servers/<server profile>/dropins`.
+2. Navigate to the `assistant-with-discovery/src/main/resources` folder. Copy the `server.env` file.
+3. Navigate to the `<liberty install directory>/usr/servers/<server name>/` folder (where < server name > is the name of the Liberty server you wish to use). Paste the `server.env` here.
+4. In the `server.env` file, in the **"Watson Assistant"** section.
   - Populate the "password" field.
   - Populate the "username" field.
-  - Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).  
-5. In the `server.env` file, in the **"discovery"** section.  
+  - Add the **WORKSPACE_ID** that you [copied earlier](#workspaceID).
+5. In the `server.env` file, in the **"discovery"** section.
   - Populate the "password" field.
   - Populate the "username" field.
-  - Add the **COLLECTION_ID** and **ENVIRONMENT_ID** that you [copied from the Discovery UI](#environmentID) 
+  - Add the **COLLECTION_ID** and **ENVIRONMENT_ID** that you [copied from the Discovery UI](#environmentID)
   - (Optional) Edit the **DISCOVERY_QUERY_FIELDS** field if you set up a custom configuration . [Learn more here](custom_config/config_instructions.md).
 6. Start the server using Eclipse or CLI with the command `server run <server name>` (use the name you gave your server). If you are using a Unix command line, first navigate to the `<liberty install directory>/bin/` folder and then `./server run <server name>`.
-7. Liberty notifies you when the server starts and includes the port information.  
+7. Liberty notifies you when the server starts and includes the port information.
 8. Open your browser of choice and go to the URL displayed in Step 6. By default, this is `http://localhost:9080/`.
 
 ---
@@ -91,13 +91,13 @@ To build the application:
 ### Create a collection and ingest documents in Discovery
 
 1. Navigate to your Discovery instance in your IBM Cloud dashboard
-2. Launch the Discovery tooling  
+2. Launch the Discovery tooling
   ![](readme_images/discovery_tooling.png)
 
 3. Create a new data collection, name it whatever you like, and select the default configuration. The default configuration now uses Natural Language Understanding.
   <div style="text-align:center;"><img src='readme_images/discovery_collection.png'></div><br>
 
-  - After you're done, there should be a new private collection in the UI  
+  - After you're done, there should be a new private collection in the UI
   <div style="text-align:center;"><img src='readme_images/ford_collection.png'></div>
 
 4. Download and unzip the [manualdocs.zip](src/main/resources/manualdocs.zip) in this repo to reveal a set of JSON documents
@@ -179,7 +179,7 @@ For more information on workspaces, see the full  [Watson Assistant service docu
 
 1. Log in to IBM Cloud, you'll be taken to the dashboard.
 1. Navigate to the the application you previously created.
-1. Select **Logs**.  
+1. Select **Logs**.
   ![](readme_images/logs_new.png)
 
 ## License
@@ -199,9 +199,9 @@ For more information on workspaces, see the full  [Watson Assistant service docu
 
 
 [cloud_foundry]: https://github.com/cloudfoundry/cli
-[getting_started]: https://www.ibm.com/watson/developercloud/doc/common/
-[Watson Assistant]: http://www.ibm.com/watson/developercloud/conversation.html
-[discovery]: http://www.ibm.com/watson/developercloud/discovery.html
+[getting_started]: https://console.bluemix.net/docs/services/watson/index.html
+[Watson Assistant]: https://www.ibm.com/watson/services/conversation/
+[discovery]: https://www.ibm.com/watson/services/discovery/
 
 [docs]: http://www.ibm.com/watson/developercloud/conversation/
-[sign_up]: https://console.ng.bluemix.net/registration/
+[sign_up]: https://console.bluemix.net/registration/
