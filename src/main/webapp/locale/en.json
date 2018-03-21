@@ -6,7 +6,7 @@
   "Type": "Type something to see the output",
   "Understand": "Watson understands",
   "Something": "Type something",
-  "Description": "This Watson app shows how the Conversation service calls on Discovery to find answers when it's not sure how to respond. Try testing this below, using the examples in the app description",
+  "Description": "This Watson app shows how the Watson Assistant service calls on Discovery to find answers when it's not sure how to respond. Try testing this below, using the examples in the app description",
   "Great": "Great question. I found some ideas for you:",
   "NoResult": "Sorry I haven't learned answers to questions like this",
   "Intent": "I understood your intent was ",
