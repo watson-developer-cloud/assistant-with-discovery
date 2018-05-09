@@ -58,15 +58,20 @@ import {PayloadComponent} from './payload';
             segments[segments.length - 1].getPayload() : null'></payload>
         </div>
       </div>
-      <footer>
+      
       <label for='textInput' class='inputOutline'>
         <input id='textInput' class='input responsive-column' placeholder='Type something' type='text'
           [(ngModel)]='question' (keydown)='keypressed($event)' style='width:100%'>
       </label>
       <div class='draw'></div>
-    </footer>
-  </div>
-    `
+    </div>
+    <div class='disclaimer-message'>
+      <h6 class='base-h6'>
+        * This system is for demonstration purposes only and is not intended to process Personal Data. No Personal Data is to be
+        entered into this system as it may not have the necessary controls in place to meet the requirements of the General
+        Data Protection Regulation (EU) 2016/679.
+      </h6>
+    </div>`
 })
 export class AppComponent {
   // Store the response so we can display the JSON for end user to see
