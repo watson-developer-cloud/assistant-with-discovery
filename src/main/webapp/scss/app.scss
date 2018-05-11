@@ -153,9 +153,11 @@ margin-left: -160px;
 .right.no-show{
 display:block;
 }
+/* JSON response view*/
 .right{
 display:block;
 width:340px;
+height: 91%;
 }
 #view-change-button {
   width: 2.9025rem;
@@ -563,7 +565,7 @@ font-size:larger;
 }
 #scrollingChat {
  margin: 0.75rem;
- height:90%;
+ height:82%;
  overflow-y: auto;
  overflow-x: hidden;
 }
@@ -576,7 +578,7 @@ font-size:larger;
 .from-user {
     position: relative;
     font-size: 1rem;
-	float:right;
+	  float:right;
     color: #fff;
     letter-spacing: 0.015rem;
     line-height: 1.3125rem;
@@ -792,6 +794,14 @@ text-decoration:none;
 
 .css-typing:nth-child(2) {
  animation: type2 2s steps(60, end);
+}
+
+.disclaimer-message .base-h6 {
+  position: fixed;
+  bottom: 0px; 
+  left: 0px;
+  width: 100%;
+  padding: 5px;
 }
 
 @keyframes type {
