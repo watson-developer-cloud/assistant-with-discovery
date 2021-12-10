@@ -2,6 +2,10 @@
 
 This application demonstrates how you can combine the [Watson Assistant](https://console.bluemix.net/docs/services/conversation/index.html#about) and [Discovery](http://www.ibm.com/watson/developercloud/doc/discovery/#overview) services to allow customers, employees or the public to get answers to a wide range of questions about a product, service or other topic using plain English. First, users pose a questions to the Watson Assistant service. If Watson Assistant is not able to confidently answer, the app executes a call to Discovery, which to provides a list of helpful answers.
 
+## log4j version for CVE-2021-44228
+
+CVE-2021-44228 noted that versions of log4j2 prior to 2.15.0 allow for remote code execution. You can read details about the [CVE here](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q). We have updated the application (although it is deprecated) to bump the log4j version to 2.15.0. Revisions of this application prior to this update used log4j version 2.1 and thus are **vunerable to this CVE**. If you have forked this repository in the past, you are _strongly_ encouraged to update your version of log4j to 2.15.0 to mitigate this security issue.
+
 ## How the app works
 
 The app has a conversational interface that can answer basic questions about a fictitious cognitive car, as well as more obscure questions whose answers can be found in the car’s manual. The app uses two Watson services: Watson Assistant and Discovery. The Watson Assistant service powers the basic Q&A using intents, relationships and natural language, and calls the Discovery app when it encounters questions it can’t answer. Discovery searches and ranks responses from the manual to answer those questions.
