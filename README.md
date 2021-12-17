@@ -4,7 +4,7 @@ This application demonstrates how you can combine the [Watson Assistant](https:/
 
 ## log4j version for CVE-2021-44228
 
-CVE-2021-44228 noted that versions of log4j2 prior to 2.15.0 allow for remote code execution. You can read details about the [CVE here](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q). We have updated the application (although it is deprecated) to bump the log4j version to 2.15.0. Revisions of this application prior to this update used log4j version 2.1 and thus are **vunerable to this CVE**. If you have forked this repository in the past, you are _strongly_ encouraged to update your version of log4j to 2.15.0 to mitigate this security issue.
+CVE-2021-44228 noted that versions of log4j2 prior to 2.16.0 allow for remote code execution. You can read details about the [CVE here](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q). We have updated the application (although it is deprecated) to bump the log4j version to 2.16.0. Revisions of this application prior to this update used log4j version 2.1 and thus are **vunerable to this CVE**. If you have forked this repository in the past, you are _strongly_ encouraged to update your version of log4j to 2.16.0 to mitigate this security issue.
 
 ## How the app works
 
